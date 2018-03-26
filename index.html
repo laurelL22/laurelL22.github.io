@@ -160,7 +160,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">Laurel's Blog</p>
+        <p class="site-subtitle">许多年前，曾是个朴素的少年</p>
       
   </div>
 
@@ -185,7 +185,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Startseite
+            Home
           </a>
         </li>
       
@@ -195,7 +195,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archiv
+            Archives
           </a>
         </li>
       
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/23/skill-performance-1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/26/send-beacon/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Lurel">
@@ -251,7 +251,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/03/23/skill-performance-1/" itemprop="url">skill-performance</a></h1>
+                <a class="post-title-link" href="/2018/03/26/send-beacon/" itemprop="url">send-beacon</a></h1>
         
 
         <div class="post-meta">
@@ -261,10 +261,10 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-23T18:39:13+08:00">
-                2018-03-23
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-26T15:38:38+08:00">
+                2018-03-26
               </time>
             
 
@@ -303,7 +303,179 @@
       
         
           
+            <h2 id="canceled-request"><a href="#canceled-request" class="headerlink" title="canceled request"></a>canceled request</h2><p>开发者主动放弃请求的方式：</p>
+<ol>
+<li>把一个发请求的dom元素删除掉；</li>
+<li>在一个资源加载的时候修改它的请求地址，比如iframe</li>
+<li>对同一个服务器的请求太多，导致某一次出现错误</li>
+</ol>
+<h2 id="Navigator-sendBeacon"><a href="#Navigator-sendBeacon" class="headerlink" title="Navigator.sendBeacon"></a>Navigator.sendBeacon</h2><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Navigator/sendBeacon" target="_blank" rel="noopener">sendBeacon</a><br>通过HTTP将少量数据异步传输到web服务器。</p>
+<ul>
+<li>在卸载事件处理器中创建一个图片元素并设置它的src属性的方法来延迟卸载以保证数据的发送。</li>
+<li>通过创建一个几秒中的noop循环来延迟卸载并向服务器发送数据。</li>
+</ul>
+<p>sendBeacon()方法，会使用户代理在有机会时异步地向服务器发送数据，同时不会延迟页面的卸载活影响下一导航的载入性能。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'unload'</span>, logData, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">logData</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    navigator.sendBeacon(<span class="string">'/log'</span>, data)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/24/preload-prefetch/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lurel">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Laurel Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/24/preload-prefetch/" itemprop="url">preload_prefetch</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
             
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-24T14:36:14+08:00">
+                2018-03-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/cate/" itemprop="url" rel="index">
+                    <span itemprop="name">cate</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="preload-预加载资源"><a href="#preload-预加载资源" class="headerlink" title="preload 预加载资源"></a>preload 预加载资源</h2><p>preload让浏览器提前加载指定资源（加载后并不执行），在需要执行时再执行：</p>
+<ul>
+<li>将加载和执行分离开，可不阻塞渲染和document的onload事件</li>
+<li>提前加载指定资源，不再出现依赖的font字体隔了一段时间才刷出</li>
+</ul>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ul>
+<li><p>使用link标签创建</p>
+  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"preload"</span> <span class="attr">href</span>=<span class="string">"/path/to/style.css"</span> <span class="attr">as</span>=<span class="string">"style"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用HTTP响应头的Link字段创建</p>
+</li>
+</ul>
+<h3 id="判断浏览器是否支持preload"><a href="#判断浏览器是否支持preload" class="headerlink" title="判断浏览器是否支持preload"></a>判断浏览器是否支持preload</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> isPreloadSupported = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> link = <span class="built_in">document</span>.createElement(<span class="string">'link'</span>);</span><br><span class="line">    <span class="keyword">const</span> relList = link.relList;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!relList || !relList.supports) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> relList.supports(<span class="string">'preload'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="区分preload-和-prefetch"><a href="#区分preload-和-prefetch" class="headerlink" title="区分preload 和 prefetch"></a>区分preload 和 prefetch</h3><ul>
+<li>preload 告诉浏览器页面必定需要的资源，浏览器一定会加载这些资源；</li>
+<li>prefetch 告诉浏览器页面可能需要的资源，浏览器不一定会加载这些资源。</li>
+</ul>
+<p>preload是确认会加载指定资源；<br>prefetch是预测会加载指定资源。</p>
+
           
         
       
@@ -380,7 +552,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-23T18:38:48+08:00">
                 2018-03-23
@@ -422,126 +594,70 @@
       
         
           
-            
-          
-        
-      
-    </div>
-    
-    
-    
+            <h1 id="js技巧"><a href="#js技巧" class="headerlink" title="js技巧"></a>js技巧</h1><h3 id="1、new-Set"><a href="#1、new-Set" class="headerlink" title="1、new Set()"></a>1、new Set()</h3><p><code>利用Set数据结构能够去重一个数组
+let arr = [1,2,2,3];
+let set = new Set(arr);
+let newArr = Array.from(set); // Array.from方法可以将Set结构转为数组
+console.log(newArr); // [1,2,3]</code></p>
+<p>###2、Object.assign()<br><code>Object.assign()也是ES6中提供的对象的扩展方法，可以用于对象的合并拷贝
+let obj1 = {a: 1};
+let obj2 = {b: 2};
+let obj3 = Object.assign({}, obj1, obj2);
+console.log(obj3) // {a: 1, b:2}</code></p>
+<p>###3、map()<br><code>map方法用于遍历数组，有返回值，可以对数组的每一项进行操作并生成一个新的数组，有些时候可以代替for和forEach循环，简化代码
+let arr3 = [1,2,3,4,5];
+let newArr3 = arr3.map((e, i) =&gt; e*10 );
+console.log(newArr3)</code></p>
+<p>4、filter()<br>filter方法用于遍历数组，就是过滤数组，在每一项元素后面触发一个回调函数，通过判断，保留或移出当前项，最后返回一个新的数组<br>let arr4 = [1,2,3,4,5];<br>let newArr4 = arr4.filter((e, i) =&gt; e%2 === 0); // 取模，过滤余数不为0的数</p>
+<p>5、some()<br>some方法用于遍历数组，在每一项元素后面触发一个回调函数，只要一个满足条件就返回true,否则就返回false。类似于||比较</p>
+<p>let arr5 = [{result:true}, {result: false}];<br>let newArr5 = arr.some((e, i) =&gt; e.result); //只要一个为true,即为true<br>console.log(newArr5); // true</p>
+<p>6、every()<br>every方法用于遍历数组，在每一项元素后面触发一个回调函数，只要一个不满足条件就返回false,否则返回true,类似于&amp;&amp;比较<br>let arr6 = [{result:true}, {result: false}];<br>let newArr6 = arr.some((e, i) =&gt; e.result); //只要一个为true,即为true<br>console.log(newArr6); // false</p>
+<p>7、<del>运算符<br>~符号在JS中有按位取反的作用，</del>即是取反两次，而位运算的操作值要求是整数，其结果也是整数，所以经过位运算的都会自动变成整数，可以巧妙的去掉小数部分，类似于parseInt()<br>let a = 1.23;<br>let b = -1.23;</p>
+<p>console.log(<del>a); // 1<br>console.log(</del>b); // -1</p>
+<p>8、|| 运算符<br>使用||运算符可以给变量设置默认值<br>let c = 1;<br>let d = c || 2;  // 如果c的值为true则取存在的值，否则为2</p>
+<p>console.log(d);  // 1</p>
+<p>9、…运算符<br>…运算符是ES6中用于结构数组的方法，可以用于快速获取数组的参数<br>let [num1, …nums] = [1,2,3];</p>
+<p>console.log(num1); // 1<br>console.log(num3); // [2,3]</p>
+<p>10、三元运算符<br>e ? f = ‘man’ : f = ‘woman’</p>
+<p>#js性能优化小结<br>1、谨慎使用闭包<br>【由于闭包[[Scope]] 属性包含与执行环境作用域链相同的对象引用，函数活动对象本来会随着执行环境完毕后一同销毁，但引入闭包，对象无法被销毁。】<br>闭包会造成更多的内存开销，同时还会造成内存泄露</p>
+<p>2、缓存对象成员<br>在同一个函数中， 如果存在多次读取同一个对象成员，可以在局部函数中保存对象，减少查找<br>function getWindowWH() {<br>    var elBody = document.getElementByTagName(‘body’)[0];<br>    return {<br>        width: elBody.offsetWidth,<br>        height: elBody.offsetHeight<br>    }<br>}</p>
+<p>同时也解决了属性越深，访问速度越慢的问题</p>
+<p>3、DOM操作<br>访问DOM的次数越多，代码运行的速度越慢，统一的保存结果最后在一并输出<br>function innerHTMLLoop() {<br>    var content = ‘’;</p>
+<pre><code>for(var count = 0; count &lt; 1000; count++) {
+    content += &apos;a&apos;
+}
+document.getElementById(&apos;idName&apos;).innerHTML += content;
+</code></pre><p>}</p>
+<p>4、重绘（repaints）与重排（reflows）<br>当页面布局和几何属性改变时就需要”重排”<br>避免在修改样式的过程中使用offsetTop, scrollTop, clientTop, getComputedStyle()这些属性，它们都会重新渲染队列<br>    最小化重绘和重排，尽量一次处理<br>    1）使元素脱离文档流<br>    2）使用documentFragment<br>    3）将原始元素拷贝到一个脱离文档流的节点中，修改副本，完成后再替换元素元素</p>
+<p><a href="https://www.jianshu.com/p/b8f7e6c32a1b" target="_blank" rel="noopener">link</a></p>
+<h3 id="reflow"><a href="#reflow" class="headerlink" title="reflow"></a>reflow</h3><p>reflow（回流）是导致DOM脚本执行效率低的关键因素之一，页面上任何一个节点触发了reflow，会导致它的子节点及祖先节点重新渲染。</p>
+<p><strong>导致reflow发生</strong></p>
+<ul>
+<li>改变窗口大小</li>
+<li>改变文字大小</li>
+<li>添加/删除样式表</li>
+<li>内容的改变，（用户在输入框中写入内容也会）</li>
+<li>激活伪类，如:hover</li>
+<li>操作class属性</li>
+<li>脚本操作DOM</li>
+<li>计算offsetWidth和offsetHeight</li>
+<li>设置style属性</li>
+</ul>
+<h3 id="repaint"><a href="#repaint" class="headerlink" title="repaint"></a>repaint</h3><p>repaint是在一个元素的外观被改变，但没有改变布局的情况下发生的，如改变了visibility、outline、background等。</p>
+<p>5、事件委托<br>当有很多元素需要绑定事件的时候，我们一个一个的去绑定事件是有代价的的，元素越多应用程序越慢。事件绑定不但占用了处理时间，并且追踪事件需要更多的内存，有时候很多元素是不需要，或者是用户不会点击的，所以我们需要使用事件委托来解决没有必要的资源消耗。</p>
+<p>例子： 我们需监听li的click事件，通过冒泡事件来获取点击的对象。</p>
+<p><ul><br>    <li index="1">1</li><br>    <li index="2">2</li><br>    <li index="3">3</li></ul></p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><p>var ul = document.getElementById(‘ul’);</p>
+<p>ul.addEventListener(‘click’, function(e) {<br>  var now_index = e.target.getAttribute(‘index’);<br>  …<br>})</p>
+<p>6、循环性能<br>一般的for语句可能很多人都这么写</p>
+<p>for(var i = 0; i &lt; array.length; i++){<br>    ….<br>}<br>    每次循环的时候需要查找array.length，这样不但很耗时，也造成性能损失。只要查找一次属性，存储在局部变量，就可以提高性能。</p>
+<p>for(var i = 0, len = array.length; i &lt; len; i++){<br>    ….<br>}<br>    重写后的循环根据数组的长度能优化25%的运行时间，IE更多。所以平时书写的时候还是要多加注意。同时还是要避免使用for-in循环。</p>
+<p>7、条件语句<br>if-else 对比 switch， 当条件语句较多的时候switch 更易读，运行的要更快。所以但条件少的情况下使用if-else，当条件增加时，更倾向于switch，会更佳合理。</p>
+<p>8、避免使用构造器<br>通过避免使用eval()和Function()构造器来避免双重求值带来的性能消耗<br>eval(‘2 + 2’)</p>
+<p>9、使用 Object/Array 直接量<br>直接量的速度回更快。</p>
+<p>//bad<br>var myObject = new Object();<br>myObject.name = “xxxx”;</p>
+<p>//good<br>var myObject = {<br>    name: “xxxx”<br>}</p>
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/23/test/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lurel">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Laurel Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/23/test/" itemprop="url">test</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-23T13:22:48+08:00">
-                2018-03-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="laurel-Blog"><a href="#laurel-Blog" class="headerlink" title="laurel Blog"></a>laurel Blog</h3>
           
         
       
@@ -618,7 +734,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-23T13:19:46+08:00">
                 2018-03-23
@@ -746,7 +862,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-08T17:07:00+08:00">
                 2018-03-08
@@ -874,7 +990,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-01T14:50:50+08:00">
                 2018-02-01
@@ -1048,7 +1164,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-25T14:32:45+08:00">
                 2017-01-25
@@ -1060,6 +1176,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/cate/" itemprop="url" rel="index">
+                    <span itemprop="name">cate</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -1192,13 +1330,31 @@
                 <a href="/archives/">
               
                   <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">Artikel</span>
+                  <span class="site-state-item-name">posts</span>
                 </a>
               </div>
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
             
 
           </nav>
@@ -1242,7 +1398,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 
