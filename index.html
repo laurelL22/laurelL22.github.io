@@ -185,7 +185,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            Startseite
           </a>
         </li>
       
@@ -195,7 +195,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -218,6 +218,334 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/27/houdini/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lurel">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Laurel Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/27/houdini/" itemprop="url">houdini</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-27T19:33:43+08:00">
+                2018-03-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/cate/" itemprop="url" rel="index">
+                    <span itemprop="name">cate</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="CSS-Houdini"><a href="#CSS-Houdini" class="headerlink" title="CSS Houdini"></a>CSS Houdini</h2><blockquote>
+<p>Houdini 是 W3C 新成立的一个任务小组，它的终极目标是实现 css 属性的完全兼容</p>
+</blockquote>
+<blockquote>
+<p>CSS Houdini — W3C提出关于CSS新的草案</p>
+</blockquote>
+<h3 id="关于草案"><a href="#关于草案" class="headerlink" title="关于草案"></a>关于草案</h3><ul>
+<li>关于CSS的每一份草案都是经过了许多年才被广泛使用；</li>
+<li>一个新特性被写入CSS标准需要经过一整套标准指定流程，需要很长的时间；</li>
+<li>最新的浏览器也会和新属性提案仍然存在一个时间差；</li>
+</ul>
+<p><code>1、新特性—（厂商需求）—&gt; 2、一些浏览器支持— （厂商工期）— &gt;3、绝大浏览器支持</code></p>
+<h3 id="JS-社区和CSS社区"><a href="#JS-社区和CSS社区" class="headerlink" title="JS 社区和CSS社区"></a>JS 社区和CSS社区</h3><ul>
+<li>在 JS 社区里，你总能听到人们在抱怨它一天一个样 －－ 跑得太快追得太累。。</li>
+<li>而 CSS 社区，学习新事物吃力 －－ 天知道什么时候才能用上。。。</li>
+</ul>
+<ul>
+<li>CSS in js — 如react</li>
+<li>JS in CSS — Houdini <ul>
+<li>Parsing — &gt; Rendering （很多草案集合），支持不是很好</li>
+<li>css不能触摸到运行时，比如不能实现varibles（预编译和运行时动态修改CSS值）</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>JavaScript 是一种动态语言，用 JavaScript 给 JavaScript 打补丁是可以轻松实现的，但 CSS 不是动态的。<br>在某些情况下，可以在构建过程中将一种形式的 CSS 转译成另一种形式（PostCSS ）。<br>而如果补丁是依赖于的 DOM 结构、某一个元素的布局或者它的定位，那补丁程序就需要在本地运行了。</p>
+</blockquote>
+<h3 id="是否可以控制浏览器解析-HTML-和-CSS-的过程？"><a href="#是否可以控制浏览器解析-HTML-和-CSS-的过程？" class="headerlink" title="是否可以控制浏览器解析 HTML 和 CSS 的过程？"></a>是否可以控制浏览器解析 HTML 和 CSS 的过程？</h3><p>不能控制浏览器解析 HTML 和 CSS 的过程，只能看它生成 DOM 和 CSS object model (CSSOM)。</p>
+<ul>
+<li>没法控制级联（cascade）；</li>
+<li>没法控制浏览器布局元素的方式（layout）；</li>
+<li>没法控制元素在屏幕上显示的过程（paint）；</li>
+<li>合成（composite）也不能控制。</li>
+</ul>
+<p><img src="../images/css-parser.png" alt="sdcs"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/26/adblock-plus-blocking-filter/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lurel">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Laurel Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/26/adblock-plus-blocking-filter/" itemprop="url">adblock-plus-blocking-filter</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-26T21:08:32+08:00">
+                2018-03-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="网页内容被adblock-plus插件拦截"><a href="#网页内容被adblock-plus插件拦截" class="headerlink" title="网页内容被adblock plus插件拦截"></a>网页内容被adblock plus插件拦截</h3><p><a href="https://easylist-downloads.adblockplus.org/easylistchina+easylist.txt" target="_blank" rel="noopener">adblock plus chinalist easylist </a></p>
+<ul>
+<li><p>常规广告拦截过滤规则：</p>
+<ul>
+<li>包含常见的广告内容js及目录</li>
+</ul>
+</li>
+<li><p>常规网页元素过滤规则:</p>
+<ul>
+<li>包含常见的广告class、id元素的命名</li>
+</ul>
+</li>
+<li><p>联盟广告过滤规则 Ads-Union:</p>
+<ul>
+<li>包含常见的联盟广告调用JS和域名，这个过滤规则最恨，几乎涵盖了所有的联盟广告平台</li>
+</ul>
+</li>
+<li><p>弹窗 Popups</p>
+<ul>
+<li>包含常见的弹窗广告</li>
+</ul>
+</li>
+<li><p>特定广告过滤规则 Specific advert blocking filters</p>
+</li>
+<li><p>特定元素过滤规则 Specific element hiding rules</p>
+<ul>
+<li>这个规则将一些网站固定的某个广告位加以过滤</li>
+</ul>
+</li>
+<li><p>CSS样式白名单 CSS Whitelist,包含了一些知名网站的忽略规则</p>
+</li>
+</ul>
+<h3 id="遇见的坑："><a href="#遇见的坑：" class="headerlink" title="遇见的坑："></a>遇见的坑：</h3><p>ff下有类名为icon-advertise的样式被屏蔽掉</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -261,7 +589,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-26T15:38:38+08:00">
                 2018-03-26
@@ -393,7 +721,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-24T14:36:14+08:00">
                 2018-03-24
@@ -414,7 +742,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -552,7 +880,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-23T18:38:48+08:00">
                 2018-03-23
@@ -594,43 +922,25 @@
       
         
           
-            <h1 id="js技巧"><a href="#js技巧" class="headerlink" title="js技巧"></a>js技巧</h1><h3 id="1、new-Set"><a href="#1、new-Set" class="headerlink" title="1、new Set()"></a>1、new Set()</h3><p><code>利用Set数据结构能够去重一个数组
-let arr = [1,2,2,3];
-let set = new Set(arr);
-let newArr = Array.from(set); // Array.from方法可以将Set结构转为数组
-console.log(newArr); // [1,2,3]</code></p>
-<p>###2、Object.assign()<br><code>Object.assign()也是ES6中提供的对象的扩展方法，可以用于对象的合并拷贝
-let obj1 = {a: 1};
-let obj2 = {b: 2};
-let obj3 = Object.assign({}, obj1, obj2);
-console.log(obj3) // {a: 1, b:2}</code></p>
-<p>###3、map()<br><code>map方法用于遍历数组，有返回值，可以对数组的每一项进行操作并生成一个新的数组，有些时候可以代替for和forEach循环，简化代码
-let arr3 = [1,2,3,4,5];
-let newArr3 = arr3.map((e, i) =&gt; e*10 );
-console.log(newArr3)</code></p>
-<p>4、filter()<br>filter方法用于遍历数组，就是过滤数组，在每一项元素后面触发一个回调函数，通过判断，保留或移出当前项，最后返回一个新的数组<br>let arr4 = [1,2,3,4,5];<br>let newArr4 = arr4.filter((e, i) =&gt; e%2 === 0); // 取模，过滤余数不为0的数</p>
-<p>5、some()<br>some方法用于遍历数组，在每一项元素后面触发一个回调函数，只要一个满足条件就返回true,否则就返回false。类似于||比较</p>
-<p>let arr5 = [{result:true}, {result: false}];<br>let newArr5 = arr.some((e, i) =&gt; e.result); //只要一个为true,即为true<br>console.log(newArr5); // true</p>
-<p>6、every()<br>every方法用于遍历数组，在每一项元素后面触发一个回调函数，只要一个不满足条件就返回false,否则返回true,类似于&amp;&amp;比较<br>let arr6 = [{result:true}, {result: false}];<br>let newArr6 = arr.some((e, i) =&gt; e.result); //只要一个为true,即为true<br>console.log(newArr6); // false</p>
-<p>7、<del>运算符<br>~符号在JS中有按位取反的作用，</del>即是取反两次，而位运算的操作值要求是整数，其结果也是整数，所以经过位运算的都会自动变成整数，可以巧妙的去掉小数部分，类似于parseInt()<br>let a = 1.23;<br>let b = -1.23;</p>
-<p>console.log(<del>a); // 1<br>console.log(</del>b); // -1</p>
-<p>8、|| 运算符<br>使用||运算符可以给变量设置默认值<br>let c = 1;<br>let d = c || 2;  // 如果c的值为true则取存在的值，否则为2</p>
-<p>console.log(d);  // 1</p>
-<p>9、…运算符<br>…运算符是ES6中用于结构数组的方法，可以用于快速获取数组的参数<br>let [num1, …nums] = [1,2,3];</p>
-<p>console.log(num1); // 1<br>console.log(num3); // [2,3]</p>
-<p>10、三元运算符<br>e ? f = ‘man’ : f = ‘woman’</p>
-<p>#js性能优化小结<br>1、谨慎使用闭包<br>【由于闭包[[Scope]] 属性包含与执行环境作用域链相同的对象引用，函数活动对象本来会随着执行环境完毕后一同销毁，但引入闭包，对象无法被销毁。】<br>闭包会造成更多的内存开销，同时还会造成内存泄露</p>
-<p>2、缓存对象成员<br>在同一个函数中， 如果存在多次读取同一个对象成员，可以在局部函数中保存对象，减少查找<br>function getWindowWH() {<br>    var elBody = document.getElementByTagName(‘body’)[0];<br>    return {<br>        width: elBody.offsetWidth,<br>        height: elBody.offsetHeight<br>    }<br>}</p>
+            <h1 id="js技巧"><a href="#js技巧" class="headerlink" title="js技巧"></a>js技巧</h1><h3 id="1、new-Set"><a href="#1、new-Set" class="headerlink" title="1、new Set()"></a>1、new Set()</h3><p><code>利用Set数据结构能够去重一个数组</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let arr = [1,2,2,3];</span><br><span class="line">let set = new Set(arr);</span><br><span class="line">let newArr = Array.from(set); // Array.from方法可以将Set结构转为数组</span><br><span class="line">console.log(newArr); // [1,2,3]</span><br></pre></td></tr></table></figure></p>
+<h3 id="2、Object-assign"><a href="#2、Object-assign" class="headerlink" title="2、Object.assign()"></a>2、Object.assign()</h3><p><code>Object.assign()也是ES6中提供的对象的扩展方法，可以用于对象的合并拷贝</code><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj1 = &#123;<span class="attr">a</span>: <span class="number">1</span>&#125;;</span><br><span class="line"><span class="keyword">let</span> obj2 = &#123;<span class="attr">b</span>: <span class="number">2</span>&#125;;</span><br><span class="line"><span class="keyword">let</span> obj3 = <span class="built_in">Object</span>.assign(&#123;&#125;, obj1, obj2);</span><br><span class="line"><span class="built_in">console</span>.log(obj3) <span class="comment">// &#123;a: 1, b:2&#125;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="3、map"><a href="#3、map" class="headerlink" title="3、map()"></a>3、map()</h3><p><code>map方法用于遍历数组，有返回值，可以对数组的每一项进行操作并生成一个新的数组，有些时候可以代替for和forEach循环，简化代码</code><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr3 = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br><span class="line"><span class="keyword">let</span> newArr3 = arr3.map(<span class="function">(<span class="params">e, i</span>) =&gt;</span> e*<span class="number">10</span> );</span><br><span class="line"><span class="built_in">console</span>.log(newArr3)</span><br></pre></td></tr></table></figure></p>
+<h3 id="4、filter"><a href="#4、filter" class="headerlink" title="4、filter()"></a>4、filter()</h3><p>filter方法用于遍历数组，就是过滤数组，在每一项元素后面触发一个回调函数，通过判断，保留或移出当前项，最后返回一个新的数组<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr4 = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br><span class="line"><span class="keyword">let</span> newArr4 = arr4.filter(<span class="function">(<span class="params">e, i</span>) =&gt;</span> e%<span class="number">2</span> === <span class="number">0</span>); <span class="comment">// 取模，过滤余数不为0的数</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="5、some"><a href="#5、some" class="headerlink" title="5、some()"></a>5、some()</h3><p>some方法用于遍历数组，在每一项元素后面触发一个回调函数，只要一个满足条件就返回true,否则就返回false。类似于||比较</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr5 = [&#123;<span class="attr">result</span>:<span class="literal">true</span>&#125;, &#123;<span class="attr">result</span>: <span class="literal">false</span>&#125;];</span><br><span class="line"><span class="keyword">let</span> newArr5 = arr.some(<span class="function">(<span class="params">e, i</span>) =&gt;</span> e.result); <span class="comment">//只要一个为true,即为true</span></span><br><span class="line"><span class="built_in">console</span>.log(newArr5); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<h3 id="6、every"><a href="#6、every" class="headerlink" title="6、every()"></a>6、every()</h3><p>every方法用于遍历数组，在每一项元素后面触发一个回调函数，只要一个不满足条件就返回false,否则返回true,类似于&amp;&amp;比较<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr6 = [&#123;<span class="attr">result</span>:<span class="literal">true</span>&#125;, &#123;<span class="attr">result</span>: <span class="literal">false</span>&#125;];</span><br><span class="line"><span class="keyword">let</span> newArr6 = arr.some(<span class="function">(<span class="params">e, i</span>) =&gt;</span> e.result); <span class="comment">//只要一个为true,即为true</span></span><br><span class="line"><span class="built_in">console</span>.log(newArr6); <span class="comment">// false</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="7、-运算符"><a href="#7、-运算符" class="headerlink" title="7、~~运算符"></a>7、~~运算符</h3><p>~符号在JS中有按位取反的作用，~~即是取反两次，而位运算的操作值要求是整数，其结果也是整数，所以经过位运算的都会自动变成整数，可以巧妙的去掉小数部分，类似于parseInt()<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">1.23</span>;</span><br><span class="line"><span class="keyword">let</span> b = <span class="number">-1.23</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(~~a); <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(~~b); <span class="comment">// -1</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="8、-运算符"><a href="#8、-运算符" class="headerlink" title="8、|| 运算符"></a>8、|| 运算符</h3><p>使用||运算符可以给变量设置默认值<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> c = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">let</span> d = c || <span class="number">2</span>;  <span class="comment">// 如果c的值为true则取存在的值，否则为2</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(d);  <span class="comment">// 1</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="9、…运算符"><a href="#9、…运算符" class="headerlink" title="9、…运算符"></a>9、…运算符</h3><p>…运算符是ES6中用于结构数组的方法，可以用于快速获取数组的参数<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> [num1, ...nums] = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(num1); <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(num3); <span class="comment">// [2,3]</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="10、三元运算符"><a href="#10、三元运算符" class="headerlink" title="10、三元运算符"></a>10、三元运算符</h3><p>e ? f = ‘man’ : f = ‘woman’</p>
+<hr>
+<h1 id="js性能优化小结"><a href="#js性能优化小结" class="headerlink" title="js性能优化小结"></a>js性能优化小结</h1><h3 id="1、谨慎使用闭包"><a href="#1、谨慎使用闭包" class="headerlink" title="1、谨慎使用闭包"></a>1、谨慎使用闭包</h3><p>【由于闭包[[Scope]] 属性包含与执行环境作用域链相同的对象引用，函数活动对象本来会随着执行环境完毕后一同销毁，但引入闭包，对象无法被销毁。】<br>闭包会造成更多的内存开销，同时还会造成内存泄露</p>
+<h3 id="2、缓存对象成员"><a href="#2、缓存对象成员" class="headerlink" title="2、缓存对象成员"></a>2、缓存对象成员</h3><p>在同一个函数中， 如果存在多次读取同一个对象成员，可以在局部函数中保存对象，减少查找<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getWindowWH</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> elBody = <span class="built_in">document</span>.getElementByTagName(<span class="string">'body'</span>)[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        width: elBody.offsetWidth,</span><br><span class="line">        height: elBody.offsetHeight</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>同时也解决了属性越深，访问速度越慢的问题</p>
-<p>3、DOM操作<br>访问DOM的次数越多，代码运行的速度越慢，统一的保存结果最后在一并输出<br>function innerHTMLLoop() {<br>    var content = ‘’;</p>
-<pre><code>for(var count = 0; count &lt; 1000; count++) {
-    content += &apos;a&apos;
-}
-document.getElementById(&apos;idName&apos;).innerHTML += content;
-</code></pre><p>}</p>
-<p>4、重绘（repaints）与重排（reflows）<br>当页面布局和几何属性改变时就需要”重排”<br>避免在修改样式的过程中使用offsetTop, scrollTop, clientTop, getComputedStyle()这些属性，它们都会重新渲染队列<br>    最小化重绘和重排，尽量一次处理<br>    1）使元素脱离文档流<br>    2）使用documentFragment<br>    3）将原始元素拷贝到一个脱离文档流的节点中，修改副本，完成后再替换元素元素</p>
+<h3 id="3、DOM操作"><a href="#3、DOM操作" class="headerlink" title="3、DOM操作"></a>3、DOM操作</h3><p>访问DOM的次数越多，代码运行的速度越慢，统一的保存结果最后在一并输出<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">innerHTMLLoop</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> content = <span class="string">''</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> count = <span class="number">0</span>; count &lt; <span class="number">1000</span>; count++) &#123;</span><br><span class="line">        content += <span class="string">'a'</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">'idName'</span>).innerHTML += content;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="4、重绘（repaints）与重排（reflows）"><a href="#4、重绘（repaints）与重排（reflows）" class="headerlink" title="4、重绘（repaints）与重排（reflows）"></a>4、重绘（repaints）与重排（reflows）</h3><p>当页面布局和几何属性改变时就需要”重排”<br>避免在修改样式的过程中使用offsetTop, scrollTop, clientTop, getComputedStyle()这些属性，它们都会重新渲染队列<br>    最小化重绘和重排，尽量一次处理<br>    1）使元素脱离文档流<br>    2）使用documentFragment<br>    3）将原始元素拷贝到一个脱离文档流的节点中，修改副本，完成后再替换元素元素</p>
 <p><a href="https://www.jianshu.com/p/b8f7e6c32a1b" target="_blank" rel="noopener">link</a></p>
-<h3 id="reflow"><a href="#reflow" class="headerlink" title="reflow"></a>reflow</h3><p>reflow（回流）是导致DOM脚本执行效率低的关键因素之一，页面上任何一个节点触发了reflow，会导致它的子节点及祖先节点重新渲染。</p>
+<h4 id="reflow"><a href="#reflow" class="headerlink" title="reflow"></a>reflow</h4><p>reflow（回流）是导致DOM脚本执行效率低的关键因素之一，页面上任何一个节点触发了reflow，会导致它的子节点及祖先节点重新渲染。</p>
 <p><strong>导致reflow发生</strong></p>
 <ul>
 <li>改变窗口大小</li>
@@ -643,21 +953,21 @@ document.getElementById(&apos;idName&apos;).innerHTML += content;
 <li>计算offsetWidth和offsetHeight</li>
 <li>设置style属性</li>
 </ul>
-<h3 id="repaint"><a href="#repaint" class="headerlink" title="repaint"></a>repaint</h3><p>repaint是在一个元素的外观被改变，但没有改变布局的情况下发生的，如改变了visibility、outline、background等。</p>
-<p>5、事件委托<br>当有很多元素需要绑定事件的时候，我们一个一个的去绑定事件是有代价的的，元素越多应用程序越慢。事件绑定不但占用了处理时间，并且追踪事件需要更多的内存，有时候很多元素是不需要，或者是用户不会点击的，所以我们需要使用事件委托来解决没有必要的资源消耗。</p>
+<h4 id="repaint"><a href="#repaint" class="headerlink" title="repaint"></a>repaint</h4><p>repaint是在一个元素的外观被改变，但没有改变布局的情况下发生的，如改变了visibility、outline、background等。</p>
+<h3 id="5、事件委托"><a href="#5、事件委托" class="headerlink" title="5、事件委托"></a>5、事件委托</h3><p>当有很多元素需要绑定事件的时候，我们一个一个的去绑定事件是有代价的的，元素越多应用程序越慢。事件绑定不但占用了处理时间，并且追踪事件需要更多的内存，有时候很多元素是不需要，或者是用户不会点击的，所以我们需要使用事件委托来解决没有必要的资源消耗。</p>
 <p>例子： 我们需监听li的click事件，通过冒泡事件来获取点击的对象。</p>
-<p><ul><br>    <li index="1">1</li><br>    <li index="2">2</li><br>    <li index="3">3</li></ul></p>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><p>var ul = document.getElementById(‘ul’);</p>
-<p>ul.addEventListener(‘click’, function(e) {<br>  var now_index = e.target.getAttribute(‘index’);<br>  …<br>})</p>
-<p>6、循环性能<br>一般的for语句可能很多人都这么写</p>
-<p>for(var i = 0; i &lt; array.length; i++){<br>    ….<br>}<br>    每次循环的时候需要查找array.length，这样不但很耗时，也造成性能损失。只要查找一次属性，存储在局部变量，就可以提高性能。</p>
-<p>for(var i = 0, len = array.length; i &lt; len; i++){<br>    ….<br>}<br>    重写后的循环根据数组的长度能优化25%的运行时间，IE更多。所以平时书写的时候还是要多加注意。同时还是要避免使用for-in循环。</p>
-<p>7、条件语句<br>if-else 对比 switch， 当条件语句较多的时候switch 更易读，运行的要更快。所以但条件少的情况下使用if-else，当条件增加时，更倾向于switch，会更佳合理。</p>
-<p>8、避免使用构造器<br>通过避免使用eval()和Function()构造器来避免双重求值带来的性能消耗<br>eval(‘2 + 2’)</p>
-<p>9、使用 Object/Array 直接量<br>直接量的速度回更快。</p>
-<p>//bad<br>var myObject = new Object();<br>myObject.name = “xxxx”;</p>
-<p>//good<br>var myObject = {<br>    name: “xxxx”<br>}</p>
-
+<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul&gt;</span><br><span class="line">    &lt;li index=&apos;1&apos;&gt;1&lt;/li&gt;</span><br><span class="line">    &lt;li index=&apos;2&apos;&gt;2&lt;/li&gt;</span><br><span class="line">    &lt;li index=&apos;3&apos;&gt;3&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ul = <span class="built_in">document</span>.getElementById(<span class="string">'ul'</span>);</span><br><span class="line"></span><br><span class="line">ul.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> now_index = e.target.getAttribute(<span class="string">'index'</span>);</span><br><span class="line">  ...</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="6、循环性能"><a href="#6、循环性能" class="headerlink" title="6、循环性能"></a>6、循环性能</h3><p>一般的for语句可能很多人都这么写</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; array.length; i++)&#123;</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>每次循环的时候需要查找array.length，这样不但很耗时，也造成性能损失。只要查找一次属性，存储在局部变量，就可以提高性能。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>, len = array.length; i &lt; len; i++)&#123;</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>重写后的循环根据数组的长度能优化25%的运行时间，IE更多。所以平时书写的时候还是要多加注意。同时还是要避免使用for-in循环。</p>
+<h3 id="7、条件语句"><a href="#7、条件语句" class="headerlink" title="7、条件语句"></a>7、条件语句</h3><p>if-else 对比 switch， 当条件语句较多的时候switch 更易读，运行的要更快。所以但条件少的情况下使用if-else，当条件增加时，更倾向于switch，会更佳合理。</p>
+<h3 id="8、避免使用构造器"><a href="#8、避免使用构造器" class="headerlink" title="8、避免使用构造器"></a>8、避免使用构造器</h3><p>通过避免使用eval()和Function()构造器来避免双重求值带来的性能消耗<br>eval(‘2 + 2’)</p>
+<h3 id="9、使用-Object-Array-直接量"><a href="#9、使用-Object-Array-直接量" class="headerlink" title="9、使用 Object/Array 直接量"></a>9、使用 Object/Array 直接量</h3><p>直接量的速度会更快。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//bad</span></span><br><span class="line"><span class="keyword">var</span> myObject = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">myObject.name = <span class="string">"xxxx"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//good</span></span><br><span class="line"><span class="keyword">var</span> myObject = &#123;</span><br><span class="line">    name: <span class="string">"xxxx"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           
         
       
@@ -734,7 +1044,7 @@ document.getElementById(&apos;idName&apos;).innerHTML += content;
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-23T13:19:46+08:00">
                 2018-03-23
@@ -862,7 +1172,7 @@ document.getElementById(&apos;idName&apos;).innerHTML += content;
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-08T17:07:00+08:00">
                 2018-03-08
@@ -990,7 +1300,7 @@ document.getElementById(&apos;idName&apos;).innerHTML += content;
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-01T14:50:50+08:00">
                 2018-02-01
@@ -1032,8 +1342,7 @@ document.getElementById(&apos;idName&apos;).innerHTML += content;
       
         
           
-            <p>一、网络加载类</p>
-<h3 id="1．首屏数据请求提前，避免JavaScript文件加载后才请求数据"><a href="#1．首屏数据请求提前，避免JavaScript文件加载后才请求数据" class="headerlink" title="1．首屏数据请求提前，避免JavaScript文件加载后才请求数据"></a>1．首屏数据请求提前，避免JavaScript文件加载后才请求数据</h3><blockquote>
+            <h2 id="一、网络加载类"><a href="#一、网络加载类" class="headerlink" title="一、网络加载类"></a>一、网络加载类</h2><h3 id="1．首屏数据请求提前，避免JavaScript文件加载后才请求数据"><a href="#1．首屏数据请求提前，避免JavaScript文件加载后才请求数据" class="headerlink" title="1．首屏数据请求提前，避免JavaScript文件加载后才请求数据"></a>1．首屏数据请求提前，避免JavaScript文件加载后才请求数据</h3><blockquote>
 <p>为了进一步提升页面加载速度，可以考虑将页面的数据请求尽可能提前，避免在JavaScript加载完成后才去请求数据。通常数据请求是页面内容渲染中关键路径最长的部分，而且不能并行，所以如果能将数据请求提前，可以极大程度上缩短页面内容的渲染完成时间。</p>
 </blockquote>
 <h3 id="2．首屏加载和按需加载，非首屏内容滚屏加载，保证首屏内容最小化"><a href="#2．首屏加载和按需加载，非首屏内容滚屏加载，保证首屏内容最小化" class="headerlink" title="2．首屏加载和按需加载，非首屏内容滚屏加载，保证首屏内容最小化"></a>2．首屏加载和按需加载，非首屏内容滚屏加载，保证首屏内容最小化</h3><blockquote>
@@ -1164,7 +1473,7 @@ document.getElementById(&apos;idName&apos;).innerHTML += content;
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-25T14:32:45+08:00">
                 2017-01-25
@@ -1185,7 +1494,7 @@ document.getElementById(&apos;idName&apos;).innerHTML += content;
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1329,8 +1638,8 @@ document.getElementById(&apos;idName&apos;).innerHTML += content;
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
             
@@ -1341,7 +1650,7 @@ document.getElementById(&apos;idName&apos;).innerHTML += content;
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
                   <span class="site-state-item-count">1</span>
-                  <span class="site-state-item-name">categories</span>
+                  <span class="site-state-item-name">Kategorien</span>
                 </a>
               </div>
             
@@ -1351,8 +1660,8 @@ document.getElementById(&apos;idName&apos;).innerHTML += content;
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">2</span>
-                  <span class="site-state-item-name">tags</span>
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">Tags</span>
                 </a>
               </div>
             
@@ -1398,7 +1707,7 @@ document.getElementById(&apos;idName&apos;).innerHTML += content;
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 
