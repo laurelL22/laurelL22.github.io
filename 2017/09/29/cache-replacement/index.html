@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="原理： 根据用户设置的字体将某一个字符绘制在canvas上（fillText()），并提取像素信息（getImageData()），然后和默认字体进行比对，如果像素不一致，说明字体生效，说明字体不生效。  1234567891011121314151617181920212223242526272829303132333435363738394041var isSupportFontFamily">
+<meta name="description" content="查看缓存 free/top 命令 cache memory cat /proc/meminfo  读写文件，为了提高读写性能与速度，会将文件在内存中进行缓存，这部分内存就是Cache Memory(缓存内存).即使你的程序运行结束后，Cache Memory也不会自动释放   手动释放cache 1234567## To free pagecache:echo 1 &amp;gt; /proc/sys/v">
 <meta name="keywords" content="keyword">
 <meta property="og:type" content="article">
-<meta property="og:title" content="检测字体支持">
-<meta property="og:url" content="http://yoursite.com/2018/03/08/检测字体支持/index.html">
+<meta property="og:title" content="cache-replacement">
+<meta property="og:url" content="http://yoursite.com/2017/09/29/cache-replacement/index.html">
 <meta property="og:site_name" content="Laurel Blog">
-<meta property="og:description" content="原理： 根据用户设置的字体将某一个字符绘制在canvas上（fillText()），并提取像素信息（getImageData()），然后和默认字体进行比对，如果像素不一致，说明字体生效，说明字体不生效。  1234567891011121314151617181920212223242526272829303132333435363738394041var isSupportFontFamily">
-<meta property="og:updated_time" content="2018-03-23T06:54:31.331Z">
+<meta property="og:description" content="查看缓存 free/top 命令 cache memory cat /proc/meminfo  读写文件，为了提高读写性能与速度，会将文件在内存中进行缓存，这部分内存就是Cache Memory(缓存内存).即使你的程序运行结束后，Cache Memory也不会自动释放   手动释放cache 1234567## To free pagecache:echo 1 &amp;gt; /proc/sys/v">
+<meta property="og:updated_time" content="2018-03-29T09:01:39.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="检测字体支持">
-<meta name="twitter:description" content="原理： 根据用户设置的字体将某一个字符绘制在canvas上（fillText()），并提取像素信息（getImageData()），然后和默认字体进行比对，如果像素不一致，说明字体生效，说明字体不生效。  1234567891011121314151617181920212223242526272829303132333435363738394041var isSupportFontFamily">
+<meta name="twitter:title" content="cache-replacement">
+<meta name="twitter:description" content="查看缓存 free/top 命令 cache memory cat /proc/meminfo  读写文件，为了提高读写性能与速度，会将文件在内存中进行缓存，这部分内存就是Cache Memory(缓存内存).即使你的程序运行结束后，Cache Memory也不会自动释放   手动释放cache 1234567## To free pagecache:echo 1 &amp;gt; /proc/sys/v">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/03/08/检测字体支持/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/09/29/cache-replacement/"/>
 
 
 
 
 
-  <title>检测字体支持 | Laurel Blog</title>
+  <title>cache-replacement | Laurel Blog</title>
   
 
 
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/08/检测字体支持/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/29/cache-replacement/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Lurel">
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">检测字体支持</h1>
+          <h1 class="post-title" itemprop="name headline">cache-replacement</h1>
         
 
         <div class="post-meta">
@@ -261,8 +261,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-08T17:07:00+08:00">
-                2018-03-08
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-29T16:19:04+08:00">
+                2017-09-29
               </time>
             
 
@@ -299,15 +299,31 @@
       
 
       
-        <h3 id="原理："><a href="#原理：" class="headerlink" title="原理："></a>原理：</h3><blockquote>
-<p>根据用户设置的字体将某一个字符绘制在canvas上（fillText()），并提取像素信息（getImageData()），然后和默认字体进行比对，如果像素不一致，说明字体生效，说明字体不生效。</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> isSupportFontFamily = <span class="function"><span class="keyword">function</span> (<span class="params">fontFamily</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> fontFamily != <span class="string">'string'</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> defaultFontFamily = <span class="string">'Arial'</span>;</span><br><span class="line">        <span class="keyword">if</span> (fontFamily.toLowerCase() == defaultFontFamily.toLowerCase()) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> defaultLetter = <span class="string">'a'</span>;</span><br><span class="line">        <span class="keyword">var</span> defaultFontSize = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 使用该字体绘制的canvas</span></span><br><span class="line">        <span class="keyword">var</span> width = <span class="number">100</span>, height = <span class="number">100</span>;</span><br><span class="line">        <span class="keyword">var</span> canvas = <span class="built_in">document</span>.getElementById(<span class="string">'canvas'</span>);</span><br><span class="line">        <span class="keyword">var</span> context = canvas.getContext(<span class="string">'2d'</span>);</span><br><span class="line">        canvas.width = width;</span><br><span class="line">        canvas.height = height;</span><br><span class="line">        <span class="comment">// 全局一致的绘制设定</span></span><br><span class="line">        context.textAlign = <span class="string">'center'</span>;</span><br><span class="line">        context.fillStyle = <span class="string">'black'</span>;</span><br><span class="line">        context.textBaseline = <span class="string">'middle'</span>;</span><br><span class="line">        <span class="keyword">var</span> getFontData = <span class="function"><span class="keyword">function</span> (<span class="params">fontFamily</span>) </span>&#123;</span><br><span class="line">            <span class="comment">// 清除</span></span><br><span class="line">            context.clearRect(<span class="number">0</span>, <span class="number">0</span>, width, height);</span><br><span class="line">            <span class="comment">// 设置字体</span></span><br><span class="line">            context.font = defaultFontSize + <span class="string">'px '</span> + fontFamily + <span class="string">', '</span> + defaultFontFamily;</span><br><span class="line">            context.fillText(defaultLetter, width / <span class="number">2</span>, height / <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">var</span> data = context.getImageData(<span class="number">0</span>, <span class="number">0</span>, width, height).data;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> [].slice.call(data).filter(<span class="function"><span class="keyword">function</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> value != <span class="number">0</span>;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> getFontData(defaultFontFamily).join(<span class="string">''</span>) !== getFontData(fontFamily).join(<span class="string">''</span>);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(isSupportFontFamily(<span class="string">'Arial'</span>));</span><br></pre></td></tr></table></figure>
-<h3 id="说明："><a href="#说明：" class="headerlink" title="说明："></a>说明：</h3><ul>
-<li>用一个字体显示字母a。如果这个字体不存在，系统会默认显示成Arial字体。</li>
-<li>如果用字体X显示出来的字母的字符点阵和字体Arial不一样，说明字体X存在。</li>
-<li>如果用字体X显示出来的字母的字符点阵和字体Arial一样，说明字体X不存在，系统用的默认字体Arial显示的。</li>
+        <h2 id="查看缓存"><a href="#查看缓存" class="headerlink" title="查看缓存"></a>查看缓存</h2><ul>
+<li>free/top 命令</li>
+<li><p>cache memory <code>cat /proc/meminfo</code></p>
+<ul>
+<li>读写文件，为了提高读写性能与速度，会将文件在内存中进行缓存，这部分内存就是Cache Memory(缓存内存).即使你的程序运行结束后，Cache Memory也不会自动释放</li>
 </ul>
+</li>
+<li><p>手动释放cache</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span># To free pagecache:</span><br><span class="line">echo 1 &gt; /proc/sys/vm/drop_caches</span><br><span class="line"><span class="meta">#</span># To free dentries and inodes:</span><br><span class="line">echo 2 &gt; /proc/sys/vm/drop_caches</span><br><span class="line"><span class="meta">#</span># To free pagecache, dentries and inodes:</span><br><span class="line">echo 3 &gt; /proc/sys/vm/drop_caches</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看cached里面的内容 linux-ftools</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>!/bin/bash</span><br><span class="line"></span><br><span class="line">tar xf linux-ftools.tar.gz -C ./</span><br><span class="line">cd linux-ftools/ &amp;&amp; ./configure &amp;&amp; make &amp;&amp; make install</span><br><span class="line">`</span><br></pre></td></tr></table></figure>
+<p>eg:查看/tmp 目录下缓存了哪些文件, 命令：</p>
+<p><code>linux-fincore --pages=false --summarize --only-cached /tmp/*</code></p>
+<p><code>`</code></p>
+<h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><h2 id="缓存命中"><a href="#缓存命中" class="headerlink" title="缓存命中"></a>缓存命中</h2><h2 id="cache-miss（缓存没命中）"><a href="#cache-miss（缓存没命中）" class="headerlink" title="cache miss（缓存没命中）"></a>cache miss（缓存没命中）</h2><p>把缓存中的就对象踢出，把新的对象加入缓存池。（替换策略，最优的替代策略就是想把缓存中最没用的条目给踢出去，但是未来是不能够被预知的，所以这种策略是不可能实现的）</p>
+<h2 id="缓存替换算法"><a href="#缓存替换算法" class="headerlink" title="缓存替换算法"></a>缓存替换算法</h2><h3 id="FIFO"><a href="#FIFO" class="headerlink" title="FIFO"></a>FIFO</h3><p>先进先出</p>
+<h3 id="LFU"><a href="#LFU" class="headerlink" title="LFU"></a>LFU</h3><p>最近最少使用算法</p>
+<p><code>如果一个数据在最近一段时间内使用次数很少，那么在将来一段时间内被使用的可能性也很小</code></p>
+<p>利用一个数组存储 数据项，用hashmap存储每个数据项在数组中对应的位置，然后为每个数据项设计一个访问频次，当数据项被命中时，访问频次自增，在淘汰的时候淘汰访问频次最少的数据</p>
+<h3 id="LRU"><a href="#LRU" class="headerlink" title="LRU"></a>LRU</h3><p>最近最久未使用</p>
+<p><code>如果一个数据在最近一段时间没有被访问到，那么在将来它被访问的可能性也很小</code></p>
+<p>当需要插入新的数据项的时候，如果新数据项在链表中存在（一般称为命中），则把该节点移到链表头部，如果不存在，则新建一个节点，放到链表头部，若缓存满了，则把链表最后一个节点删除即可。在访问数据的时候，如果数据项在链表中存在，则把该节点移到链表头部，否则返回-1。这样一来在链表尾部的节点就是最近最久未访问的数据项</p>
 
       
     </div>
@@ -332,8 +348,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/02/13/preload-prefetch/" rel="next" title="preload_prefetch">
-                <i class="fa fa-chevron-left"></i> preload_prefetch
+              <a href="/2017/01/25/array-unique/" rel="next" title="array_unique">
+                <i class="fa fa-chevron-left"></i> array_unique
               </a>
             
           </div>
@@ -342,8 +358,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/03/15/axios-timeout/" rel="prev" title="axios-timeout">
-                axios-timeout <i class="fa fa-chevron-right"></i>
+              <a href="/2017/11/23/houdini/" rel="prev" title="houdini">
+                houdini <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -476,7 +492,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#原理："><span class="nav-number">1.</span> <span class="nav-text">原理：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#说明："><span class="nav-number">2.</span> <span class="nav-text">说明：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#查看缓存"><span class="nav-number">1.</span> <span class="nav-text">查看缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存"><span class="nav-number">2.</span> <span class="nav-text">缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存命中"><span class="nav-number">3.</span> <span class="nav-text">缓存命中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cache-miss（缓存没命中）"><span class="nav-number">4.</span> <span class="nav-text">cache miss（缓存没命中）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存替换算法"><span class="nav-number">5.</span> <span class="nav-text">缓存替换算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#FIFO"><span class="nav-number">5.1.</span> <span class="nav-text">FIFO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LFU"><span class="nav-number">5.2.</span> <span class="nav-text">LFU</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LRU"><span class="nav-number">5.3.</span> <span class="nav-text">LRU</span></a></li></ol></li></ol></div>
             
 
           </div>

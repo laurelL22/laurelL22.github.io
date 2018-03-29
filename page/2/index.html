@@ -826,6 +826,150 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/29/cache-replacement/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lurel">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Laurel Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/29/cache-replacement/" itemprop="url">cache-replacement</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-29T16:19:04+08:00">
+                2017-09-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="查看缓存"><a href="#查看缓存" class="headerlink" title="查看缓存"></a>查看缓存</h2><ul>
+<li>free/top 命令</li>
+<li><p>cache memory <code>cat /proc/meminfo</code></p>
+<ul>
+<li>读写文件，为了提高读写性能与速度，会将文件在内存中进行缓存，这部分内存就是Cache Memory(缓存内存).即使你的程序运行结束后，Cache Memory也不会自动释放</li>
+</ul>
+</li>
+<li><p>手动释放cache</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span># To free pagecache:</span><br><span class="line">echo 1 &gt; /proc/sys/vm/drop_caches</span><br><span class="line"><span class="meta">#</span># To free dentries and inodes:</span><br><span class="line">echo 2 &gt; /proc/sys/vm/drop_caches</span><br><span class="line"><span class="meta">#</span># To free pagecache, dentries and inodes:</span><br><span class="line">echo 3 &gt; /proc/sys/vm/drop_caches</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看cached里面的内容 linux-ftools</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>!/bin/bash</span><br><span class="line"></span><br><span class="line">tar xf linux-ftools.tar.gz -C ./</span><br><span class="line">cd linux-ftools/ &amp;&amp; ./configure &amp;&amp; make &amp;&amp; make install</span><br><span class="line">`</span><br></pre></td></tr></table></figure>
+<p>eg:查看/tmp 目录下缓存了哪些文件, 命令：</p>
+<p><code>linux-fincore --pages=false --summarize --only-cached /tmp/*</code></p>
+<p><code>`</code></p>
+<h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><h2 id="缓存命中"><a href="#缓存命中" class="headerlink" title="缓存命中"></a>缓存命中</h2><h2 id="cache-miss（缓存没命中）"><a href="#cache-miss（缓存没命中）" class="headerlink" title="cache miss（缓存没命中）"></a>cache miss（缓存没命中）</h2><p>把缓存中的就对象踢出，把新的对象加入缓存池。（替换策略，最优的替代策略就是想把缓存中最没用的条目给踢出去，但是未来是不能够被预知的，所以这种策略是不可能实现的）</p>
+<h2 id="缓存替换算法"><a href="#缓存替换算法" class="headerlink" title="缓存替换算法"></a>缓存替换算法</h2><h3 id="FIFO"><a href="#FIFO" class="headerlink" title="FIFO"></a>FIFO</h3><p>先进先出</p>
+<h3 id="LFU"><a href="#LFU" class="headerlink" title="LFU"></a>LFU</h3><p>最近最少使用算法</p>
+<p><code>如果一个数据在最近一段时间内使用次数很少，那么在将来一段时间内被使用的可能性也很小</code></p>
+<p>利用一个数组存储 数据项，用hashmap存储每个数据项在数组中对应的位置，然后为每个数据项设计一个访问频次，当数据项被命中时，访问频次自增，在淘汰的时候淘汰访问频次最少的数据</p>
+<h3 id="LRU"><a href="#LRU" class="headerlink" title="LRU"></a>LRU</h3><p>最近最久未使用</p>
+<p><code>如果一个数据在最近一段时间没有被访问到，那么在将来它被访问的可能性也很小</code></p>
+<p>当需要插入新的数据项的时候，如果新数据项在链表中存在（一般称为命中），则把该节点移到链表头部，如果不存在，则新建一个节点，放到链表头部，若缓存满了，则把链表最后一个节点删除即可。在访问数据的时候，如果数据项在链表中存在，则把该节点移到链表头部，否则返回-1。这样一来在链表尾部的节点就是最近最久未访问的数据项</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/25/array-unique/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1152,7 +1296,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
