@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="middlewares," />
 
 
 
@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="查看缓存 free/top 命令 cache memory cat /proc/meminfo  读写文件，为了提高读写性能与速度，会将文件在内存中进行缓存，这部分内存就是Cache Memory(缓存内存).即使你的程序运行结束后，Cache Memory也不会自动释放   手动释放cache 1234567## To free pagecache:echo 1 &amp;gt; /proc/sys/v">
-<meta name="keywords" content="keyword">
+<meta name="description" content="ES6 Tips字符串 带标签的模板字符  1234567891011121314let name = &apos;zhang3&apos;;let age = 9;function tag(strArr, ...args) &amp;#123;    var str = &apos;&apos;;    for (let i = 0; i &amp;lt; args.length; i++) &amp;#123;        str += strArr[i">
+<meta name="keywords" content="middlewares">
 <meta property="og:type" content="article">
-<meta property="og:title" content="cache-replacement">
-<meta property="og:url" content="http://yoursite.com/2017/09/29/cache-replacement/index.html">
+<meta property="og:title" content="ES6-tips">
+<meta property="og:url" content="http://yoursite.com/2018/04/04/ES6-tips/index.html">
 <meta property="og:site_name" content="Laurel Blog">
-<meta property="og:description" content="查看缓存 free/top 命令 cache memory cat /proc/meminfo  读写文件，为了提高读写性能与速度，会将文件在内存中进行缓存，这部分内存就是Cache Memory(缓存内存).即使你的程序运行结束后，Cache Memory也不会自动释放   手动释放cache 1234567## To free pagecache:echo 1 &amp;gt; /proc/sys/v">
-<meta property="og:updated_time" content="2018-03-29T09:01:39.000Z">
+<meta property="og:description" content="ES6 Tips字符串 带标签的模板字符  1234567891011121314let name = &apos;zhang3&apos;;let age = 9;function tag(strArr, ...args) &amp;#123;    var str = &apos;&apos;;    for (let i = 0; i &amp;lt; args.length; i++) &amp;#123;        str += strArr[i">
+<meta property="og:updated_time" content="2018-04-04T08:35:38.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="cache-replacement">
-<meta name="twitter:description" content="查看缓存 free/top 命令 cache memory cat /proc/meminfo  读写文件，为了提高读写性能与速度，会将文件在内存中进行缓存，这部分内存就是Cache Memory(缓存内存).即使你的程序运行结束后，Cache Memory也不会自动释放   手动释放cache 1234567## To free pagecache:echo 1 &amp;gt; /proc/sys/v">
+<meta name="twitter:title" content="ES6-tips">
+<meta name="twitter:description" content="ES6 Tips字符串 带标签的模板字符  1234567891011121314let name = &apos;zhang3&apos;;let age = 9;function tag(strArr, ...args) &amp;#123;    var str = &apos;&apos;;    for (let i = 0; i &amp;lt; args.length; i++) &amp;#123;        str += strArr[i">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/09/29/cache-replacement/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/04/04/ES6-tips/"/>
 
 
 
 
 
-  <title>cache-replacement | Laurel Blog</title>
+  <title>ES6-tips | Laurel Blog</title>
   
 
 
@@ -185,7 +185,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            Startseite
           </a>
         </li>
       
@@ -195,7 +195,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/29/cache-replacement/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/04/ES6-tips/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Lurel">
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">cache-replacement</h1>
+          <h1 class="post-title" itemprop="name headline">ES6-tips</h1>
         
 
         <div class="post-meta">
@@ -259,10 +259,10 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-29T16:19:04+08:00">
-                2017-09-29
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-04T14:43:54+08:00">
+                2018-04-04
               </time>
             
 
@@ -271,6 +271,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/cate/" itemprop="url" rel="index">
+                    <span itemprop="name">cate</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -299,31 +321,51 @@
       
 
       
-        <h2 id="查看缓存"><a href="#查看缓存" class="headerlink" title="查看缓存"></a>查看缓存</h2><ul>
-<li>free/top 命令</li>
-<li><p>cache memory <code>cat /proc/meminfo</code></p>
+        <h2 id="ES6-Tips"><a href="#ES6-Tips" class="headerlink" title="ES6 Tips"></a>ES6 Tips</h2><h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><ol>
+<li>带标签的模板字符</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> name = <span class="string">'zhang3'</span>;</span><br><span class="line"><span class="keyword">let</span> age = <span class="number">9</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">tag</span>(<span class="params">strArr, ...args</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> str = <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; args.length; i++) &#123;</span><br><span class="line">        str += strArr[i] + args[i]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(strArr, args);</span><br><span class="line"></span><br><span class="line">    str += strArr[strArr.length - <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">return</span> str;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> str = tag<span class="string">`<span class="subst">$&#123;name&#125;</span>今年<span class="subst">$&#123;age&#125;</span>岁了`</span>；</span><br><span class="line"><span class="built_in">console</span>.info(str);</span><br></pre></td></tr></table></figure>
+<ol>
+<li>includes 方法</li>
+</ol>
+<p>判断字符串中是否包含某个字符串<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> str = <span class="string">'xingqitian'</span>；</span><br><span class="line">str.includes(<span class="string">'ti'</span>); <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>endsWidth、startsWith 方法</li>
+</ol>
+<p>判断字符串是否以某一个字符串开始或结束<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">'234567899sddcdhs'</span>;</span><br><span class="line">a.startsWith(<span class="string">'23'</span>);</span><br><span class="line">a.endsWith(<span class="string">'Hs'</span>);</span><br></pre></td></tr></table></figure></p>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><ol>
+<li>函数参数可赋值，可解构</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">&#123;a=<span class="number">5</span>&#125;</span>)</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>箭头函数</li>
+</ol>
 <ul>
-<li>读写文件，为了提高读写性能与速度，会将文件在内存中进行缓存，这部分内存就是Cache Memory(缓存内存).即使你的程序运行结束后，Cache Memory也不会自动释放</li>
+<li>如果参数只有一个，可省略小括号</li>
+<li>如果不写return，可以不写大括号</li>
+<li>没有arguments变量</li>
+<li>不改变this指向</li>
 </ul>
-</li>
-<li><p>手动释放cache</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span># To free pagecache:</span><br><span class="line">echo 1 &gt; /proc/sys/vm/drop_caches</span><br><span class="line"><span class="meta">#</span># To free dentries and inodes:</span><br><span class="line">echo 2 &gt; /proc/sys/vm/drop_caches</span><br><span class="line"><span class="meta">#</span># To free pagecache, dentries and inodes:</span><br><span class="line">echo 3 &gt; /proc/sys/vm/drop_caches</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查看cached里面的内容 linux-ftools</p>
-</li>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 求和</span></span><br><span class="line"><span class="keyword">let</span> sum = <span class="function">(<span class="params">a,b</span>)=&gt;</span>a+b;</span><br></pre></td></tr></table></figure>
+<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><ol>
+<li>数组新方法</li>
+</ol>
+<ul>
+<li>Array.from(); //将类数组转化成数组</li>
+<li>Array.of(); //创建数组</li>
+<li>Array.fill();//填充数组</li>
+<li>Array.reduce();//传入回调适合处理 临近数组元素</li>
+<li>Array.filter();//数组过滤</li>
+<li>Array.find();//查找返回值</li>
+<li>Array.includes();//判断数组是否有某值</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>!/bin/bash</span><br><span class="line"></span><br><span class="line">tar xf linux-ftools.tar.gz -C ./</span><br><span class="line">cd linux-ftools/ &amp;&amp; ./configure &amp;&amp; make &amp;&amp; make install</span><br><span class="line">`</span><br></pre></td></tr></table></figure>
-<p>eg:查看/tmp 目录下缓存了哪些文件, 命令：</p>
-<p><code>linux-fincore --pages=false --summarize --only-cached /tmp/*</code></p>
-<p><code>`</code></p>
-<h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><h2 id="缓存命中"><a href="#缓存命中" class="headerlink" title="缓存命中"></a>缓存命中</h2><h2 id="cache-miss（缓存没命中）"><a href="#cache-miss（缓存没命中）" class="headerlink" title="cache miss（缓存没命中）"></a>cache miss（缓存没命中）</h2><p>把缓存中的就对象踢出，把新的对象加入缓存池。（替换策略，最优的替代策略就是想把缓存中最没用的条目给踢出去，但是未来是不能够被预知的，所以这种策略是不可能实现的）</p>
-<h2 id="缓存替换算法"><a href="#缓存替换算法" class="headerlink" title="缓存替换算法"></a>缓存替换算法</h2><h3 id="FIFO"><a href="#FIFO" class="headerlink" title="FIFO"></a>FIFO</h3><p>先进先出</p>
-<h3 id="LFU"><a href="#LFU" class="headerlink" title="LFU"></a>LFU</h3><p>最近最少使用算法</p>
-<p><code>如果一个数据在最近一段时间内使用次数很少，那么在将来一段时间内被使用的可能性也很小</code></p>
-<p>利用一个数组存储 数据项，用hashmap存储每个数据项在数组中对应的位置，然后为每个数据项设计一个访问频次，当数据项被命中时，访问频次自增，在淘汰的时候淘汰访问频次最少的数据</p>
-<h3 id="LRU"><a href="#LRU" class="headerlink" title="LRU"></a>LRU</h3><p>最近最久未使用</p>
-<p><code>如果一个数据在最近一段时间没有被访问到，那么在将来它被访问的可能性也很小</code></p>
-<p>当需要插入新的数据项的时候，如果新数据项在链表中存在（一般称为命中），则把该节点移到链表头部，如果不存在，则新建一个节点，放到链表头部，若缓存满了，则把链表最后一个节点删除即可。在访问数据的时候，如果数据项在链表中存在，则把该节点移到链表头部，否则返回-1。这样一来在链表尾部的节点就是最近最久未访问的数据项</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.of(<span class="number">2</span>,<span class="number">3</span>)   <span class="comment">// [2,3]</span></span><br></pre></td></tr></table></figure>
+<h3 id="Class-类"><a href="#Class-类" class="headerlink" title="Class 类"></a>Class 类</h3><ul>
+<li>Class 定义类</li>
+<li>extends 实现继承</li>
+<li>支持静态方法</li>
+<li>constructor 构造方法</li>
+</ul>
 
       
     </div>
@@ -339,6 +381,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/middlewares/" rel="tag"># middlewares</a>
+          
+        </div>
+      
 
       
       
@@ -348,8 +396,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/01/25/array-unique/" rel="next" title="array_unique">
-                <i class="fa fa-chevron-left"></i> array_unique
+              <a href="/2018/03/29/cache-replacement/" rel="next" title="cache-replacement">
+                <i class="fa fa-chevron-left"></i> cache-replacement
               </a>
             
           </div>
@@ -358,8 +406,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/11/23/houdini/" rel="prev" title="houdini">
-                houdini <i class="fa fa-chevron-right"></i>
+              <a href="/2018/04/08/移动端开发/" rel="prev" title="移动端开发">
+                移动端开发 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -414,10 +462,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            Übersicht
           </li>
         </ul>
       
@@ -437,8 +485,8 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">16</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
             
@@ -449,7 +497,7 @@
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
                   <span class="site-state-item-count">1</span>
-                  <span class="site-state-item-name">categories</span>
+                  <span class="site-state-item-name">Kategorien</span>
                 </a>
               </div>
             
@@ -459,8 +507,8 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">6</span>
-                  <span class="site-state-item-name">tags</span>
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">Tags</span>
                 </a>
               </div>
             
@@ -492,7 +540,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#查看缓存"><span class="nav-number">1.</span> <span class="nav-text">查看缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存"><span class="nav-number">2.</span> <span class="nav-text">缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存命中"><span class="nav-number">3.</span> <span class="nav-text">缓存命中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cache-miss（缓存没命中）"><span class="nav-number">4.</span> <span class="nav-text">cache miss（缓存没命中）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存替换算法"><span class="nav-number">5.</span> <span class="nav-text">缓存替换算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#FIFO"><span class="nav-number">5.1.</span> <span class="nav-text">FIFO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LFU"><span class="nav-number">5.2.</span> <span class="nav-text">LFU</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LRU"><span class="nav-number">5.3.</span> <span class="nav-text">LRU</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ES6-Tips"><span class="nav-number">1.</span> <span class="nav-text">ES6 Tips</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串"><span class="nav-number">1.1.</span> <span class="nav-text">字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数"><span class="nav-number">1.2.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组"><span class="nav-number">1.3.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Class-类"><span class="nav-number">1.4.</span> <span class="nav-text">Class 类</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -522,7 +570,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 

@@ -185,7 +185,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            Startseite
           </a>
         </li>
       
@@ -195,7 +195,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -218,6 +218,765 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/13/preload-prefetch/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lurel">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Laurel Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/13/preload-prefetch/" itemprop="url">preload_prefetch</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-13T14:36:14+08:00">
+                2018-02-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/cate/" itemprop="url" rel="index">
+                    <span itemprop="name">cate</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="preload-预加载资源"><a href="#preload-预加载资源" class="headerlink" title="preload 预加载资源"></a>preload 预加载资源</h2><p>preload让浏览器提前加载指定资源（加载后并不执行），在需要执行时再执行：</p>
+<ul>
+<li>将加载和执行分离开，可不阻塞渲染和document的onload事件</li>
+<li>提前加载指定资源，不再出现依赖的font字体隔了一段时间才刷出</li>
+</ul>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ul>
+<li><p>使用link标签创建</p>
+  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"preload"</span> <span class="attr">href</span>=<span class="string">"/path/to/style.css"</span> <span class="attr">as</span>=<span class="string">"style"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用HTTP响应头的Link字段创建</p>
+</li>
+</ul>
+<h3 id="判断浏览器是否支持preload"><a href="#判断浏览器是否支持preload" class="headerlink" title="判断浏览器是否支持preload"></a>判断浏览器是否支持preload</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> isPreloadSupported = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> link = <span class="built_in">document</span>.createElement(<span class="string">'link'</span>);</span><br><span class="line">    <span class="keyword">const</span> relList = link.relList;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!relList || !relList.supports) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> relList.supports(<span class="string">'preload'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="区分preload-和-prefetch"><a href="#区分preload-和-prefetch" class="headerlink" title="区分preload 和 prefetch"></a>区分preload 和 prefetch</h3><ul>
+<li>preload 告诉浏览器页面必定需要的资源，浏览器一定会加载这些资源；</li>
+<li>prefetch 告诉浏览器页面可能需要的资源，浏览器不一定会加载这些资源。</li>
+</ul>
+<p>preload是确认会加载指定资源；<br>prefetch是预测会加载指定资源。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/07/send-beacon/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lurel">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Laurel Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/07/send-beacon/" itemprop="url">send-beacon</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-07T15:38:38+08:00">
+                2018-02-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="canceled-request"><a href="#canceled-request" class="headerlink" title="canceled request"></a>canceled request</h2><p>开发者主动放弃请求的方式：</p>
+<ol>
+<li>把一个发请求的dom元素删除掉；</li>
+<li>在一个资源加载的时候修改它的请求地址，比如iframe</li>
+<li>对同一个服务器的请求太多，导致某一次出现错误</li>
+</ol>
+<h2 id="Navigator-sendBeacon"><a href="#Navigator-sendBeacon" class="headerlink" title="Navigator.sendBeacon"></a>Navigator.sendBeacon</h2><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Navigator/sendBeacon" target="_blank" rel="noopener">sendBeacon</a><br>通过HTTP将少量数据异步传输到web服务器。</p>
+<ul>
+<li>在卸载事件处理器中创建一个图片元素并设置它的src属性的方法来延迟卸载以保证数据的发送。</li>
+<li>通过创建一个几秒中的noop循环来延迟卸载并向服务器发送数据。</li>
+</ul>
+<p>sendBeacon()方法，会使用户代理在有机会时异步地向服务器发送数据，同时不会延迟页面的卸载活影响下一导航的载入性能。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'unload'</span>, logData, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">logData</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    navigator.sendBeacon(<span class="string">'/log'</span>, data)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/01/性能优化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lurel">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Laurel Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/01/性能优化/" itemprop="url">性能优化</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-01T14:50:50+08:00">
+                2018-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一、网络加载类"><a href="#一、网络加载类" class="headerlink" title="一、网络加载类"></a>一、网络加载类</h2><h3 id="1．首屏数据请求提前，避免JavaScript文件加载后才请求数据"><a href="#1．首屏数据请求提前，避免JavaScript文件加载后才请求数据" class="headerlink" title="1．首屏数据请求提前，避免JavaScript文件加载后才请求数据"></a>1．首屏数据请求提前，避免JavaScript文件加载后才请求数据</h3><blockquote>
+<p>为了进一步提升页面加载速度，可以考虑将页面的数据请求尽可能提前，避免在JavaScript加载完成后才去请求数据。通常数据请求是页面内容渲染中关键路径最长的部分，而且不能并行，所以如果能将数据请求提前，可以极大程度上缩短页面内容的渲染完成时间。</p>
+</blockquote>
+<h3 id="2．首屏加载和按需加载，非首屏内容滚屏加载，保证首屏内容最小化"><a href="#2．首屏加载和按需加载，非首屏内容滚屏加载，保证首屏内容最小化" class="headerlink" title="2．首屏加载和按需加载，非首屏内容滚屏加载，保证首屏内容最小化"></a>2．首屏加载和按需加载，非首屏内容滚屏加载，保证首屏内容最小化</h3><blockquote>
+<p>由于移动端网络速度相对较慢，网络资源有限，因此为了尽快完成页面内容的加载，需要保证首屏加载资源最小化，非首屏内容使用滚动的方式异步加载。一般推荐移动端页面首屏数据展示延时最长不超过3秒。目前中国联通3G的网络速度为338KB/s（2.71Mb/s），所以推荐首屏所有资源大小不超过1014KB，即大约不超过1MB。</p>
+</blockquote>
+<h3 id="3．模块化资源并行下载"><a href="#3．模块化资源并行下载" class="headerlink" title="3．模块化资源并行下载"></a>3．模块化资源并行下载</h3><p>在移动端资源加载中，尽量保证JavaScript资源并行加载，主要指的是模块化JavaScript资源的异步加载，例如AMD的异步模块，使用并行的加载方式能够缩短多个文件资源的加载时间。</p>
+<h3 id="4．inline首屏必备的CSS和JavaScript"><a href="#4．inline首屏必备的CSS和JavaScript" class="headerlink" title="4．inline首屏必备的CSS和JavaScript"></a>4．inline首屏必备的CSS和JavaScript</h3><p>通常为了在HTML加载完成时能使浏览器中有基本的样式，需要将页面渲染时必备的CSS和JavaScript通过<script>或<style>内联到页面中，避免页面HTML载入完成到页面内容展示这段过程中页面出现空白。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>样例<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,minimum-scale=1.0, maximum-scale=1.0,user-scalable=no"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">    <span class="comment">/* 必备的首屏CSS */</span></span></span><br><span class="line"><span class="undefined">    html, body&#123;</span></span><br><span class="line"><span class="undefined">        margin: 0;</span></span><br><span class="line"><span class="undefined">        padding: 0;</span></span><br><span class="line"><span class="css">        <span class="selector-tag">background-color</span>: <span class="selector-id">#ccc</span>;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="5．meta-dns-prefetch设置DNS预解析"><a href="#5．meta-dns-prefetch设置DNS预解析" class="headerlink" title="5．meta dns prefetch设置DNS预解析"></a>5．meta dns prefetch设置DNS预解析</h3><p>设置文件资源的DNS预解析，让浏览器提前解析获取静态资源的主机IP，避免等到请求时才发起DNS解析请求。</p>
+<h3 id="6．资源预加载"><a href="#6．资源预加载" class="headerlink" title="6．资源预加载"></a>6．资源预加载</h3><p>对于移动端首屏加载后可能会被使用的资源，需要在首屏完成加载后尽快进行加载，保证在用户需要浏览时已经加载完成，这时候如果再去异步请求就显得很慢。</p>
+<h3 id="7．合理利用MTU策略"><a href="#7．合理利用MTU策略" class="headerlink" title="7．合理利用MTU策略"></a>7．合理利用MTU策略</h3><p>通常情况下，我们认为TCP网络传输的最大传输单元（Maximum Transmission Unit，MTU）为1500B，即网络一个RTT（Round-Trip Time，网络请求往返时间）时间内可以传输的数据量最大为1500字节。因此，在前后端分离的开发模式中，尽量保证页面的HTML内容在1KB以内，这样整个HTML的内容请求就可以在一个RTT时间内请求完成，最大限度地提高HTML载入速度。</p>
+<h2 id="二、缓存类"><a href="#二、缓存类" class="headerlink" title="二、缓存类"></a>二、缓存类</h2><h3 id="1．合理利用浏览器缓存"><a href="#1．合理利用浏览器缓存" class="headerlink" title="1．合理利用浏览器缓存"></a>1．合理利用浏览器缓存</h3><p>除了上面说到的使用Cache-Control、Expires、Etag和Last-Modified来设置HTTP缓存外，还可以使用localStorage等来保存AJAX返回的数据，或者使用localStorage保存CSS或JavaScript静态资源内容，实现移动端的离线应用，尽可能减少网络请求，保证静态资源内容的快速加载。</p>
+<h3 id="2．静态资源离线方案"><a href="#2．静态资源离线方案" class="headerlink" title="2．静态资源离线方案"></a>2．静态资源离线方案</h3><p>对于移动端或Hybrid应用，可以设置离线文件或离线包机制让静态资源请求从本地读取，加快资源载入速度，并实现离线更新。关于这块内容，我们会在后面的章节中重点讲解。</p>
+<h3 id="3．尝试使用AMP-HTML"><a href="#3．尝试使用AMP-HTML" class="headerlink" title="3．尝试使用AMP HTML"></a>3．尝试使用AMP HTML</h3><p><a href="https://www.ampproject.org/zh_cn/docs/tutorials/create/basic_markup">amp</a></p>
+<p>AMP HTML可以作为优化前端页面性能的一个解决方案，使用AMP Component中的元素来代替原始的页面元素进行直接渲染。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 不推荐 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">video</span> <span class="attr">width</span>=<span class="string">"400"</span> <span class="attr">height</span>=<span class="string">"300"</span> <span class="attr">src</span>=<span class="string">"http://www.domain.com/videos/myvideo.mp4"</span> <span class="attr">poster</span>=<span class="string">"path/poster.jpg"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">fallback</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>Your browser doesn’t support HTML5 video<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">source</span> <span class="attr">type</span>=<span class="string">"video/mp4"</span> <span class="attr">src</span>=<span class="string">"foo.mp4"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">source</span> <span class="attr">type</span>=<span class="string">"video/webm"</span> <span class="attr">src</span>=<span class="string">"foo.webm"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">video</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 推荐 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">amp-video</span> <span class="attr">width</span>=<span class="string">"400"</span> <span class="attr">height</span>=<span class="string">"300"</span> <span class="attr">src</span>=<span class="string">"http://www.domain.com/videos/myvideo.mp4"</span> <span class="attr">poster</span>= <span class="string">"path/poster.jpg"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">fallback</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>Your browser doesn’t support HTML5 video<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">source</span> <span class="attr">type</span>=<span class="string">"video/mp4"</span> <span class="attr">src</span>=<span class="string">"foo.mp4"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">source</span> <span class="attr">type</span>=<span class="string">"video/webm"</span> <span class="attr">src</span>=<span class="string">"foo.webm"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">amp-video</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="三、图片类"><a href="#三、图片类" class="headerlink" title="三、图片类"></a>三、图片类</h2><h3 id="1．图片压缩处理"><a href="#1．图片压缩处理" class="headerlink" title="1．图片压缩处理"></a>1．图片压缩处理</h3><blockquote>
+<p>在移动端，通常要保证页面中一切用到的图片都是经过压缩优化处理的，而不是以原图的形式直接使用的，因为那样很消耗流量，而且加载时间更长。</p>
+</blockquote>
+<blockquote>
+<p>2．使用较小的图片，合理使用base64内嵌图片</p>
+</blockquote>
+<p>在页面使用的背景图片不多且较小的情况下，可以将图片转化成base64编码嵌入到HTML页面或CSS文件中，这样可以减少页面的HTTP请求数。需要注意的是，要保证图片较小，一般图片大小超过2KB就不推荐使用base64嵌入显示了。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="selector-class">.class-name</span> &#123;</span><br><span class="line"></span><br><span class="line">       <span class="attribute">background-image</span>: <span class="built_in">url</span>(<span class="string">'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAALCAMAAABxsOwqAAAAYFBMVEWnxwusyQukxQudwQyZvgyhxAyfwgyxzAsUHQGOuA0aJAERGAFIXwSTugyEqgtqhghQZgUwQQIpOQKbuguVtQuKrAuCowp2kQlheghTbQZHWQU7SwVAVgQ6TgQlLwMeKwFOemyQAAAAVElEQVQI1y3JVRaAIAAF0UconXbvf5ei8HfPDIQQhBAAFE10iKig3SLRNN4SP/p+N08VC0YnfIlNWtqIkhg/TPYbCvhqdHAWRXPZSp3g3CWZvVLXC6OJA3ukv0AaAAAAAElFTkSuQmCC'</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3．使用更高压缩比格式的图片"><a href="#3．使用更高压缩比格式的图片" class="headerlink" title="3．使用更高压缩比格式的图片"></a>3．使用更高压缩比格式的图片</h3><p>使用具有较高压缩比格式的图片，如webp等。在同等图片画质的情况下，高压缩比格式的图片体积更小，能够更快完成文件传输，节省网络流量。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"//cdn.domain.com/path/photo.webp"</span> <span class="attr">alt</span>=<span class="string">"webp格式图片"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="4．图片懒加载"><a href="#4．图片懒加载" class="headerlink" title="4．图片懒加载"></a>4．图片懒加载</h3><p>为了保证页面内容的最小化，加速页面的渲染，尽可能节省移动端网络流量，页面中的图片资源推荐使用懒加载实现，在页面滚动时动态载入图片。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"//cdn.domain.com/path/photo.jpg"</span> <span class="attr">alt</span>=<span class="string">"懒加载图片"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="5．使用Media-Query或srcset根据不同屏幕加载不同大小图片-mobile"><a href="#5．使用Media-Query或srcset根据不同屏幕加载不同大小图片-mobile" class="headerlink" title="5．使用Media Query或srcset根据不同屏幕加载不同大小图片(mobile)"></a>5．使用Media Query或srcset根据不同屏幕加载不同大小图片(mobile)</h3><p>在介绍响应式的章节中我们了解到，针对不同的移动端屏幕尺寸和分辨率，输出不同大小的图片或背景图能保证在用户体验不降低的前提下节省网络流量，加快部分机型的图片加载速度，这在移动端非常值得推荐。</p>
+<h3 id="6．使用iconfont代替图片图标"><a href="#6．使用iconfont代替图片图标" class="headerlink" title="6．使用iconfont代替图片图标"></a>6．使用iconfont代替图片图标</h3><p>在页面中尽可能使用iconfont来代替图片图标，这样做的好处有以下几个：使用iconfont体积较小，而且是矢量图，因此缩放时不会失真；可以方便地修改图片大小尺寸和呈现颜色。但是需要注意的是，iconfont引用不同webfont格式时的兼容性写法，根据经验推荐尽量按照以下顺序书写，否则不容易兼容到所有的浏览器上。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">font-face</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">font-family</span>: iconfont;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">src</span>: <span class="built_in">url</span>(<span class="string">"./iconfont.eot"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="attribute">src</span>: <span class="built_in">url</span>(<span class="string">"./iconfont.eot?#iefix"</span>) <span class="built_in">format</span>(<span class="string">"eot"</span>),</span><br><span class="line"></span><br><span class="line">         <span class="built_in">url</span>(<span class="string">"./iconfont.woff"</span>) <span class="built_in">format</span>(<span class="string">"woff"</span>),</span><br><span class="line"></span><br><span class="line">         <span class="built_in">url</span>(<span class="string">"./iconfont.ttf"</span>) <span class="built_in">format</span>(<span class="string">"truetype"</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="7．定义图片大小限制"><a href="#7．定义图片大小限制" class="headerlink" title="7．定义图片大小限制"></a>7．定义图片大小限制</h3><p>加载的单张图片一般建议不超过30KB，避免大图片加载时间长而阻塞页面其他资源的下载，因此推荐在10KB以内。如果用户上传的图片过大，建议设置告警系统，帮助我们观察了解整个网站的图片流量情况，做出进一步的改善。</p>
+<h2 id="四、脚本类"><a href="#四、脚本类" class="headerlink" title="四、脚本类"></a>四、脚本类</h2><h3 id="1．尽量使用id选择器"><a href="#1．尽量使用id选择器" class="headerlink" title="1．尽量使用id选择器"></a>1．尽量使用id选择器</h3><p>选择页面DOM元素时尽量使用id选择器，因为id选择器速度最快。</p>
+<h3 id="2．合理缓存DOM对象"><a href="#2．合理缓存DOM对象" class="headerlink" title="2．合理缓存DOM对象"></a>2．合理缓存DOM对象</h3><blockquote>
+<p>对于需要重复使用的DOM对象，要优先设置缓存变量，避免每次使用时都要从整个DOM树中重新查找。</p>
+</blockquote>
+<h3 id="3．页面元素尽量使用事件代理，避免直接事件绑定"><a href="#3．页面元素尽量使用事件代理，避免直接事件绑定" class="headerlink" title="3．页面元素尽量使用事件代理，避免直接事件绑定"></a>3．页面元素尽量使用事件代理，避免直接事件绑定</h3><p>使用事件代理可以避免对每个元素都进行绑定，并且可以避免出现内存泄露及需要动态添加元素的事件绑定问题，所以尽量不要直接使用事件绑定。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 不推荐</span></span><br><span class="line"></span><br><span class="line">$(<span class="string">'.btn'</span>).on(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 推荐</span></span><br><span class="line"></span><br><span class="line">$(<span class="string">'body'</span>).on(<span class="string">'click'</span>, <span class="string">'.btn'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="4．使用touchstart代替click"><a href="#4．使用touchstart代替click" class="headerlink" title="4．使用touchstart代替click"></a>4．使用touchstart代替click</h3><p>由于移动端屏幕的设计，touchstart事件和click事件触发时间之间存在300毫秒的延时，所以在页面中没有实现touchmove滚动处理的情况下，可以使用touchstart事件来代替元素的click事件，加快页面点击的响应速度，提高用户体验。但同时我们也要注意页面重叠元素touch动作的点击穿透问题。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 不推荐</span></span><br><span class="line"></span><br><span class="line">$(<span class="string">'body'</span>).on(<span class="string">'click'</span>, <span class="string">'.btn'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 推荐</span></span><br><span class="line"></span><br><span class="line">$(<span class="string">'body'</span>).on(<span class="string">'touchstart'</span>, <span class="string">'.btn'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="5．避免touchmove、scroll连续事件处理"><a href="#5．避免touchmove、scroll连续事件处理" class="headerlink" title="5．避免touchmove、scroll连续事件处理"></a>5．避免touchmove、scroll连续事件处理</h3><p>需要对touchmove、scroll这类可能连续触发回调的事件设置事件节流，例如设置每隔16ms（60帧的帧间隔为16.7ms，因此可以合理地设置为16ms）才进行一次事件处理，避免频繁的事件调用导致移动端页面卡顿。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 不推荐</span></span><br><span class="line"></span><br><span class="line">$(<span class="string">'.scroller'</span>).on(<span class="string">'touchmove'</span>, <span class="string">'.btn'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 推荐</span></span><br><span class="line"></span><br><span class="line">$(<span class="string">'.scroller'</span>).on(<span class="string">'touchmove'</span>, <span class="string">'.btn'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> self = <span class="keyword">this</span>;</span><br><span class="line"></span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">console</span>.log(self);</span><br><span class="line"></span><br><span class="line">    &#125;, <span class="number">16</span>);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="6．避免使用eval、with，使用join代替连接符-，推荐使用ECMAScript-6的字符串模板"><a href="#6．避免使用eval、with，使用join代替连接符-，推荐使用ECMAScript-6的字符串模板" class="headerlink" title="6．避免使用eval、with，使用join代替连接符+，推荐使用ECMAScript 6的字符串模板"></a>6．避免使用eval、with，使用join代替连接符+，推荐使用ECMAScript 6的字符串模板</h3><p>这些都是一些基础的安全脚本编写问题，尽可能使用较高效率的特性来完成这些操作，避免不规范或不安全的写法。</p>
+<h3 id="7．尽量使用ECMAScript-6-的特性来编程"><a href="#7．尽量使用ECMAScript-6-的特性来编程" class="headerlink" title="7．尽量使用ECMAScript 6+的特性来编程"></a>7．尽量使用ECMAScript 6+的特性来编程</h3><p>ECMAScript 6+一定程度上更加安全高效，而且部分特性执行速度更快，也是未来规范的需要，所以推荐使用ECMAScript 6+的新特性来完成后面的开发。</p>
+<h2 id="五、渲染类"><a href="#五、渲染类" class="headerlink" title="五、渲染类"></a>五、渲染类</h2><h3 id="1．使用Viewport固定屏幕渲染，可以加速页面渲染内容"><a href="#1．使用Viewport固定屏幕渲染，可以加速页面渲染内容" class="headerlink" title="1．使用Viewport固定屏幕渲染，可以加速页面渲染内容"></a>1．使用Viewport固定屏幕渲染，可以加速页面渲染内容</h3><p>一般认为，在移动端设置Viewport可以加速页面的渲染，同时可以避免缩放导致页面重排重绘。在移动端固定Viewport设置的方法如下。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 设置viewport不缩放 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="2．避免各种形式重排重绘"><a href="#2．避免各种形式重排重绘" class="headerlink" title="2．避免各种形式重排重绘"></a>2．避免各种形式重排重绘</h3><p>页面的重排重绘很耗性能，所以一定要尽可能减少页面的重排重绘，例如页面图片大小变化、元素位置变化等这些情况都会导致重排重绘。</p>
+<h3 id="3．使用CSS3动画，开启GPU加速"><a href="#3．使用CSS3动画，开启GPU加速" class="headerlink" title="3．使用CSS3动画，开启GPU加速"></a>3．使用CSS3动画，开启GPU加速</h3><p>使用CSS3动画时可以设置transform: translateZ(0)来开启移动设备浏览器的GPU图形处理加速，让动画过程更加流畅。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">-webkit-transform</span>: <span class="selector-tag">translateZ</span>(0);</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">-ms-transform</span>: <span class="selector-tag">translateZ</span>(0);</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">-o-transform</span>: <span class="selector-tag">translateZ</span>(0);</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">transform</span>: <span class="selector-tag">translateZ</span>(0);</span><br></pre></td></tr></table></figure></p>
+<h3 id="4．合理使用Canvas和requestAnimationFrame"><a href="#4．合理使用Canvas和requestAnimationFrame" class="headerlink" title="4．合理使用Canvas和requestAnimationFrame"></a>4．合理使用Canvas和requestAnimationFrame</h3><p><a href="https://developers.google.com/web/fundamentals/performance/rendering/optimize-javascript-execution?hl=zh-cn">优化执行</a><br>选择Canvas或requestAnimationFrame等更高效的动画实现方式，尽量避免使用setTimeout、setInterval等方式来直接处理连续动画。</p>
+<h3 id="5．SVG代替图片"><a href="#5．SVG代替图片" class="headerlink" title="5．SVG代替图片"></a>5．SVG代替图片</h3><p>部分情况下可以考虑使用SVG代替图片实现动画，因为使用SVG格式内容更小，而且SVG DOM结构方便调整。</p>
+<h3 id="6．不滥用float"><a href="#6．不滥用float" class="headerlink" title="6．不滥用float"></a>6．不滥用float</h3><p>在DOM渲染树生成后的布局渲染阶段，使用float的元素布局计算比较耗性能，所以尽量减少float的使用，推荐使用固定布局或flex-box弹性布局的方式来实现页面元素布局。</p>
+<h3 id="7．不滥用web字体或过多font-size声明"><a href="#7．不滥用web字体或过多font-size声明" class="headerlink" title="7．不滥用web字体或过多font-size声明"></a>7．不滥用web字体或过多font-size声明</h3><p>过多的font-size声明会增加字体的大小计算，而且也没有必要的。</p>
+<h2 id="六、架构协议类"><a href="#六、架构协议类" class="headerlink" title="六、架构协议类"></a>六、架构协议类</h2><h3 id="1．尝试使用SPDY和HTTP-2"><a href="#1．尝试使用SPDY和HTTP-2" class="headerlink" title="1．尝试使用SPDY和HTTP 2"></a>1．尝试使用SPDY和HTTP 2</h3><p>在条件允许的情况下可以考虑使用SPDY协议来进行文件资源传输，利用连接复用加快传输过程，缩短资源加载时间。HTTP 2在未来也是可以考虑尝试的。</p>
+<h3 id="2．使用后端数据渲染"><a href="#2．使用后端数据渲染" class="headerlink" title="2．使用后端数据渲染"></a>2．使用后端数据渲染</h3><p>使用后端数据渲染的方式可以加快页面内容的渲染展示，避免空白页面的出现，同时可以解决移动端页面SEO的问题。如果条件允许，后端数据渲染是一个很不错的实践思路。后面的章节会详细介绍后端数据渲染的相关内容。</p>
+<h3 id="3．使用Native-View代替DOM的性能劣势"><a href="#3．使用Native-View代替DOM的性能劣势" class="headerlink" title="3．使用Native View代替DOM的性能劣势"></a>3．使用Native View代替DOM的性能劣势</h3><p>可以尝试使用Native View的MNV开发模式来避免HTML DOM性能慢的问题，目前使用MNV的开发模式已经可以将页面内容渲染体验做到接近客户端Native应用的体验了。</p>
+</script></p>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/25/throttle-debounce/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lurel">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Laurel Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/25/throttle-debounce/" itemprop="url">throttle-debounce</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-25T21:49:10+08:00">
+                2018-01-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/cate/" itemprop="url" rel="index">
+                    <span itemprop="name">cate</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="throttle-amp-debounce-节流和防抖"><a href="#throttle-amp-debounce-节流和防抖" class="headerlink" title="throttle &amp; debounce (节流和防抖)"></a>throttle &amp; debounce (节流和防抖)</h2><h3 id="节流-throttle"><a href="#节流-throttle" class="headerlink" title="节流[throttle]"></a>节流[throttle]</h3><p>使用setTimeout方法，给定两个时间，后面的时间减去前面的时间，到达给定的时间就去触发一个这个事件。<br>在规定的每300毫秒触发一次，当然时间可以自定义，根据需求来；</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> scrollBox = <span class="built_in">document</span>.querySelector(<span class="string">'.scroll-box'</span>);</span><br><span class="line">    <span class="built_in">console</span>.info(scrollBox)</span><br><span class="line">    <span class="comment">// 调用throttle函数，传入相应的方法和规定时间</span></span><br><span class="line">    <span class="keyword">var</span> thro = throttle(throFunc, <span class="number">300</span>);</span><br><span class="line">    <span class="comment">// 触发时间</span></span><br><span class="line">    scrollBox.on(<span class="string">'scroll'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 调用此函数</span></span><br><span class="line">        thro();</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 封装函数</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">method, time</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> timer = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">var</span> startTime = <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> context = <span class="keyword">this</span></span><br><span class="line">            <span class="keyword">var</span> endTime = <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line">            <span class="keyword">var</span> resTime = endTime - startTime</span><br><span class="line">            <span class="keyword">if</span>(resTime &gt;= time) &#123; <span class="comment">// 判断大于等于给定的时间就采取执行函数</span></span><br><span class="line">                method.call(context)</span><br><span class="line">                <span class="comment">// 执行完函数之后重置初始时间，等于最后一次触发的时间</span></span><br><span class="line">                startTime = endTime;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 封装函数</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">method, time</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> timer = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> context = <span class="keyword">this</span>;</span><br><span class="line">            <span class="comment">// 在函数执行的时候先清除timer定时器；</span></span><br><span class="line">            clearTimeout(timer);</span><br><span class="line">            timer = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                method.call(context);</span><br><span class="line">            &#125;,time);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">throFunc</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'success'</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="防抖-debounce"><a href="#防抖-debounce" class="headerlink" title="防抖[debounce]"></a>防抖[debounce]</h3><p>防抖的思想就是当拖动完成之后，两边的窗口位置再重新去计算，这样操作dom结构的次数就大大减少了；<br>优化了页面性能，降低了内存消耗<br>在某个事件没有结束之前，函数不会执行，当结束之后，给定延时时间，让他在给定的延时时间之后再去执行这个函数，这就是防抖函数；</p>
+<h3 id="sumary"><a href="#sumary" class="headerlink" title="sumary"></a>sumary</h3><p>节流就是每ms执行一次函数，防抖就是最后一次触发后ms后执行一次回调函数。</p>
+<ul>
+<li>当做keyup像后台请求检验的时候，可以使用防抖函数，不然每按一次键盘就请求一次，请求太频繁，这样当结束按键盘的时候再去请求，请求少很多了，性能自然不用说；</li>
+<li>resize 窗口大小调整的时候，可以采用防抖技术也可以使用节流；</li>
+<li>mousemove 鼠标移动事件既可以采用防抖也可以使用节流；</li>
+<li>scroll 滚动条触发的事件，当然既可以采用防抖也可以采用节流；</li>
+<li>连续高频发的事件都可以采用这两种方式去解决，优化页面性能；</li>
+</ul>
+<h3 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h3>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/25/Page_Visibility/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lurel">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Laurel Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/25/Page_Visibility/" itemprop="url">visibilitychange</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-25T21:42:42+08:00">
+                2018-01-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/cate/" itemprop="url" rel="index">
+                    <span itemprop="name">cate</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Page-Visibility-API-页面可见性"><a href="#Page-Visibility-API-页面可见性" class="headerlink" title="Page Visibility API 页面可见性"></a>Page Visibility API 页面可见性</h2><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Page_Visibility_API" target="_blank" rel="noopener">Page Visibility api</a></p>
+<h3 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 各种浏览器兼容(在页面可见性变化时修改document.title) */</span></span><br><span class="line"><span class="keyword">var</span> hidden, state, visibilityChange</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">document</span>.hidden !== <span class="string">'undefined'</span>) &#123;</span><br><span class="line">    hidden = <span class="string">'hidden'</span>;</span><br><span class="line">    visibilityChange = <span class="string">'visibilitychange'</span>;</span><br><span class="line">    state = <span class="string">'visibilityState'</span></span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">document</span>.mozHidden !== <span class="string">'undefined'</span>) &#123;</span><br><span class="line">    hidden = <span class="string">'mozHidden'</span>;</span><br><span class="line">    visibilityChange = <span class="string">'mozvisibilitychange'</span></span><br><span class="line">    state = <span class="string">'mozVisibilityState'</span></span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">document</span>.msHidden !== <span class="string">'undefined'</span>) &#123;</span><br><span class="line">    hidden = <span class="string">'msHidden'</span>;</span><br><span class="line">    visibilityChange = <span class="string">'msvisibilitychange'</span></span><br><span class="line">    state = <span class="string">'msVisibilityState'</span></span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">document</span>.webkitHidden !== <span class="string">'undefined'</span>) &#123;</span><br><span class="line">    hidden = <span class="string">'webKitHidden'</span>;</span><br><span class="line">    visibilityChange = <span class="string">'webkitvisibilitychange'</span></span><br><span class="line">    state = <span class="string">'webkitVisibilityState'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> n = <span class="number">0</span></span><br><span class="line"><span class="comment">// 添加监听器，在title里显示状态变化</span></span><br><span class="line"><span class="built_in">document</span>.addEventListener(visibilityChange, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    ++n</span><br><span class="line">    <span class="built_in">document</span>.title = <span class="built_in">document</span>[state] + <span class="string">':'</span> +n</span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">'num'</span>).innerText = n</span><br><span class="line">&#125;, <span class="literal">false</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 初始化</span></span><br><span class="line"><span class="built_in">document</span>.title = <span class="built_in">document</span>[state] + <span class="string">':'</span> +n;</span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'num'</span>).innerText = <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -261,7 +1020,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-25T21:35:10+08:00">
                 2018-01-25
@@ -282,7 +1041,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -425,7 +1184,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-24T10:18:42+08:00">
                 2018-01-24
@@ -446,7 +1205,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -597,7 +1356,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-23T19:33:43+08:00">
                 2017-11-23
@@ -618,7 +1377,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -826,150 +1585,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/29/cache-replacement/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lurel">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Laurel Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/29/cache-replacement/" itemprop="url">cache-replacement</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-29T16:19:04+08:00">
-                2017-09-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="查看缓存"><a href="#查看缓存" class="headerlink" title="查看缓存"></a>查看缓存</h2><ul>
-<li>free/top 命令</li>
-<li><p>cache memory <code>cat /proc/meminfo</code></p>
-<ul>
-<li>读写文件，为了提高读写性能与速度，会将文件在内存中进行缓存，这部分内存就是Cache Memory(缓存内存).即使你的程序运行结束后，Cache Memory也不会自动释放</li>
-</ul>
-</li>
-<li><p>手动释放cache</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span># To free pagecache:</span><br><span class="line">echo 1 &gt; /proc/sys/vm/drop_caches</span><br><span class="line"><span class="meta">#</span># To free dentries and inodes:</span><br><span class="line">echo 2 &gt; /proc/sys/vm/drop_caches</span><br><span class="line"><span class="meta">#</span># To free pagecache, dentries and inodes:</span><br><span class="line">echo 3 &gt; /proc/sys/vm/drop_caches</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查看cached里面的内容 linux-ftools</p>
-</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>!/bin/bash</span><br><span class="line"></span><br><span class="line">tar xf linux-ftools.tar.gz -C ./</span><br><span class="line">cd linux-ftools/ &amp;&amp; ./configure &amp;&amp; make &amp;&amp; make install</span><br><span class="line">`</span><br></pre></td></tr></table></figure>
-<p>eg:查看/tmp 目录下缓存了哪些文件, 命令：</p>
-<p><code>linux-fincore --pages=false --summarize --only-cached /tmp/*</code></p>
-<p><code>`</code></p>
-<h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><h2 id="缓存命中"><a href="#缓存命中" class="headerlink" title="缓存命中"></a>缓存命中</h2><h2 id="cache-miss（缓存没命中）"><a href="#cache-miss（缓存没命中）" class="headerlink" title="cache miss（缓存没命中）"></a>cache miss（缓存没命中）</h2><p>把缓存中的就对象踢出，把新的对象加入缓存池。（替换策略，最优的替代策略就是想把缓存中最没用的条目给踢出去，但是未来是不能够被预知的，所以这种策略是不可能实现的）</p>
-<h2 id="缓存替换算法"><a href="#缓存替换算法" class="headerlink" title="缓存替换算法"></a>缓存替换算法</h2><h3 id="FIFO"><a href="#FIFO" class="headerlink" title="FIFO"></a>FIFO</h3><p>先进先出</p>
-<h3 id="LFU"><a href="#LFU" class="headerlink" title="LFU"></a>LFU</h3><p>最近最少使用算法</p>
-<p><code>如果一个数据在最近一段时间内使用次数很少，那么在将来一段时间内被使用的可能性也很小</code></p>
-<p>利用一个数组存储 数据项，用hashmap存储每个数据项在数组中对应的位置，然后为每个数据项设计一个访问频次，当数据项被命中时，访问频次自增，在淘汰的时候淘汰访问频次最少的数据</p>
-<h3 id="LRU"><a href="#LRU" class="headerlink" title="LRU"></a>LRU</h3><p>最近最久未使用</p>
-<p><code>如果一个数据在最近一段时间没有被访问到，那么在将来它被访问的可能性也很小</code></p>
-<p>当需要插入新的数据项的时候，如果新数据项在链表中存在（一般称为命中），则把该节点移到链表头部，如果不存在，则新建一个节点，放到链表头部，若缓存满了，则把链表最后一个节点删除即可。在访问数据的时候，如果数据项在链表中存在，则把该节点移到链表头部，否则返回-1。这样一来在链表尾部的节点就是最近最久未访问的数据项</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/25/array-unique/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -999,7 +1614,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-25T14:32:45+08:00">
                 2017-01-25
@@ -1020,7 +1635,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1160,7 +1775,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-03-15T21:27:59+08:00">
                 2016-03-15
@@ -1296,8 +1911,8 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">16</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
             
@@ -1308,7 +1923,7 @@
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
                   <span class="site-state-item-count">1</span>
-                  <span class="site-state-item-name">categories</span>
+                  <span class="site-state-item-name">Kategorien</span>
                 </a>
               </div>
             
@@ -1318,8 +1933,8 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">6</span>
-                  <span class="site-state-item-name">tags</span>
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">Tags</span>
                 </a>
               </div>
             
@@ -1365,7 +1980,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 
