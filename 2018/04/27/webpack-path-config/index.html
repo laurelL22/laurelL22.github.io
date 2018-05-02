@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="desc">
+<meta name="description" content="link 关于webpack 路径参数的配置conventionpath  __dirname: 当前文件所在目录 process.cwd(): node当前运行目录，webpack运行所在目录 path.join(): 用于连接路径（依据当前系统的路径分割符） path.resolve(): 将相对路径转为绝对路径 accessSync(): 用于同步读取一个路径 path.relative(">
 <meta name="keywords" content="keyword">
 <meta property="og:type" content="article">
 <meta property="og:title" content="webpack-path-config">
 <meta property="og:url" content="http://yoursite.com/2018/04/27/webpack-path-config/index.html">
 <meta property="og:site_name" content="Laurel Blog">
-<meta property="og:description" content="desc">
-<meta property="og:updated_time" content="2018-04-27T09:25:43.336Z">
+<meta property="og:description" content="link 关于webpack 路径参数的配置conventionpath  __dirname: 当前文件所在目录 process.cwd(): node当前运行目录，webpack运行所在目录 path.join(): 用于连接路径（依据当前系统的路径分割符） path.resolve(): 将相对路径转为绝对路径 accessSync(): 用于同步读取一个路径 path.relative(">
+<meta property="og:updated_time" content="2018-04-27T10:12:20.160Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack-path-config">
-<meta name="twitter:description" content="desc">
+<meta name="twitter:description" content="link 关于webpack 路径参数的配置conventionpath  __dirname: 当前文件所在目录 process.cwd(): node当前运行目录，webpack运行所在目录 path.join(): 用于连接路径（依据当前系统的路径分割符） path.resolve(): 将相对路径转为绝对路径 accessSync(): 用于同步读取一个路径 path.relative(">
 
 
 
@@ -299,7 +299,27 @@
       
 
       
-        
+        <p><a href="http://www.qinshenxue.com/article/20170315092242.html" target="_blank" rel="noopener">link</a></p>
+<h2 id="关于webpack-路径参数的配置"><a href="#关于webpack-路径参数的配置" class="headerlink" title="关于webpack 路径参数的配置"></a>关于webpack 路径参数的配置</h2><h3 id="convention"><a href="#convention" class="headerlink" title="convention"></a>convention</h3><p><a href="http://javascript.ruanyifeng.com/nodejs/path.html" target="_blank" rel="noopener">path</a></p>
+<ul>
+<li>__dirname: 当前文件所在目录</li>
+<li>process.cwd(): node当前运行目录，webpack运行所在目录</li>
+<li>path.join(): 用于连接路径（依据当前系统的路径分割符）</li>
+<li>path.resolve(): 将相对路径转为绝对路径</li>
+<li>accessSync(): 用于同步读取一个路径</li>
+<li>path.relative(): 返回第二个参数相对于第一个路径的相对路径。接收两个参数，两个参数都是绝对路径。</li>
+<li>path.parse(): 可以返回路径各部分的信息  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> filePath = <span class="string">'/dir/file.json'</span></span><br><span class="line">path.parse(filePath).base; ()</span><br><span class="line">path.parse(filePath).name</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p><strong>dirname, process.cwd(),  path.resolve(</strong>dirname, ‘../‘)<br>/Users/baidu/ai-voice/build /Users/baidu/ai-voice /Users/baidu/ai-voice</p>
+</blockquote>
+<h3 id="context"><a href="#context" class="headerlink" title="context"></a>context</h3><p>webpack编译时的基础目录，入口起点（entry）会相对于此目录查找。</p>
+<p>默认为当前目录：</p>
+<blockquote>
+<p>this.set(‘context’, process.cwd) // process.cwd() 即为webpack运行所在的目录</p>
+</blockquote>
+
       
     </div>
     
@@ -332,6 +352,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/02/css暂停-播放动画/" rel="prev" title="css暂停/播放动画">
+                css暂停/播放动画 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -383,8 +407,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -399,7 +432,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
@@ -410,7 +443,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">Kategorien</span>
                 </a>
               </div>
@@ -444,6 +477,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#关于webpack-路径参数的配置"><span class="nav-number">1.</span> <span class="nav-text">关于webpack 路径参数的配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#convention"><span class="nav-number">1.1.</span> <span class="nav-text">convention</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#context"><span class="nav-number">1.2.</span> <span class="nav-text">context</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
