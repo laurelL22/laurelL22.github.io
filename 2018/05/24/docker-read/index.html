@@ -86,7 +86,7 @@
 <meta property="og:url" content="http://yoursite.com/2018/05/24/docker-read/index.html">
 <meta property="og:site_name" content="Laurel Blog">
 <meta property="og:description" content="docker 安装（mac） brew cask install docker docker –version docker info 镜像加速 国内网络问题，后续拉取 Docker 镜像十分缓慢，可以配置加速器来解决。 docker 应用 -&amp;gt; Perferences -&amp;gt; Daemon -&amp;gt; Registry mirrors -&amp;gt; 填写镜像地址（registry.dev">
-<meta property="og:updated_time" content="2018-05-25T06:50:12.045Z">
+<meta property="og:updated_time" content="2019-04-02T09:43:36.179Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker-read">
 <meta name="twitter:description" content="docker 安装（mac） brew cask install docker docker –version docker info 镜像加速 国内网络问题，后续拉取 Docker 镜像十分缓慢，可以配置加速器来解决。 docker 应用 -&amp;gt; Perferences -&amp;gt; Daemon -&amp;gt; Registry mirrors -&amp;gt; 填写镜像地址（registry.dev">
@@ -327,14 +327,13 @@
 <li>docker info</li>
 <li>镜像加速<ul>
 <li>国内网络问题，后续拉取 Docker 镜像十分缓慢，可以配置加速器来解决。</li>
-<li>docker 应用 -&gt; Perferences -&gt; Daemon -&gt; Registry mirrors -&gt; 填写镜像地址（registry.dev.weiyun.baidu.com）</li>
-<li>微云上找一个node镜像地址：registry.dev.weiyun.baidu.com/baidu_containers/nodejs-base:v1</li>
+<li>docker 应用 -&gt; Perferences -&gt; Daemon -&gt; Registry mirrors -&gt; 填写镜像地址（registry.dev.xxx.com）</li>
+<li>微云上找一个node镜像地址：registry.dev.xxx.com/baidu_containers/nodejs-base:v1</li>
 </ul>
 </li>
 </ul>
 <h2 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h2><ol>
-<li><p>docker run 在容器内运行一个应用程序：</p>
-<ul>
+<li>docker run 在容器内运行一个应用程序：<ul>
 <li>docker run f97883e95d8d echo “echo docker”<ul>
 <li>f97883e95d8d： 要运行的镜像</li>
 <li>echo “echo docker”: 在启动的容器里执行的命令</li>
@@ -342,8 +341,7 @@
 </li>
 </ul>
 </li>
-<li><p>运行交互式的容器：</p>
-<ul>
+<li>运行交互式的容器：<ul>
 <li>docker run -it f97883e95d8d bash<ul>
 <li>-t:在新容器内指定一个伪终端或终端。</li>
 <li>-i:允许你对容器内的标准输入 (STDIN) 进行交互。</li>
@@ -386,8 +384,6 @@
 </li>
 </ul>
 </li>
-</ol>
-<ol>
 <li><p>镜像images （静态的）</p>
 <ul>
 <li><p>列出本地主机的镜像： docker images</p>
@@ -423,22 +419,18 @@
 </li>
 </ul>
 </li>
-</ol>
-<ol>
-<li>Docker容器连接：<ul>
+<li><p>Docker容器连接：</p>
+<ul>
 <li></li>
 </ul>
 </li>
-</ol>
-<ol>
-<li>微云上发布<ul>
+<li><p>微云上发布</p>
+<ul>
 <li>wget xxx // 获取镜像</li>
 <li>unzip v0510.zip /home/work/project/xxx</li>
 <li>node /home/work/project/app.js</li>
 </ul>
 </li>
-</ol>
-<ol>
 <li><p>项目部署</p>
 <ul>
 <li>1.node/npm 依赖的环境 （固定不变的）</li>
@@ -457,18 +449,19 @@
 </li>
 </ul>
 </li>
-</ol>
-<ol>
-<li>Dockerfile<ul>
+<li><p>Dockerfile</p>
+<ul>
 <li>FROM egistry.dev.weiyun.baidu.com/baidu_containers/nodejs-base:v1</li>
 <li>RUN cp node.js xxx.nodejs</li>
 <li>RUN xxx</li>
-<li>CMD node app.js</li>
+<li><p>CMD node app.js</p>
+</li>
+<li><p>每一层都是一个layer</p>
+</li>
 </ul>
 </li>
 </ol>
-<pre><code>- 每一层都是一个layer
-</code></pre><h3 id="Docker-命令"><a href="#Docker-命令" class="headerlink" title="Docker 命令"></a>Docker 命令</h3><ul>
+<h3 id="Docker-命令"><a href="#Docker-命令" class="headerlink" title="Docker 命令"></a>Docker 命令</h3><ul>
 <li><p>容器生命周期管理</p>
 <ul>
 <li>docker run： 创建一个新的容器并运行一个命令</li>
@@ -486,7 +479,6 @@
 <ul>
 <li>docker ps：列出容器（-a， 显示所有容器；-f，根据条件过滤显示的内容；-l，最近创建的容器；-q，只显示容器编号）</li>
 <li>docker inspect：获取容器/镜像的元数据</li>
-<li></li>
 </ul>
 </li>
 </ul>
