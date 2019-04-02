@@ -82,13 +82,13 @@
 <meta name="description" content="一、聊天消息由下向上冒效果scrollIntoView &amp;amp; scrollIntoViewIfNeeded Element.scrollIntoView(): 让当前的元素滚动到浏览器窗口的可视区域内。 Element.scrollIntoViewIfNeeded(): 将不在浏览器窗口的可见区域内的元素滚动到浏览器窗口的可见区域。但如果该元素已经在浏览器窗口的可见区域内，则不会发生滚动。">
 <meta name="keywords" content="doc">
 <meta property="og:type" content="article">
-<meta property="og:title" content="bohe项目足迹">
+<meta property="og:title" content="bohe足迹">
 <meta property="og:url" content="http://yoursite.com/2018/04/19/bohe项目总结/index.html">
 <meta property="og:site_name" content="Laurel Blog">
 <meta property="og:description" content="一、聊天消息由下向上冒效果scrollIntoView &amp;amp; scrollIntoViewIfNeeded Element.scrollIntoView(): 让当前的元素滚动到浏览器窗口的可视区域内。 Element.scrollIntoViewIfNeeded(): 将不在浏览器窗口的可见区域内的元素滚动到浏览器窗口的可见区域。但如果该元素已经在浏览器窗口的可见区域内，则不会发生滚动。">
-<meta property="og:updated_time" content="2018-05-03T07:46:01.000Z">
+<meta property="og:updated_time" content="2018-10-29T07:23:10.951Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="bohe项目足迹">
+<meta name="twitter:title" content="bohe足迹">
 <meta name="twitter:description" content="一、聊天消息由下向上冒效果scrollIntoView &amp;amp; scrollIntoViewIfNeeded Element.scrollIntoView(): 让当前的元素滚动到浏览器窗口的可视区域内。 Element.scrollIntoViewIfNeeded(): 将不在浏览器窗口的可见区域内的元素滚动到浏览器窗口的可见区域。但如果该元素已经在浏览器窗口的可见区域内，则不会发生滚动。">
 
 
@@ -125,7 +125,7 @@
 
 
 
-  <title>bohe项目足迹 | Laurel Blog</title>
+  <title>bohe足迹 | Laurel Blog</title>
   
 
 
@@ -185,7 +185,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            Startseite
           </a>
         </li>
       
@@ -195,7 +195,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">bohe项目足迹</h1>
+          <h1 class="post-title" itemprop="name headline">bohe足迹</h1>
         
 
         <div class="post-meta">
@@ -259,7 +259,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-19T15:23:47+08:00">
                 2018-04-19
@@ -280,7 +280,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -346,21 +346,91 @@
 <li>scrollIntoViewIfNeeded只有Boolean型参数，没有动画效果。<ul>
 <li>true为默认值，不是滚动到顶部，而是让元素在可视区域中<strong>居中对齐</strong>；</li>
 <li>false时元素可能<strong>顶部或底部</strong>对齐</li>
-<li>元素处于部分可见，无论参数值是什么，都会滚动到元素与可视区域顶部或底部对齐，取决于元素离哪端更近</li>
+<li><font color="#c82829">元素处于部分可见，无论参数值是什么，都会滚动到元素与可视区域顶部或底部对齐，取决于元素离哪端更近</font>
+
+</li>
 </ul>
 </li>
 </ul>
 <h3 id="scroll-behavior"><a href="#scroll-behavior" class="headerlink" title="scroll-behavior"></a>scroll-behavior</h3><p><a href="https://css-tricks.com/almanac/properties/s/scroll-behavior/" target="_blank" rel="noopener">https://css-tricks.com/almanac/properties/s/scroll-behavior/</a></p>
 <p><a href="https://jsfiddle.net/laurel/3s8kekqs/" target="_blank" rel="noopener">demo</a></p>
 <h2 id="二、CSS3-animation-—-播放、暂停动画"><a href="#二、CSS3-animation-—-播放、暂停动画" class="headerlink" title="二、CSS3 animation — 播放、暂停动画"></a>二、CSS3 animation — 播放、暂停动画</h2><p>animation-play-state: paused | running</p>
-<p>可以通查询它来确定动画是否正在运行。值可以被设置为暂停和恢复的动画的重放。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.animation</span> &#123;</span><br><span class="line">    <span class="attribute">animation</span>: move <span class="number">2s</span> linear infinite alternate;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#stop</span><span class="selector-pseudo">:checked</span> ~ <span class="selector-class">.animation</span> &#123;</span><br><span class="line">    <span class="attribute">animation-play-state</span>: paused;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#play</span><span class="selector-pseudo">:checked</span> ~ <span class="selector-class">.animation</span> &#123;</span><br><span class="line">    <span class="attribute">animation-play-state</span>: running;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">keyframes</span> move &#123;</span><br><span class="line">    0% &#123;</span><br><span class="line">        <span class="attribute">transform</span>: <span class="built_in">translate</span>(-100px, 0);</span><br><span class="line">    &#125;</span><br><span class="line">    100% &#123;</span><br><span class="line">        <span class="attribute">transform</span>: <span class="built_in">translate</span>(100px, 0);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以通查询它来确定动画是否正在运行。值可以被设置为暂停和恢复的动画的重放。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.animation</span> &#123;</span><br><span class="line">    <span class="attribute">animation</span>: move <span class="number">2s</span> linear infinite alternate;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#stop</span><span class="selector-pseudo">:checked</span> ~ <span class="selector-class">.animation</span> &#123;</span><br><span class="line">    <span class="attribute">animation-play-state</span>: paused;</span><br><span class="line">    // -webkit-animation: none !important; // ios 替代方案</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#play</span><span class="selector-pseudo">:checked</span> ~ <span class="selector-class">.animation</span> &#123;</span><br><span class="line">    <span class="attribute">animation-play-state</span>: running;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">keyframes</span> move &#123;</span><br><span class="line">    0% &#123;</span><br><span class="line">        <span class="attribute">transform</span>: <span class="built_in">translate</span>(-100px, 0);</span><br><span class="line">    &#125;</span><br><span class="line">    100% &#123;</span><br><span class="line">        <span class="attribute">transform</span>: <span class="built_in">translate</span>(100px, 0);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p><a href="https://jsfiddle.net/laurel/rhc3e6nw/" target="_blank" rel="noopener">demo</a></p>
-<h2 id="三、移动端隐藏滚动条"><a href="#三、移动端隐藏滚动条" class="headerlink" title="三、移动端隐藏滚动条"></a>三、移动端隐藏滚动条</h2><p>app是IOS 内核，但是使用display: none;无效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&amp;::-webkit-scrollbar</span><br><span class="line">    display: none</span><br><span class="line">    visibility: hidden</span><br></pre></td></tr></table></figure></p>
-<p>换另一种方式：（包一层container，高度拉高，再用上面的盖掉）<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">scroll-list</span></span><br><span class="line">    <span class="selector-tag">overflow</span>: <span class="selector-tag">hidden</span></span><br><span class="line">    @<span class="keyword">include</span> px2rem(height, <span class="number">440</span>)</span><br><span class="line">    &amp;-container</span><br><span class="line">        @include px2rem(height, <span class="number">455</span>)</span><br><span class="line">        white-space: nowrap</span><br><span class="line">        overflow-x: scroll</span><br></pre></td></tr></table></figure></p>
+<h3 id="animation-play-state-在ios上不生效，在安卓上ok"><a href="#animation-play-state-在ios上不生效，在安卓上ok" class="headerlink" title="animation-play-state 在ios上不生效，在安卓上ok"></a>animation-play-state 在ios上不生效，在安卓上ok</h3><ul>
+<li><p>-webkit-animation-play-state: paused 在ios 替代方案：</p>
+<ul>
+<li>-webkit-animation: none !important;</li>
+<li>but 会还原动画效果，不能记录当前动画状态</li>
+</ul>
+</li>
+<li><p>添加父元素记录状态，彻底解决：<br><a href="https://www.jianshu.com/p/b6f71cdbe063" target="_blank" rel="noopener">https://www.jianshu.com/p/b6f71cdbe063</a></p>
+</li>
+</ul>
+<h2 id="三、IOS移动端隐藏滚动条"><a href="#三、IOS移动端隐藏滚动条" class="headerlink" title="三、IOS移动端隐藏滚动条"></a>三、IOS移动端隐藏滚动条</h2><p><a href="https://github.com/o2team/H5Skills/issues/72" target="_blank" rel="noopener">问题</a></p>
+<p>app是IOS 内核，但是使用display: none;无效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&amp;::-webkit-scrollbar</span><br><span class="line">    display: none</span><br><span class="line">    visibility: hidden</span><br></pre></td></tr></table></figure></p>
+<p>解决方案：<br>方案1：（包一层container，高度拉高，再用上面的盖掉）<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">scroll-list</span></span><br><span class="line">    <span class="selector-tag">overflow</span>: <span class="selector-tag">hidden</span></span><br><span class="line">    @<span class="keyword">include</span> px2rem(height, <span class="number">440</span>)</span><br><span class="line">    &amp;-container</span><br><span class="line">        @include px2rem(height, <span class="number">455</span>)</span><br><span class="line">        white-space: nowrap</span><br><span class="line">        overflow-x: scroll</span><br></pre></td></tr></table></figure></p>
+<p>方案2：把滚动条撑开，然后通过负外边距抵消撑开的部分，使得外容器高度不受影响<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"slider"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css"><span class="selector-class">.slider</span> &#123;</span></span><br><span class="line"><span class="undefined">    overflow: hidden;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="css"><span class="selector-class">.slider</span> <span class="selector-tag">ul</span> &#123;</span></span><br><span class="line"><span class="undefined">    padding-bottom: 10px;</span></span><br><span class="line"><span class="undefined">    margin-bottom: -10px;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <h2 id="四、footer固定在页面底部"><a href="#四、footer固定在页面底部" class="headerlink" title="四、footer固定在页面底部"></a>四、footer固定在页面底部</h2><p>只要四行就解决</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">flex-flow</span>: column;</span><br><span class="line">    <span class="attribute">min-height</span>: <span class="number">100vh</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">main</span> &#123;</span><br><span class="line">    <span class="attribute">flex</span>: <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">header</span>&gt;</span></span><br><span class="line">    header</span><br><span class="line"><span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">main</span>&gt;</span></span><br><span class="line">    main</span><br><span class="line"><span class="tag">&lt;/<span class="name">main</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">footer</span>&gt;</span></span><br><span class="line">    footer</span><br><span class="line"><span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 法二: footer高度固定 + 绝对定位</span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">min-height</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">main</span> &#123;</span><br><span class="line">    <span class="attribute">padding-bottom</span>: <span class="number">100px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">footer</span> &#123;</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">bottom</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100px</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 法二: footer高度固定 + margin负值</span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">min-height</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">main</span> &#123;</span><br><span class="line">    <span class="attribute">padding-bottom</span>: <span class="number">100px</span>;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">footer</span> &#123;</span><br><span class="line">    <span class="attribute">margin-top</span>: -<span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100px</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><a href="https://segmentfault.com/a/1190000004453249" target="_blank" rel="noopener">https://segmentfault.com/a/1190000004453249</a></p>
+<h2 id="五、判断是否为iphonex"><a href="#五、判断是否为iphonex" class="headerlink" title="五、判断是否为iphonex"></a>五、判断是否为iphonex</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isIPhoneX</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="regexp">/iphone/gi</span>.test(<span class="built_in">window</span>.navigator.userAgent) &amp;&amp; (screen.height === <span class="number">812</span> &amp;&amp; screen.width === <span class="number">375</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="六、取消浏览器就滚动条位置"><a href="#六、取消浏览器就滚动条位置" class="headerlink" title="六、取消浏览器就滚动条位置"></a>六、取消浏览器就滚动条位置</h2><p>history.scrollRestoration是新增的一个属性，值为auto|manual,默认为auto记录滚动条位置, 设为manual时就禁用记录位置的功能。<br>兼容性不乐观（至少iOS 10.3.2版本的浏览器不行）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="string">'scrollRestoration'</span> <span class="keyword">in</span> history) &#123;</span><br><span class="line">    history.scrollRestoration = <span class="string">'manual'</span>;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="built_in">window</span>.onunload= <span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">window</span>.scrollTo(<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="七、axios-请求携带cookie信息"><a href="#七、axios-请求携带cookie信息" class="headerlink" title="七、axios 请求携带cookie信息"></a>七、axios 请求携带cookie信息</h2><ul>
+<li>设置axios.defaults.withCredentials为true</li>
+<li>服务器端需要配置header(“Access-Control-Allow-Credentials: true”)</li>
+<li>!!! 当Access-Control-Allow-Credentials设为true的时候，Access-Control-Allow-Origin不能设为星号*</li>
+</ul>
+<h2 id="八、移动端底部固定定位fixed-amp-IOS上autofoucs失效，需要手动触发"><a href="#八、移动端底部固定定位fixed-amp-IOS上autofoucs失效，需要手动触发" class="headerlink" title="八、移动端底部固定定位fixed &amp; IOS上autofoucs失效，需要手动触发"></a>八、移动端底部固定定位fixed &amp; IOS上autofoucs失效，需要手动触发</h2><p>ios下fixed元素容易定位出错,软键盘弹出时影响fixed元素定位,而android下不会。</p>
+<p>ios下由于软键盘唤出后，页面fixed元素会失效，导致跟随页面一起滚动。假如-页面不会过长出现滚动，即便fixed元素失效，也无法跟随页面滚动，也就不会出现上面的问题。</p>
+<ul>
+<li><p>通常将底部设置为fixed，当激活输入框的时候，将底部定位改为absolute，即可兼容ios和Android。</p>
+</li>
+<li><p>ios：在激活输入框的时候，保证页面滚动至底部，执行：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">document</span>.body.scrollTop = <span class="built_in">document</span>.body.scrollHeight;</span><br><span class="line">&#125;, <span class="number">500</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>点击按钮，触发输入框的focus事件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="regexp">/(iphone|ipod|ipad)/gi</span>.test(<span class="built_in">window</span>.navigator.userAgent)) &#123;</span><br><span class="line">    <span class="keyword">this</span>.$refs.inputbar.focus();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">_</span> =&gt;</span> &#123; <span class="comment">// fixed 安卓点击穿透</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="regexp">/android/gi</span>.test(<span class="built_in">window</span>.navigator.userAgent)) &#123;</span><br><span class="line">        <span class="keyword">this</span>.$refs.inputbar.focus();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;, <span class="number">200</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>但仍有体验问题</p>
+</li>
+</ul>
+<h2 id="九、ios系统手机无法自动播放音频-视频，-HTML5-audio-autoplay无效"><a href="#九、ios系统手机无法自动播放音频-视频，-HTML5-audio-autoplay无效" class="headerlink" title="九、ios系统手机无法自动播放音频/视频， HTML5 audio autoplay无效"></a>九、ios系统手机无法自动播放音频/视频， HTML5 audio autoplay无效</h2><p>这个是苹果系统限制默认不允许自动播放音频/视频,需要点一下触发play()事件才能播放;</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">'music'</span>).play();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>android 4.2添加了允许用户手势触发音视频播放接口，该接口默认为 true ，即默认不允许自动播放音视频，只能是用户交互的方式由用户自己促发播放。</p>
+<blockquote>
+<p>mWebview.getSettings().setMediaPlaybackRequiresUserGesture(false);</p>
+</blockquote>
+<h2 id="十、浏览器后退不刷新"><a href="#十、浏览器后退不刷新" class="headerlink" title="十、浏览器后退不刷新"></a>十、浏览器后退不刷新</h2><p>当点击后退时页面以缓存形式出现,而不是刷新后的,解决方法是用js:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onpageshow = <span class="function"><span class="keyword">function</span>(<span class="params">evt</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(evt.persisted)&#123; </span><br><span class="line">     <span class="built_in">document</span>.body.style.display =<span class="string">"none"</span>;</span><br><span class="line">     location.reload();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>onpageshow每次页面加载都会触发,无论是从缓存中加载还是正常加载,是和onload的区别;</li>
+<li>persisted判断页面是否从缓存中读出</li>
+</ul>
+<h2 id="十一、个别设备样式问题"><a href="#十一、个别设备样式问题" class="headerlink" title="十一、个别设备样式问题"></a>十一、个别设备样式问题</h2><ul>
+<li><p>input的placeholder文本位置偏上： line-height:normal;</p>
+</li>
+<li><p>部分安卓机box-sizing 有上边框：删除box-sizing:border-box;</p>
+</li>
+<li><p>CSS3 动画在安卓上卡顿：</p>
+<p>  开启硬件加速：</p>
+<ul>
+<li>opacity: 1</li>
+<li>-webkit-backface-visibility: hidden</li>
+</ul>
+</li>
+</ul>
+<h2 id="十二、屏幕像素比-屏幕缩放比"><a href="#十二、屏幕像素比-屏幕缩放比" class="headerlink" title="十二、屏幕像素比/屏幕缩放比"></a>十二、屏幕像素比/屏幕缩放比</h2><p>屏幕像素比 = window.devicePixelRatio</p>
+<p>缩放比例 = 设备像素 / CSS像素 ===&gt; screen.availWidth/window.innerWidth</p>
+<h2 id="十三、input的compositionstart-和-compositionend"><a href="#十三、input的compositionstart-和-compositionend" class="headerlink" title="十三、input的compositionstart 和 compositionend"></a>十三、input的compositionstart 和 compositionend</h2><p>在IOS中，input事件会截断非直接输入<br>（非直接输入：在输入汉字时，中间过程会输入拼音，每次输入一个字母会触发input事件，然而在没有点选择候选字或者点击【选定】按钮前，都属于非直接输入）</p>
+<p><strong>需求：</strong> 直接输入之后才触发input事件，需引出：compositionstart 和 compositionend<br>compositionstart 事件在用户开始进行非直接输入时触发，在非直接输入结束，也即用户点选候选词 或者 点击【选定】按钮之后，会触发compositionend事件</p>
+<p>添加一个inputLock变量，当用户未完成直接输入前，inputLock 为true，不触发input事件中的逻辑，当用户完成有效输入之后，inputLock设置为false，触发input事件的逻辑。<br>compositionend 事件在input事件后触发的，在compositionend事件出发时，也要调用input事件处理逻辑</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">inputHandle(e) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.inputLock) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> value = e.target.value;</span><br><span class="line">    value &amp;&amp; <span class="keyword">this</span>.searchHandler(value);</span><br><span class="line">&#125;,</span><br><span class="line">onCompositionstart(e) &#123;</span><br><span class="line">    <span class="comment">// 未完成直接输入前, inputLock 为true</span></span><br><span class="line">    throttle(<span class="function"><span class="params">_</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.inputLock = <span class="literal">true</span>;</span><br><span class="line">    &#125;, <span class="number">200</span>);</span><br><span class="line">&#125;,</span><br><span class="line">onCompositionend(e) &#123;</span><br><span class="line">    <span class="comment">// 完成有效输入后, inputLock 为false</span></span><br><span class="line">    throttle(<span class="function"><span class="params">_</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.inputLock = <span class="literal">false</span>;</span><br><span class="line">    &#125;, <span class="number">200</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// compositionend 事件是在 input 事件后触发，在 compositionend事件触发时，也要调用 input处理逻辑</span></span><br><span class="line">    <span class="keyword">let</span> value = e.target.value;</span><br><span class="line">    value &amp;&amp; <span class="keyword">this</span>.searchHandler(value);</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -457,10 +527,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            Übersicht
           </li>
         </ul>
       
@@ -480,8 +550,8 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">20</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
             
@@ -491,8 +561,8 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
-                  <span class="site-state-item-name">categories</span>
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">Kategorien</span>
                 </a>
               </div>
             
@@ -502,8 +572,8 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
-                  <span class="site-state-item-name">tags</span>
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">Tags</span>
                 </a>
               </div>
             
@@ -535,7 +605,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、聊天消息由下向上冒效果"><span class="nav-number">1.</span> <span class="nav-text">一、聊天消息由下向上冒效果</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#scrollIntoView-amp-scrollIntoViewIfNeeded"><span class="nav-number">1.1.</span> <span class="nav-text">scrollIntoView &amp; scrollIntoViewIfNeeded</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scrollIntoView"><span class="nav-number">1.2.</span> <span class="nav-text">scrollIntoView</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scrollIntoViewIfNeeded"><span class="nav-number">1.3.</span> <span class="nav-text">scrollIntoViewIfNeeded</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scroll-behavior"><span class="nav-number">1.4.</span> <span class="nav-text">scroll-behavior</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、CSS3-animation-—-播放、暂停动画"><span class="nav-number">2.</span> <span class="nav-text">二、CSS3 animation — 播放、暂停动画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、移动端隐藏滚动条"><span class="nav-number">3.</span> <span class="nav-text">三、移动端隐藏滚动条</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、footer固定在页面底部"><span class="nav-number">4.</span> <span class="nav-text">四、footer固定在页面底部</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、聊天消息由下向上冒效果"><span class="nav-number">1.</span> <span class="nav-text">一、聊天消息由下向上冒效果</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#scrollIntoView-amp-scrollIntoViewIfNeeded"><span class="nav-number">1.1.</span> <span class="nav-text">scrollIntoView &amp; scrollIntoViewIfNeeded</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scrollIntoView"><span class="nav-number">1.2.</span> <span class="nav-text">scrollIntoView</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scrollIntoViewIfNeeded"><span class="nav-number">1.3.</span> <span class="nav-text">scrollIntoViewIfNeeded</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scroll-behavior"><span class="nav-number">1.4.</span> <span class="nav-text">scroll-behavior</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、CSS3-animation-—-播放、暂停动画"><span class="nav-number">2.</span> <span class="nav-text">二、CSS3 animation — 播放、暂停动画</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#animation-play-state-在ios上不生效，在安卓上ok"><span class="nav-number">2.1.</span> <span class="nav-text">animation-play-state 在ios上不生效，在安卓上ok</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、IOS移动端隐藏滚动条"><span class="nav-number">3.</span> <span class="nav-text">三、IOS移动端隐藏滚动条</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、footer固定在页面底部"><span class="nav-number">4.</span> <span class="nav-text">四、footer固定在页面底部</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、判断是否为iphonex"><span class="nav-number">5.</span> <span class="nav-text">五、判断是否为iphonex</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、取消浏览器就滚动条位置"><span class="nav-number">6.</span> <span class="nav-text">六、取消浏览器就滚动条位置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七、axios-请求携带cookie信息"><span class="nav-number">7.</span> <span class="nav-text">七、axios 请求携带cookie信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#八、移动端底部固定定位fixed-amp-IOS上autofoucs失效，需要手动触发"><span class="nav-number">8.</span> <span class="nav-text">八、移动端底部固定定位fixed &amp; IOS上autofoucs失效，需要手动触发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#九、ios系统手机无法自动播放音频-视频，-HTML5-audio-autoplay无效"><span class="nav-number">9.</span> <span class="nav-text">九、ios系统手机无法自动播放音频/视频， HTML5 audio autoplay无效</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十、浏览器后退不刷新"><span class="nav-number">10.</span> <span class="nav-text">十、浏览器后退不刷新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十一、个别设备样式问题"><span class="nav-number">11.</span> <span class="nav-text">十一、个别设备样式问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十二、屏幕像素比-屏幕缩放比"><span class="nav-number">12.</span> <span class="nav-text">十二、屏幕像素比/屏幕缩放比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十三、input的compositionstart-和-compositionend"><span class="nav-number">13.</span> <span class="nav-text">十三、input的compositionstart 和 compositionend</span></a></li></ol></div>
             
 
           </div>
@@ -555,7 +625,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -565,7 +635,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 
