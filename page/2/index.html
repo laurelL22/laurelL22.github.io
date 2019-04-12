@@ -232,6 +232,1040 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/02/nginx-configure-explanation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lurel">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Laurel Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/02/nginx-configure-explanation/" itemprop="url">nginx-configure-explanation</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-02T11:05:24+08:00">
+                2018-11-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="nginx-配置文件nginx-conf-详解"><a href="#nginx-配置文件nginx-conf-详解" class="headerlink" title="nginx 配置文件nginx.conf 详解"></a>nginx 配置文件nginx.conf 详解</h2><blockquote>
+<p>#nginx 进程，一般设置为和cpu核数一样</p>
+</blockquote>
+<pre><code>worker_process 4;
+</code></pre><blockquote>
+<p>#错误日志存放目录</p>
+</blockquote>
+<pre><code>error_log   /logs/error.log   crit;
+</code></pre><blockquote>
+<p>#运行用户，默认即是nginx,可不设置</p>
+</blockquote>
+<pre><code>user nginx;
+</code></pre><blockquote>
+<p>#进程pid存放位置</p>
+</blockquote>
+<pre><code>pid     /logs/nginx.pid;
+</code></pre><blockquote>
+<p>#最大文件打开书（连接），可设置为系统优化后的ulimit-HSn的结果</p>
+</blockquote>
+<pre><code>worker_rlimit_nofile 51200;
+</code></pre><blockquote>
+<p>#cpu亲和力配置，让不同的进程使用不同的cpu</p>
+</blockquote>
+<pre><code>worker_cpu_affinity 0001 0010 0100 1000 0001 00100100 1000;
+</code></pre><blockquote>
+<p>#工作模式及连接数上限</p>
+</blockquote>
+<pre><code>events 
+{
+    use epoll;       #epoll是多路复用IO(I/O Multiplexing)中的一种方式,但是仅用于linux2.6以上内核,可以大大提高nginx的性能
+    worker_connections 1024;  #;单个后台worker process进程的最大并发链接数
+}
+###################################################
+
+http
+
+{
+    include mime.types; #文件扩展名与类型映射表
+    default_type application/octet-stream; #默认文件类型
+</code></pre><blockquote>
+<p>#limit 模块，可防范一定量的DDOS攻击</p>
+<p>#用来存储session会话的状态，如下是session分配一个名为one的10M的内存存储区，限制了每秒只接收一个ip的一次请求 1r/s</p>
+</blockquote>
+<pre><code>limit_req_zone $binary_remote_addr zone=one:10m rate=1r/s;
+limit_conn_zone $binary_remote_addr zone=addr:10m;
+</code></pre><blockquote>
+<p>#设定请求缓存</p>
+</blockquote>
+<pre><code>server_names_hash_bucket_size 128;
+
+client_header_buffer_size 512k;
+
+large_client_header_buffers 4512k;
+
+client_max_body-size 100m;
+</code></pre><blockquote>
+<p>#隐藏响应header和错误通知中的版本号</p>
+</blockquote>
+<pre><code>server_tokens off;
+</code></pre><blockquote>
+<p>#开启高效传输模式</p>
+</blockquote>
+<pre><code>sendfile on;
+</code></pre><blockquote>
+<p>#激活tcp_nopush 参数可以允许把httpresponse header 和文件的开始放在一个文件里发布，积极的作用是减少网络报文段的数量</p>
+</blockquote>
+<pre><code>tcp_nopush on;
+</code></pre><blockquote>
+<p>#激活<br>tcp_nodelay, 内核会等待将更多的字节组成一个数据包，从而提高I/O性能</p>
+</blockquote>
+<pre><code>tcp_nodelay on;
+</code></pre><blockquote>
+<p>#FastCGI 相关参数：为了改善网站性能：减少资源占用，提高访问速度</p>
+</blockquote>
+<pre><code>fastcgi_connect_timeout 300;
+fastcgi_send_timeout 300;
+fastcgi_read_timeout 300;
+fastcgi_buffer_size 64k;
+fastcgi_buffers 4 64k;
+fastcgi_busy_buffers_size 128k;
+fastcgi_temp_file_write_size 128k;
+</code></pre><blockquote>
+<p>#连接超时时间，单位为秒</p>
+</blockquote>
+<p>   keepalive_timeout 60;</p>
+<blockquote>
+<p>#开启gzip 压缩功能</p>
+</blockquote>
+<pre><code>gzip on;
+</code></pre><blockquote>
+<p>#设置允许压缩的页面最小字节数，页面字节数从header头的Content-Length 中获取。默认值是0，表示不管页面多大都进行压缩。建议设置成大于1K。如果小于1K可能会越压越大</p>
+</blockquote>
+<pre><code>gzip_min_length 1k;
+</code></pre><blockquote>
+<p>#</p>
+</blockquote>
+<pre><code>}
+</code></pre><p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">user  nobody;</span></span><br><span class="line">worker_processes  1;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">error_log  logs/error.log;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">error_log  logs/error.log  notice;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">error_log  logs/error.log  info;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">pid        logs/nginx.pid;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    resolver 172.22.1.253;</span><br><span class="line"></span><br><span class="line">    #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '</span><br><span class="line">    #                  '$status $body_bytes_sent "$http_referer" '</span><br><span class="line">    #                  '"$http_user_agent" "$http_x_forwarded_for"';</span><br><span class="line"></span><br><span class="line">    #access_log  logs/access.log  main;</span><br><span class="line"></span><br><span class="line">    sendfile        on;</span><br><span class="line">    #tcp_nopush     on;</span><br><span class="line"></span><br><span class="line">    #keepalive_timeout  0;</span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line"></span><br><span class="line">    #gzip  on;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen       8086;</span><br><span class="line">        server_name  localhost;</span><br><span class="line"></span><br><span class="line">        #charset koi8-r;</span><br><span class="line"></span><br><span class="line">        access_log  lihuan.access.log;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">	    proxy_pass http://family.baidu.com$request_uri;</span><br><span class="line">        &#125;</span><br><span class="line">        #error_page  404              /404.html;</span><br><span class="line"></span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">	listen       8087;</span><br><span class="line">	server_name  127.0.0.1;</span><br><span class="line"></span><br><span class="line">	location / &#123;</span><br><span class="line">	    proxy_pass http://127.0.0.1:8080;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="meta">	#</span><span class="bash"> location /api &#123;</span></span><br><span class="line"><span class="meta">	#</span><span class="bash">	rewrite ^.+api/?(.*)$ /<span class="variable">$1</span> <span class="built_in">break</span>;</span></span><br><span class="line"><span class="meta">	#</span><span class="bash">	proxy_pass http://api.b.com:8080/api/<span class="variable">$1</span></span></span><br><span class="line"><span class="meta">	#</span><span class="bash"> &#125;</span></span><br><span class="line"></span><br><span class="line">        location ~ /api/ &#123;</span><br><span class="line">	    proxy_pass http://meeting-bot.dev.weiyun.baidu.com;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    # another virtual host using mix of IP-, name-, and port-based configuration</span><br><span class="line">    #</span><br><span class="line">    #server &#123;</span><br><span class="line">    #    listen       8000;</span><br><span class="line">    #    listen       somename:8080;</span><br><span class="line">    #    server_name  somename  alias  another.alias;</span><br><span class="line"></span><br><span class="line">    #    location / &#123;</span><br><span class="line">    #        root   html;</span><br><span class="line">    #        index  index.html index.htm;</span><br><span class="line">    #    &#125;</span><br><span class="line">    #&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    # HTTPS server</span><br><span class="line">    #</span><br><span class="line">    #server &#123;</span><br><span class="line">    #    listen       443 ssl;</span><br><span class="line">    #    server_name  localhost;</span><br><span class="line"></span><br><span class="line">    #    ssl_certificate      cert.pem;</span><br><span class="line">    #    ssl_certificate_key  cert.key;</span><br><span class="line"></span><br><span class="line">    #    ssl_session_cache    shared:SSL:1m;</span><br><span class="line">    #    ssl_session_timeout  5m;</span><br><span class="line"></span><br><span class="line">    #    ssl_ciphers  HIGH:!aNULL:!MD5;</span><br><span class="line">    #    ssl_prefer_server_ciphers  on;</span><br><span class="line"></span><br><span class="line">    #    location / &#123;</span><br><span class="line">    #        root   html;</span><br><span class="line">    #        index  index.html index.htm;</span><br><span class="line">    #    &#125;</span><br><span class="line">    #&#125;</span><br><span class="line"></span><br><span class="line">    include servers/*;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/30/ES6条件语句技巧/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lurel">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Laurel Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/30/ES6条件语句技巧/" itemprop="url">ES6条件语句技巧</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-30T10:47:52+08:00">
+                2018-10-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/cate/" itemprop="url" rel="index">
+                    <span itemprop="name">cate</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="使用Array-includes-来处理多个条件"><a href="#使用Array-includes-来处理多个条件" class="headerlink" title="使用Array.includes 来处理多个条件"></a>使用Array.includes 来处理多个条件</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> arr = [<span class="string">'zhang3'</span>, <span class="string">'li4'</span>, <span class="string">'wang5'</span>];</span><br><span class="line">    <span class="keyword">if</span> (arr.includes(val)) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'got it'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="减少嵌套，提前使用-return-语句"><a href="#减少嵌套，提前使用-return-语句" class="headerlink" title="减少嵌套，提前使用 return 语句"></a>减少嵌套，提前使用 return 语句</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 发现无效条件时提前 return</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> arr = [<span class="string">'zhang3'</span>, <span class="string">'li4'</span>, <span class="string">'wang5'</span>];</span><br><span class="line">    <span class="keyword">if</span> (!val) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'no val'</span>); <span class="comment">// return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (arr.includes(val)) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'got it'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="使用函数的默认参数-和-解构"><a href="#使用函数的默认参数-和-解构" class="headerlink" title="使用函数的默认参数 和 解构"></a>使用函数的默认参数 和 解构</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 默认参数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">val, q = <span class="number">1</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!val) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.info(<span class="string">`val is<span class="subst">$&#123;val&#125;</span> and q id <span class="subst">$&#123;q&#125;</span>`</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 解构</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">&#123;name&#125; = &#123;&#125;</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.info(name || <span class="string">'unknown'</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用name变量取代val.name 变量</span></span><br><span class="line"><span class="comment">// 还需将&#123;&#125;指定为默认值。否则可能会报错无法解析’undefined’或’null’的属性名称</span></span><br><span class="line"><span class="comment">// 还可以引入loadsh库， _.get()方法</span></span><br></pre></td></tr></table></figure>
+<h3 id="选择Map-Object-字面凉，而不是Switch语句"><a href="#选择Map-Object-字面凉，而不是Switch语句" class="headerlink" title="选择Map/Object 字面凉，而不是Switch语句"></a>选择Map/Object 字面凉，而不是Switch语句</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用对象字面量，根据颜色找出对应的水果</span></span><br><span class="line"><span class="keyword">const</span> fruitColor = &#123;</span><br><span class="line">    red: [<span class="string">'apple'</span>, <span class="string">'strawberry'</span>],</span><br><span class="line">    yellow: [<span class="string">'banana'</span>, <span class="string">'pineapple'</span>],</span><br><span class="line">    purple: [<span class="string">'grape'</span>, <span class="string">'plum'</span>]</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">color</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> fruitColor[color] || [];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 Map ，根据颜色找出对应的水果(Map是新的对象类型，允许存储键值对)</span></span><br><span class="line"><span class="keyword">const</span> fruitColor = <span class="keyword">new</span> <span class="built_in">Map</span>()</span><br><span class="line">    .set(<span class="string">'red'</span>, [<span class="string">'apple'</span>, <span class="string">'strawberry'</span>])</span><br><span class="line">    .set(<span class="string">'yellow'</span>, [<span class="string">'banana'</span>, <span class="string">'pineapple'</span>])</span><br><span class="line">    .set(<span class="string">'purple'</span>, [<span class="string">'grape'</span>, <span class="string">'plum'</span>]);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">color</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> fruitColor.get(color) || [];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 也可以使用Array.filter 重构</span></span><br></pre></td></tr></table></figure>
+<h3 id="使用Array-every-和-Array-some来处理全部-部分满足条件"><a href="#使用Array-every-和-Array-some来处理全部-部分满足条件" class="headerlink" title="使用Array.every 和 Array.some来处理全部/部分满足条件"></a>使用Array.every 和 Array.some来处理全部/部分满足条件</h3>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/26/node-session-cache/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lurel">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Laurel Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/26/node-session-cache/" itemprop="url">node-session-cache</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-26T17:02:03+08:00">
+                2018-10-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://techblog.toutiao.com/2017/11/29/nodezhong-sessionchi-jiu-hua-yu-redishuan-cun/" target="_blank" rel="noopener">link</a></p>
+<h2 id="node中Session持久化与Redis缓存"><a href="#node中Session持久化与Redis缓存" class="headerlink" title="node中Session持久化与Redis缓存"></a>node中Session持久化与Redis缓存</h2><blockquote>
+<p>HTTP协议和TCP/IP协议组中其他协议相同，用于客户端和服务端之间的通信，HTTP是一种无状态协议，及协议本身不保存客户端和服务端的通信状态，即在HTTP这个级别，协议不会对请求或响应做持久化处理，也是为了更快的处理大量事务，确保协议的可伸缩性。</p>
+</blockquote>
+<p><strong><em>cookie：</em></strong> 为了解决HTTP的无状态，引入了Cookie技术，Cookie技术通过在请求和响应报文中写入cookie信息来控制客户端的状态。</p>
+<p><strong><em>session：</em></strong> 为了跟踪客户端的状态，服务端 借助于客户端的cookie和后端存储实现的会话状态。Session机制决定了当前客户只会获取到自己的Session，而不会获取别人的Seesion</p>
+<h2 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h2><ol>
+<li>制定cookie机制，用于实现客户端和服务器之间的状态共享。</li>
+</ol>
+<ul>
+<li><p>Cookie 是解决HTTP无状态性的有效手段，服务器可以设置（set-cookie）或读取cookie中所包含的信息</p>
+</li>
+<li><p>当用户登录后，服务器会发送包含登录凭据的cookie到用户浏览器客户端，而浏览器对该Cookie进行某种形式的存储（内存或硬盘）</p>
+</li>
+<li><p>用户再次访问该网站时，浏览器会发送该Cookie（Cookie未到期时）到服务器，服务器对该凭据进行验证，合法时使用户不必输入用户名和密码就可以直接登录</p>
+</li>
+</ul>
+<ol>
+<li>实现原理</li>
+</ol>
+<p>Cookie定义了HTTP请求头和HTTP响应头，客户端和服务端通过这些头信息进行状态交互</p>
+<ul>
+<li><p>客户端第一次请求：服务器端如果需要记录用户信息，才会在响应信息中返回Set-cookie响应头</p>
+</li>
+<li><p>客户端会根据响应头存储Cookie信息</p>
+</li>
+<li><p>客户端再次请求：会在请求头上带上存储的cookie信息，服务端通过cookie信息识别用户</p>
+</li>
+</ul>
+<ol>
+<li>cookie类别</li>
+</ol>
+<p><strong><em>cookie总是存储在客户端（浏览器），根据其存储位置可以分切：内存式cookie、硬盘式cookie</em></strong></p>
+<p>内存式：存储在内存中，浏览器关闭后清除，也非持久化存储（会话cookie）</p>
+<pre><code>- cookie不包含到期日期，则可视为会话cookie。会话cookie存储在内存中，绝不会写入磁盘。当浏览器关闭时，cookie将从此永久丢失
+</code></pre><p>硬盘式：保存在硬盘中，浏览器关闭后不会清除，除非手动清除或到了过期时间，也将持久存储（持久cookie）</p>
+<pre><code>- cookie包含到期日期，则可视为持久性cookie。在指定的到期日期，cookie将从磁盘中删除
+</code></pre><blockquote>
+<p>通常可以通过expires到期时间来区分</p>
+</blockquote>
+<ol>
+<li>HTTP协议中为cookie服务的首部字段</li>
+</ol>
+<p>Set-cookie: 响应首部字段，开始状态管理所使用的Cookie信息</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NAME-VALUE</td>
+<td>赋予Cookie的key / value (必需)</td>
+</tr>
+<tr>
+<td>expires=DATE</td>
+<td>指定浏览器可以发送Cookie的有效期（默认为浏览器关闭前为止）</td>
+</tr>
+<tr>
+<td>path=PATH</td>
+<td>将服务器上的文件目录作为Cookie的使用对象（默认为文档所在的文件目录）</td>
+</tr>
+<tr>
+<td>domain=域名</td>
+<td>作为Cookie使用对象的域名（默认为Cookie的服务器域名）</td>
+</tr>
+<tr>
+<td>Secure</td>
+<td>仅在HTTPS安全通信时才会发送Cookie</td>
+</tr>
+<tr>
+<td>HttpOnly</td>
+<td>加以限制，使Cookie不能被javascript脚本访问。可以放置跨站脚本攻击对cookie信息窃取</td>
+</tr>
+</tbody>
+</table>
+<p>Cookie：请求首部字段，服务端接受到的cookie信息</p>
+<ol>
+<li>cookie-parser</li>
+</ol>
+<p>cookie-parser 是node中用于操作cookie的中间件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">request, response, next</span>) </span>&#123;</span><br><span class="line">    res.cookie(name, value [,options])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>name: cookie名
+value: cookie值
+options: set-cookie 选项
+    domain：cookie在什么域名下有效，类型为String。默认为网站域名
+
+    expires：cookie过期时间，类型为Date。如果没有设置或者设置为0，那么该cookie只在这个这个session有效，即关闭浏览器后，这个cookie会被浏览器删除
+
+    httpOnly：只能被web server访问，类型Boolean
+
+    maxAge：实现expires的功能，设置cookie过期的时间，类型为String，指明从现在开始，多少毫秒以后，cookie到期
+
+    path：cookie在什么路径下有效，默认为&apos;/&apos;，类型为String
+
+    secure：只能被HTTPS使用，类型Boolean，默认为false
+
+    signed：使用签名，类型Boolean，默认为false。[express会使用req.secret来完成签名，需要cookie-parser配合使用]
+</code></pre><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1.引入</span></span><br><span class="line"><span class="keyword">var</span> cookieParser = <span class="built_in">require</span>(<span class="string">'cookie-parser'</span>); <span class="comment">// 引入模块</span></span><br><span class="line">app.use(cookieParser()); <span class="comment">// 挂载中间件（实例化）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2.创建</span></span><br><span class="line">res.cookie(name, value [,options]);</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">'maxAge'</span>: <span class="number">9000</span>, <span class="comment">// 有效时长（毫秒）</span></span><br><span class="line">    <span class="string">'signed'</span>: <span class="literal">false</span> <span class="comment">// 默认为false，表示是否签名（Boolean）</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 获取cookie</span></span><br><span class="line"><span class="keyword">var</span> cookies = req.cookies <span class="comment">// 获取cookies集合</span></span><br><span class="line"><span class="keyword">var</span> value = req.cookies.key <span class="comment">// 获取名称未key的cookie的值</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. 删除cookie</span></span><br><span class="line">res.clearCookie(name [,options]) <span class="comment">// name 是cookie名，options与创建cookie时所传一致</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 5. 签名</span></span><br><span class="line"><span class="comment">// 签名可以提高安全性</span></span><br><span class="line"><span class="comment">// 使用签名生成cookie的方法，大同小异，修改上文</span></span><br><span class="line"></span><br><span class="line">app.use(cookieParser(<span class="string">'yog'</span>)); <span class="comment">// 需要穿一个自定义字符串作为secret</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建cookie的options中，必填signed: true</span></span><br><span class="line">res.cookie(name, value, &#123;<span class="string">'signed'</span>: <span class="literal">true</span>&#125;);</span><br><span class="line"><span class="keyword">var</span> cookies = req.sifnedCookies <span class="comment">// 获取cookie集合</span></span><br><span class="line"><span class="keyword">var</span> value = req.signedCookies.key <span class="comment">// 获取名称为key的cookie值</span></span><br></pre></td></tr></table></figure>
+<h2 id="session"><a href="#session" class="headerlink" title="session"></a>session</h2><ol>
+<li><p>Session 需要借助Cookie实现，Session数据存储在服务端，而只在Cookie中存储一个SessionId，乐意保证安全性和降低服务器负载</p>
+</li>
+<li><p>express-session<br>express-session 真正在服务端保存数据的中间件，需要独立安装</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install express-session --save</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> session = <span class="built_in">require</span>(<span class="string">'express-session'</span>)</span><br><span class="line">app.use(session([options]));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 常用的options</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">'secret'</span>: <span class="string">'yog'</span>, <span class="comment">// 签名</span></span><br><span class="line">    <span class="string">'cookie'</span>: &#123;</span><br><span class="line">        <span class="string">'maxAge'</span>: <span class="number">90000</span> <span class="comment">// 因为创建session的同时会创建cookie来保存sessionid，所以options终端恩cookie.maxAge可看做是session的有效时长</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">'name'</span>: <span class="string">'session_id'</span> <span class="comment">// 在浏览器中生成cookie的名称key, 默认是connect.sid</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建session</span></span><br><span class="line">req.session.key = value</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建多个session</span></span><br><span class="line">req.session = &#123;</span><br><span class="line">    key1: value1,</span><br><span class="line">    key2: value2</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 获取session</span></span><br><span class="line"><span class="keyword">var</span> session = req.session <span class="comment">// 获取session集合</span></span><br><span class="line"><span class="keyword">var</span> value = req.session.key <span class="comment">// 获取名称为key的session的值</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 销毁</span></span><br><span class="line">req.session.destory() <span class="comment">// 清空所有session</span></span><br><span class="line">req.session.key.destory() <span class="comment">// 销毁名称为key的session的值</span></span><br></pre></td></tr></table></figure>
+<h2 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h2><p><strong><em>session存在的问题：</em></strong> Session用于在服务端保存用户会话状态（如：用户登录信息等），Session 在程序重启、多进程运行、负载均衡、跨域等情况时，会出现Session丢失或多进程、多个负载站点见不能共享的情况</p>
+<p><strong><em>要解决这些问题：</em></strong> 需要将Session持久化存储，Redis存储是一个非常不错的Session持久化解决方案</p>
+<p>Redis是一个高性能的key-value 数据库</p>
+<ol>
+<li>概述</li>
+</ol>
+<p>特点</p>
+<ul>
+<li>Redis 支持数据的持久化，可以讲内存中的数据保存在磁盘中，重启时可以再次加载进行使用</li>
+<li>Redis 不仅仅是支持简单的key-value 类型的数据，同时还提供list，set，zset，hash等数据结构的存储</li>
+<li>Redis 支持数据的备份，即master-slave 模式的数据备份</li>
+</ul>
+<p>优势</p>
+<ul>
+<li><p>性能极高 – Redis能读的速度是110000次/s，写的速度是81000次/s</p>
+</li>
+<li><p>丰富的数据类型 – Redis支持二进制案例的 Strings, Lists, Hashes, Sets 及 Ordered Sets 数据类型操作</p>
+</li>
+<li><p>原子 – Redis的所有操作都是原子性的，同时Redis还支持对几个操作全并后的原子性执行</p>
+</li>
+<li><p>丰富的特性 – Redis还支持 publish/subscribe, 通知, key 过期等等特性</p>
+</li>
+</ul>
+<ol>
+<li>connect-redis<br>connect-redis 是一个Redis 版的session存储器，使用node_redis 作为驱动。借助它即可在Express中启用Redis来持久化Session</li>
+</ol>
+<p>使用之前先搭建好redis 环境和express应用</p>
+<p>参数：<br>client: 你可以复用现有的redis客户端对象， 由redis.createClient() 创建</p>
+<p>host: Redis服务器名</p>
+<p>port: Redis服务器端口</p>
+<p>socket: Redis服务器的unix_socket</p>
+<p>ttl: Redis session TTL 过期时间 （秒）</p>
+<p>disableTTL: 禁用设置的 TTL</p>
+<p>db: 使用第几个数据库</p>
+<p>pass: Redis数据库的密码</p>
+<p>prefix: 数据表前辍即schema, 默认为 “sess:”</p>
+<p>使用：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将 express-session 传给 connect-redis 来启用</span></span><br><span class="line"><span class="comment">// 引入相关模块：</span></span><br><span class="line"><span class="keyword">var</span> session = <span class="built_in">require</span>(<span class="string">'express-session'</span>);  </span><br><span class="line"><span class="keyword">var</span> redis = <span class="built_in">require</span>(<span class="string">'redis'</span>);  </span><br><span class="line"><span class="keyword">var</span> RedisStore = <span class="built_in">require</span>(<span class="string">'connect-redis'</span>)(session);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建Redis客户端</span></span><br><span class="line"><span class="keyword">var</span> redisClient = redis.createClient(<span class="number">6379</span>, <span class="string">'127.0.0.1'</span>, &#123;<span class="attr">auth_pass</span>: <span class="string">'password'</span>&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置 Express 的 Session 存储中间件</span></span><br><span class="line">app.use(session(&#123;  </span><br><span class="line">    store:<span class="keyword">new</span> RedisStore(&#123;<span class="attr">client</span>: redisClient&#125;),</span><br><span class="line">    secret: <span class="string">'password'</span>,</span><br><span class="line">    resave: <span class="literal">false</span>,</span><br><span class="line">    saveUninitialized: <span class="literal">false</span></span><br><span class="line">&#125;))</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line">app.use(<span class="function"><span class="keyword">function</span> (<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!req.session) &#123;</span><br><span class="line">    <span class="keyword">return</span> next(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'error'</span>))</span><br><span class="line">  &#125;</span><br><span class="line">  next()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>此时，session信息就转移到redis数据库了，当应用重启后数据仍然可以通过cookie中的sessionid 获取到，做到数据持久化，提高应用的健壮性。</p>
+<h2 id="Cookie-与-Session-机制"><a href="#Cookie-与-Session-机制" class="headerlink" title="Cookie 与 Session 机制"></a>Cookie 与 Session 机制</h2><p><a href="https://zhuanlan.zhihu.com/p/21275207?refer=Anonymous0" target="_blank" rel="noopener">link</a></p>
+<blockquote>
+<p>Cookie通过在客户端记录信息确定身份，Session通过在服务器端记录信息确定用户身份</p>
+</blockquote>
+<h3 id="cookie-机制"><a href="#cookie-机制" class="headerlink" title="cookie 机制"></a>cookie 机制</h3><p>Web应用程序是使用HTTP协议传输数据的。HTTP 协议是无状态的协议，一旦数据交换完毕，客户端与服务器端的连接就会关闭，再次交换数据需要建立新的连接。这就意味着服务器无法从连接上跟踪会话。 (要跟踪该会话，必须引入一种机制)</p>
+<p>Cookie是一小段的文本信息。客户端请求服务器，如果服务器需要记录该用户状态，就使用response向客户端颁发一个Cookie。客户端浏览器会把cookie保存起来，当浏览器再请求该网站时，浏览器把请求的网址连同该Cookie一桶提交给服务器。服务器检查该cookie，一次来辨认用户状态与权限。服务器还可以根据需要修改Cookie的内容。（Cookie功能需要浏览器的支持，如果不支持或者禁用了，cookie功能能就会失效）</p>
+<ol>
+<li>cookie 不可跨域性</li>
+<li>Unicode编码：保存中文 （中文属于Unicode字符，在内存中占4个字节，而英文属于ASCII字符，内存中只占2个字节）使用Unicode字符试需进行编码</li>
+<li>base64：保存二进制图片</li>
+<li>cookie的有效期：由maxAge 决定。getMaxAge() 与 setMaxAge(int maxAge) 方法读写maxAge属性<ul>
+<li>maxAge属性为正数，表示该cookie会在maxAge秒之后自动失效。浏览器会将maxAge为正数的cookie持久化，写到对应的Cookie文件中。关闭电脑或浏览器，只要还在maxAge之前，登录网站时cookie仍有效。默认为-1</li>
+<li>maxAge为负数，表示该cookie仅在本浏览器窗口以及笨窗口打开的子窗口有效，关闭窗口后该cookie即失效，为临时性Cookie，不会持久化，不会写到Cookie文件中</li>
+<li>maxAge为0，表示删除该Cookie。cookie机制没有提供删除Cookie的方法，因此通过设置该Cookie即时失效实现删除Cookie的效果。</li>
+<li>失效的Cookie会被浏览器从Cookie文件或者内存中删除</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Cookie cookie = <span class="keyword">new</span> Cookie(<span class="string">'username'</span>, <span class="string">'zhang3'</span>); <span class="comment">// 新建Cookie</span></span><br><span class="line">cookie.setMaxAge(<span class="number">0</span>); <span class="comment">// 设置生命周期为0，不能为负数</span></span><br><span class="line">response.addCookie(cookie); <span class="comment">// 输出到客户端</span></span><br></pre></td></tr></table></figure>
+<pre><code>* response 对象提供的Cookie操作方法只有一个添加操作add(Cookie cookie)
+* 要修改Cookie只能使用一个同名的Cookie来覆盖原来的Cookie
+* 删除时只需把maxAge修改为0
+* 从客户端读取Cookie时，包括maxAge在内的其他属性都是不可读的，也不会被提交。浏览器提交cookie时只会提交name与value属性。maxAge属性只被浏览器用来判断Cookie是否过期
+</code></pre><ol>
+<li>Cookie的修改、删除<br>cookie不提供修改、删除操作。</li>
+</ol>
+<ul>
+<li>修改某个Cookie，只需新建一个同名的Cookie，添加到response中覆盖原来的Cookie</li>
+<li>删除某个Cookie，只需新建一个同名的cookie，并将maxAge设置为0，并添加到response中覆盖原来的Cookie。</li>
+<li>修改、删除Cookie时，新建的Cookie除value、maxAge之外的所有属性，例如name、path、domain等，都要与原Cookie完全一样。否则，浏览器将视为两个不同的Cookie不予覆盖，导致修改、删除失败。</li>
+</ul>
+<ol>
+<li>Cookie的域名<br>cookie是不可跨域的。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Cookie cookie = <span class="keyword">new</span> Cookie(<span class="string">'time'</span>, <span class="string">'20080808'</span>); <span class="comment">// 新建Cookie</span></span><br><span class="line">cookie.setDomain(<span class="string">'.hello.com'</span>); <span class="comment">// 设置域名</span></span><br><span class="line">cookie.setPath(<span class="string">'/'</span>); <span class="comment">// 设置路径</span></span><br><span class="line">cookie.setMaxAge(<span class="string">'MAX_VALUE'</span>); <span class="comment">// 设置有效期</span></span><br><span class="line">response.addCookie(cookie); <span class="comment">// 输出到客户端</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>domain参数必须以点(‘.’)开始。name相同但domain不同的两个Cookie是两个不同的Cookie。如果想要两个域名完全不同的网站共有Cookie，可以生成两个Cookie，domain属性分别为两个域名，输出到客户端</p>
+</blockquote>
+<ol>
+<li><p>Cookie的路径<br>path属性决定允许访问Cookie的路径。页面只能获取它属于的Path的Cookie</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Cookie cookie = <span class="keyword">new</span> Cookie(<span class="string">"time"</span>,<span class="string">"20080808"</span>); <span class="comment">// 新建Cookie</span></span><br><span class="line"></span><br><span class="line">cookie.setPath(<span class="string">"/session/"</span>); <span class="comment">// 设置为“/”时允许所有路径使用Cookie。path属性需要使用符号“/”结尾</span></span><br><span class="line"></span><br><span class="line">response.addCookie(cookie); <span class="comment">// 输出到客户端</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Cookie的安全属性<br>如果不希望Cookie在HTTP等非安全协议中传输，可以设置Cookie的secure属性为true。浏览器只会在HTTPS和SSL等安全协议中传输此类Cookie</p>
+</li>
+</ol>
+<ul>
+<li>cookie.setSecure(true); // 设置安全属性</li>
+<li>secure属性并不能对Cookie内容加密，因而不能保证绝对的安全性。如果需要高安全性，需要在程序中对Cookie内容加密、解密，以防泄密。</li>
+</ul>
+<ol>
+<li>JavaScript操作Cookie</li>
+</ol>
+<ul>
+<li>document.write(document.cookie);</li>
+</ul>
+<ol>
+<li>永久登录</li>
+</ol>
+<p>如果用户是在自己家的电脑上上网，登录时就可以记住他的登录信息，下次访问时不需要再次登录，直接访问即可。实现方法是把登录信息如账号、密码等保存在Cookie中，并控制Cookie的有效期，下次访问时再验证Cookie中的登录信息即可。</p>
+<p>保存登录信息有多种方案。最直接的是把用户名与密码都保持到Cookie中，下次访问时检查Cookie中的用户名与密码，与数据库比较。这是一种比较危险的选择，一般不把密码等重要信息保存到Cookie中。</p>
+<p>还有一种方案是把密码加密后保存到Cookie中，下次访问时解密并与数据库比较。这种方案略微安全一些。如果不希望保存密码，还可以把登录的时间戳保存到Cookie与数据库中，到时只验证用户名与登录时间戳就可以了。</p>
+<hr>
+<h3 id="Session-机制"><a href="#Session-机制" class="headerlink" title="Session 机制"></a>Session 机制</h3><p>Session是服务器端使用的一种记录客户端状态的机制</p>
+<p>客户端浏览器访问服务器时，服务器把客户端信息以某种形式记录在服务器上。就是session。客户端再次访问时只需从Session中查找客户的状态就行。</p>
+<ol>
+<li><p>实现用户登录</p>
+<ul>
+<li>Session 对象是在客户端第一次请求服务器时创建的。</li>
+<li>Session也是一种key-value的属性对，通过getAttribute(Stringkey)和setAttribute(String key，Objectvalue)方法读写客户状态信息</li>
+<li>Session机制决定了当前客户只会获取到自己的Session，而不会获取到别人的Session。各客户的Session也彼此独立，互不可见。</li>
+<li>Session的使用比Cookie方便，但是过多的Session存储在服务器内存中，会对服务器造成压力。</li>
+</ul>
+</li>
+<li><p>Session的生命周期</p>
+<ul>
+<li>Session保存在服务器端。为了获得更高的存取速度，服务器一般把Session放在内存里。每个用户都会有一个独立的Session。</li>
+<li>只有访问JSP、Servlet等程序时才会创建Session，只访问HTML、IMAGE等静态资源并不会创建Session。</li>
+<li>如果尚未生成Session，也可以使用request.getSession(true)强制生成Session。</li>
+<li>Session生成后，只要用户继续访问，服务器就会更新Session的最后访问时间，并维护该Session。</li>
+</ul>
+</li>
+<li><p>Session的有效期</p>
+<ul>
+<li>为防止内存溢出，服务器会把长时间内没有活跃的Session从内存删除。这个时间就是Session的超时时间。如果超过了超时时间没访问过服务器，Session就自动失效了。</li>
+</ul>
+</li>
+<li><p>Session对浏览器的要求</p>
+<ul>
+<li>虽然Session保存在服务器，对客户端是透明的，它的正常运行仍然需要客户端浏览器的支持。这是因为Session需要使用Cookie作为识别标志。</li>
+<li>HTTP协议是无状态的，Session不能依据HTTP连接来判断是否为同一客户，因此服务器向客户端浏览器发送一个名为JSESSIONID的Cookie，它的值为该Session的id（也就是HttpSession.getId()的返回值）。Session依据该Cookie来识别是否为同一用户。</li>
+<li>该Cookie为服务器自动生成的，它的maxAge属性一般为–1，表示仅当前浏览器内有效，并且各浏览器窗口间不共享，关闭浏览器就会失效</li>
+<li>新开的浏览器窗口会生成新的Session，但子窗口除外。子窗口会共用父窗口的Session。例如，在链接上右击，在弹出的快捷菜单中选择“在新窗口中打开”时，子窗口便可以访问父窗口的Session</li>
+</ul>
+</li>
+<li><p>URL地址重写</p>
+<ul>
+<li>URL地址重写是对客户端不支持Cookie的解决方案。</li>
+<li>URL地址重写的原理是将该用户Session的id信息重写到URL地址中。服务器能够解析重写后的URL获取Session的id。这样即使客户端不支持Cookie，也可以使用Session来记录用户状态。</li>
+</ul>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/24/docker-read/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lurel">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Laurel Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/24/docker-read/" itemprop="url">docker-read</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-24T14:06:44+08:00">
+                2018-05-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/cate-summary/" itemprop="url" rel="index">
+                    <span itemprop="name">cate-summary</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="docker-安装（mac）"><a href="#docker-安装（mac）" class="headerlink" title="docker 安装（mac）"></a>docker 安装（mac）</h3><ul>
+<li>brew cask install docker</li>
+<li>docker –version</li>
+<li>docker info</li>
+<li>镜像加速<ul>
+<li>国内网络问题，后续拉取 Docker 镜像十分缓慢，可以配置加速器来解决。</li>
+<li>docker 应用 -&gt; Perferences -&gt; Daemon -&gt; Registry mirrors -&gt; 填写镜像地址（registry.dev.xxx.com）</li>
+<li>微云上找一个node镜像地址：registry.dev.xxx.com/baidu_containers/nodejs-base:v1</li>
+</ul>
+</li>
+</ul>
+<h2 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h2><ol>
+<li>docker run 在容器内运行一个应用程序：<ul>
+<li>docker run f97883e95d8d echo “echo docker”<ul>
+<li>f97883e95d8d： 要运行的镜像</li>
+<li>echo “echo docker”: 在启动的容器里执行的命令</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>运行交互式的容器：<ul>
+<li>docker run -it f97883e95d8d bash<ul>
+<li>-t:在新容器内指定一个伪终端或终端。</li>
+<li>-i:允许你对容器内的标准输入 (STDIN) 进行交互。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>容器container （运行时 RUNTIME）<ul>
+<li>查看container 容器系统版本<blockquote>
+<p>cat /etc/os-release</p>
+</blockquote>
+</li>
+<li>查看当前系统的版本信息<blockquote>
+<p>cat /proc/version</p>
+</blockquote>
+</li>
+<li>查看容器内的标准输入输出<blockquote>
+<p>docker logs 2b1b7a428627<br>docker logs CONTAINER ID/NAME</p>
+</blockquote>
+</li>
+<li>停止容器：<blockquote>
+<p>docker stop dd7521aca04a</p>
+</blockquote>
+</li>
+<li>重启容器：<blockquote>
+<p>docker restart dd7521aca04a<br>docker start dd7521aca04a</p>
+</blockquote>
+</li>
+<li>检查容器的底层信息：<blockquote>
+<p>docker inspect dd7521aca04a</p>
+</blockquote>
+</li>
+<li>删除容器：<blockquote>
+<p>docker rm dd7521aca04a</p>
+</blockquote>
+</li>
+<li>退出容器：<ul>
+<li>exit命令 或者 CTRL+D</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>镜像images （静态的）</p>
+<ul>
+<li><p>列出本地主机的镜像： docker images</p>
+<ul>
+<li>REPOSITORY： 表示镜像的仓库源</li>
+<li>TAG：镜像的标签</li>
+<li>IMAGE ID：镜像的ID</li>
+<li>CREATED：镜像创建时间</li>
+<li>SIZE：镜像大小</li>
+</ul>
+</li>
+<li><p>从Docker Hub搜索镜像：<a href="https://hub.docker.com/" target="_blank" rel="noopener">https://hub.docker.com/</a></p>
+</li>
+<li>查找镜像：    docker search httpd</li>
+<li>拖取镜像：    docker pull httpd</li>
+<li>使用镜像：    docker run httpd</li>
+<li>创建镜像：<ul>
+<li>从已经创建的容器中更新镜像，并且提交这个镜像</li>
+<li>使用Dockerfile 指令来创建一个镜像</li>
+</ul>
+</li>
+<li>构建镜像：<ul>
+<li>使用命令： docker build，创建一个新的镜像。需要提前创建一个Dockfile文件，包含一组指令告诉Docker 如何构建镜像。</li>
+<li>每一个指令都会在镜像上创建一个新的层， 每一个指令的前缀必须都是大写的。</li>
+<li>第一条FFROM，指定使用哪个镜像源</li>
+<li>RUN 指令 告诉docker在镜像内执行命令，安装了什么</li>
+</ul>
+</li>
+<li>设置镜像标签<ul>
+<li>docker tag 860c279d2fec runoob/centos:dev</li>
+<li>镜像ID，是 860c279d2fec ,用户名称、镜像源名(repository name)和新的标签名(tag)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Docker容器连接：</p>
+<ul>
+<li></li>
+</ul>
+</li>
+<li><p>微云上发布</p>
+<ul>
+<li>wget xxx // 获取镜像</li>
+<li>unzip v0510.zip /home/work/project/xxx</li>
+<li>node /home/work/project/app.js</li>
+</ul>
+</li>
+<li><p>项目部署</p>
+<ul>
+<li>1.node/npm 依赖的环境 （固定不变的）</li>
+<li>2.node_modules （基本不变）</li>
+<li><p>3.src 源码 （动态变化）</p>
+</li>
+<li><p>最后一个依赖前两个： 1 + 2</p>
+</li>
+<li><p>制定Dockerfile</p>
+<blockquote>
+<p>FROM registry.dev.weiyun.baidu.com/baidu_containers/nodejs:v1<br>COPY node_modules/  /home/work/nodejs/…..</p>
+</blockquote>
+<blockquote>
+<p>FROM registry.dev.weiyun.baidu.com/baidu_containers/nodejs:v2<br>COPY src/ /home/work/nodejs/</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>Dockerfile</p>
+<ul>
+<li>FROM egistry.dev.weiyun.baidu.com/baidu_containers/nodejs-base:v1</li>
+<li>RUN cp node.js xxx.nodejs</li>
+<li>RUN xxx</li>
+<li><p>CMD node app.js</p>
+</li>
+<li><p>每一层都是一个layer</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="Docker-命令"><a href="#Docker-命令" class="headerlink" title="Docker 命令"></a>Docker 命令</h3><ul>
+<li><p>容器生命周期管理</p>
+<ul>
+<li>docker run： 创建一个新的容器并运行一个命令</li>
+<li>docker start： 启动一个或多个已经被停止的容器</li>
+<li>docker stop：停止一个运行中的容器</li>
+<li>docker restart: 重启容器</li>
+<li>docker kill：杀掉一个运行中的机器</li>
+<li>docker run：删除一个多个容器</li>
+<li>docker pause/unpause：暂停/恢复容器中的所有进程</li>
+<li>docker create：创建一新的容器但不启动它</li>
+<li>docker exec：在运行的容器中执行命令</li>
+</ul>
+</li>
+<li><p>容器操作</p>
+<ul>
+<li>docker ps：列出容器（-a， 显示所有容器；-f，根据条件过滤显示的内容；-l，最近创建的容器；-q，只显示容器编号）</li>
+<li>docker inspect：获取容器/镜像的元数据</li>
+</ul>
+</li>
+</ul>
+<h3 id="Linux-发行版排行榜"><a href="#Linux-发行版排行榜" class="headerlink" title="Linux 发行版排行榜"></a>Linux 发行版排行榜</h3><ul>
+<li><a href="https://zhuanlan.zhihu.com/p/33771775" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/33771775</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/27/webpack-path-config/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1269,675 +2303,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/23/skill-performance/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lurel">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Laurel Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/23/skill-performance/" itemprop="url">skill-performance</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-23T18:38:48+08:00">
-                2018-03-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="js技巧"><a href="#js技巧" class="headerlink" title="js技巧"></a>js技巧</h1><h3 id="1、new-Set"><a href="#1、new-Set" class="headerlink" title="1、new Set()"></a>1、new Set()</h3><p><code>利用Set数据结构能够去重一个数组</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let arr = [1,2,2,3];</span><br><span class="line">let set = new Set(arr);</span><br><span class="line">let newArr = Array.from(set); // Array.from方法可以将Set结构转为数组</span><br><span class="line">console.log(newArr); // [1,2,3]</span><br></pre></td></tr></table></figure></p>
-<h3 id="2、Object-assign"><a href="#2、Object-assign" class="headerlink" title="2、Object.assign()"></a>2、Object.assign()</h3><p><code>Object.assign()也是ES6中提供的对象的扩展方法，可以用于对象的合并拷贝</code><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj1 = &#123;<span class="attr">a</span>: <span class="number">1</span>&#125;;</span><br><span class="line"><span class="keyword">let</span> obj2 = &#123;<span class="attr">b</span>: <span class="number">2</span>&#125;;</span><br><span class="line"><span class="keyword">let</span> obj3 = <span class="built_in">Object</span>.assign(&#123;&#125;, obj1, obj2);</span><br><span class="line"><span class="built_in">console</span>.log(obj3) <span class="comment">// &#123;a: 1, b:2&#125;</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="3、map"><a href="#3、map" class="headerlink" title="3、map()"></a>3、map()</h3><p><code>map方法用于遍历数组，有返回值，可以对数组的每一项进行操作并生成一个新的数组，有些时候可以代替for和forEach循环，简化代码</code><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr3 = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br><span class="line"><span class="keyword">let</span> newArr3 = arr3.map(<span class="function">(<span class="params">e, i</span>) =&gt;</span> e*<span class="number">10</span> );</span><br><span class="line"><span class="built_in">console</span>.log(newArr3)</span><br></pre></td></tr></table></figure></p>
-<h3 id="4、filter"><a href="#4、filter" class="headerlink" title="4、filter()"></a>4、filter()</h3><p>filter方法用于遍历数组，就是过滤数组，在每一项元素后面触发一个回调函数，通过判断，保留或移出当前项，最后返回一个新的数组<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr4 = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br><span class="line"><span class="keyword">let</span> newArr4 = arr4.filter(<span class="function">(<span class="params">e, i</span>) =&gt;</span> e%<span class="number">2</span> === <span class="number">0</span>); <span class="comment">// 取模，过滤余数不为0的数</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="5、some"><a href="#5、some" class="headerlink" title="5、some()"></a>5、some()</h3><p>some方法用于遍历数组，在每一项元素后面触发一个回调函数，只要一个满足条件就返回true,否则就返回false。类似于||比较</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr5 = [&#123;<span class="attr">result</span>:<span class="literal">true</span>&#125;, &#123;<span class="attr">result</span>: <span class="literal">false</span>&#125;];</span><br><span class="line"><span class="keyword">let</span> newArr5 = arr.some(<span class="function">(<span class="params">e, i</span>) =&gt;</span> e.result); <span class="comment">//只要一个为true,即为true</span></span><br><span class="line"><span class="built_in">console</span>.log(newArr5); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-<h3 id="6、every"><a href="#6、every" class="headerlink" title="6、every()"></a>6、every()</h3><p>every方法用于遍历数组，在每一项元素后面触发一个回调函数，只要一个不满足条件就返回false,否则返回true,类似于&amp;&amp;比较<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr6 = [&#123;<span class="attr">result</span>:<span class="literal">true</span>&#125;, &#123;<span class="attr">result</span>: <span class="literal">false</span>&#125;];</span><br><span class="line"><span class="keyword">let</span> newArr6 = arr.some(<span class="function">(<span class="params">e, i</span>) =&gt;</span> e.result); <span class="comment">//只要一个为true,即为true</span></span><br><span class="line"><span class="built_in">console</span>.log(newArr6); <span class="comment">// false</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="7、-运算符"><a href="#7、-运算符" class="headerlink" title="7、~~运算符"></a>7、~~运算符</h3><p>~符号在JS中有按位取反的作用，~~即是取反两次，而位运算的操作值要求是整数，其结果也是整数，所以经过位运算的都会自动变成整数，可以巧妙的去掉小数部分，类似于parseInt()<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">1.23</span>;</span><br><span class="line"><span class="keyword">let</span> b = <span class="number">-1.23</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(~~a); <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(~~b); <span class="comment">// -1</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="8、-运算符"><a href="#8、-运算符" class="headerlink" title="8、|| 运算符"></a>8、|| 运算符</h3><p>使用||运算符可以给变量设置默认值<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> c = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">let</span> d = c || <span class="number">2</span>;  <span class="comment">// 如果c的值为true则取存在的值，否则为2</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(d);  <span class="comment">// 1</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="9、…运算符"><a href="#9、…运算符" class="headerlink" title="9、…运算符"></a>9、…运算符</h3><p>…运算符是ES6中用于结构数组的方法，可以用于快速获取数组的参数<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> [num1, ...nums] = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(num1); <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(num3); <span class="comment">// [2,3]</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="10、三元运算符"><a href="#10、三元运算符" class="headerlink" title="10、三元运算符"></a>10、三元运算符</h3><p>e ? f = ‘man’ : f = ‘woman’</p>
-<hr>
-<h1 id="js性能优化小结"><a href="#js性能优化小结" class="headerlink" title="js性能优化小结"></a>js性能优化小结</h1><h3 id="1、谨慎使用闭包"><a href="#1、谨慎使用闭包" class="headerlink" title="1、谨慎使用闭包"></a>1、谨慎使用闭包</h3><p>【由于闭包[[Scope]] 属性包含与执行环境作用域链相同的对象引用，函数活动对象本来会随着执行环境完毕后一同销毁，但引入闭包，对象无法被销毁。】<br>闭包会造成更多的内存开销，同时还会造成内存泄露</p>
-<h3 id="2、缓存对象成员"><a href="#2、缓存对象成员" class="headerlink" title="2、缓存对象成员"></a>2、缓存对象成员</h3><p>在同一个函数中， 如果存在多次读取同一个对象成员，可以在局部函数中保存对象，减少查找<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getWindowWH</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> elBody = <span class="built_in">document</span>.getElementByTagName(<span class="string">'body'</span>)[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        width: elBody.offsetWidth,</span><br><span class="line">        height: elBody.offsetHeight</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>同时也解决了属性越深，访问速度越慢的问题</p>
-<h3 id="3、DOM操作"><a href="#3、DOM操作" class="headerlink" title="3、DOM操作"></a>3、DOM操作</h3><p>访问DOM的次数越多，代码运行的速度越慢，统一的保存结果最后在一并输出<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">innerHTMLLoop</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> content = <span class="string">''</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> count = <span class="number">0</span>; count &lt; <span class="number">1000</span>; count++) &#123;</span><br><span class="line">        content += <span class="string">'a'</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">'idName'</span>).innerHTML += content;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="4、重绘（repaints）与重排（reflows）"><a href="#4、重绘（repaints）与重排（reflows）" class="headerlink" title="4、重绘（repaints）与重排（reflows）"></a>4、重绘（repaints）与重排（reflows）</h3><p>当页面布局和几何属性改变时就需要”重排”<br>避免在修改样式的过程中使用offsetTop, scrollTop, clientTop, getComputedStyle()这些属性，它们都会重新渲染队列<br>    最小化重绘和重排，尽量一次处理<br>    1）使元素脱离文档流<br>    2）使用documentFragment<br>    3）将原始元素拷贝到一个脱离文档流的节点中，修改副本，完成后再替换元素元素</p>
-<p><a href="https://www.jianshu.com/p/b8f7e6c32a1b" target="_blank" rel="noopener">link</a></p>
-<h4 id="reflow"><a href="#reflow" class="headerlink" title="reflow"></a>reflow</h4><p>reflow（回流）是导致DOM脚本执行效率低的关键因素之一，页面上任何一个节点触发了reflow，会导致它的子节点及祖先节点重新渲染。</p>
-<p><strong>导致reflow发生</strong></p>
-<ul>
-<li>改变窗口大小</li>
-<li>改变文字大小</li>
-<li>添加/删除样式表</li>
-<li>内容的改变，（用户在输入框中写入内容也会）</li>
-<li>激活伪类，如:hover</li>
-<li>操作class属性</li>
-<li>脚本操作DOM</li>
-<li>计算offsetWidth和offsetHeight</li>
-<li>设置style属性</li>
-</ul>
-<h4 id="repaint"><a href="#repaint" class="headerlink" title="repaint"></a>repaint</h4><p>repaint是在一个元素的外观被改变，但没有改变布局的情况下发生的，如改变了visibility、outline、background等。</p>
-<h3 id="5、事件委托"><a href="#5、事件委托" class="headerlink" title="5、事件委托"></a>5、事件委托</h3><p>当有很多元素需要绑定事件的时候，我们一个一个的去绑定事件是有代价的的，元素越多应用程序越慢。事件绑定不但占用了处理时间，并且追踪事件需要更多的内存，有时候很多元素是不需要，或者是用户不会点击的，所以我们需要使用事件委托来解决没有必要的资源消耗。</p>
-<p>例子： 我们需监听li的click事件，通过冒泡事件来获取点击的对象。</p>
-<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul&gt;</span><br><span class="line">    &lt;li index=&apos;1&apos;&gt;1&lt;/li&gt;</span><br><span class="line">    &lt;li index=&apos;2&apos;&gt;2&lt;/li&gt;</span><br><span class="line">    &lt;li index=&apos;3&apos;&gt;3&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure></p>
-<hr>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ul = <span class="built_in">document</span>.getElementById(<span class="string">'ul'</span>);</span><br><span class="line"></span><br><span class="line">ul.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> now_index = e.target.getAttribute(<span class="string">'index'</span>);</span><br><span class="line">  ...</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="6、循环性能"><a href="#6、循环性能" class="headerlink" title="6、循环性能"></a>6、循环性能</h3><p>一般的for语句可能很多人都这么写</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; array.length; i++)&#123;</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>每次循环的时候需要查找array.length，这样不但很耗时，也造成性能损失。只要查找一次属性，存储在局部变量，就可以提高性能。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>, len = array.length; i &lt; len; i++)&#123;</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>重写后的循环根据数组的长度能优化25%的运行时间，IE更多。所以平时书写的时候还是要多加注意。同时还是要避免使用for-in循环。</p>
-<h3 id="7、条件语句"><a href="#7、条件语句" class="headerlink" title="7、条件语句"></a>7、条件语句</h3><p>if-else 对比 switch， 当条件语句较多的时候switch 更易读，运行的要更快。所以但条件少的情况下使用if-else，当条件增加时，更倾向于switch，会更佳合理。</p>
-<h3 id="8、避免使用构造器"><a href="#8、避免使用构造器" class="headerlink" title="8、避免使用构造器"></a>8、避免使用构造器</h3><p>通过避免使用eval()和Function()构造器来避免双重求值带来的性能消耗<br>eval(‘2 + 2’)</p>
-<h3 id="9、使用-Object-Array-直接量"><a href="#9、使用-Object-Array-直接量" class="headerlink" title="9、使用 Object/Array 直接量"></a>9、使用 Object/Array 直接量</h3><p>直接量的速度会更快。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//bad</span></span><br><span class="line"><span class="keyword">var</span> myObject = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">myObject.name = <span class="string">"xxxx"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//good</span></span><br><span class="line"><span class="keyword">var</span> myObject = &#123;</span><br><span class="line">    name: <span class="string">"xxxx"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/22/performance-object/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lurel">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Laurel Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/22/performance-object/" itemprop="url">performance</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-22T10:33:47+08:00">
-                2018-03-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">in</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cate/" itemprop="url" rel="index">
-                    <span itemprop="name">cate</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="performance"><a href="#performance" class="headerlink" title="performance"></a>performance</h2><p><a href="https://segmentfault.com/a/1190000004466407" target="_blank" rel="noopener">链接</a></p>
-<h3 id="performance-API"><a href="#performance-API" class="headerlink" title="performance API"></a>performance API</h3><p><a href="http://javascript.ruanyifeng.com/bom/performance.html" target="_blank" rel="noopener">performace API</a></p>
-<p>用于精确度量、控制、增强浏览器的性能表现。</p>
-<ul>
-<li>performance.timing<ul>
-<li>performance.timing.navigationStart 浏览器处理当前网页的启动时间</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> t = performance.timing;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 页面加载的耗时</span></span><br><span class="line"><span class="keyword">var</span> pageloadtime = t.loadEventStart - t.navigationStart;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 域名解析的耗时</span></span><br><span class="line"><span class="keyword">var</span> dns = t.domainLookupEnd - t.domainLookupStart;</span><br><span class="line"></span><br><span class="line"><span class="comment">// tcp 连接的时间</span></span><br><span class="line"><span class="keyword">var</span> tcp = t.connectEnd - t.connectStart;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> ttfb = t.responseStart - t.navigationStart;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>performance.navigation 对象<ul>
-<li>performance.navigation.type：网页加载的来源</li>
-<li>performance.navigation.redirectCount：表示当前网页经过了多少次重定向跳转</li>
-</ul>
-</li>
-</ul>
-<h3 id="performance-对象属性"><a href="#performance-对象属性" class="headerlink" title="performance 对象属性"></a>performance 对象属性</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> performance = &#123;</span><br><span class="line">    memory: &#123;</span><br><span class="line">        usedJSHeapSize, <span class="comment">// JS对象占用的内存，一定小于totalJSHeapSize    </span></span><br><span class="line">        totalJSHeapSize, <span class="comment">// 可使用的内存</span></span><br><span class="line">        jsHeapSizeLimit, <span class="comment">// 内存大小限制</span></span><br><span class="line">    &#125;,</span><br><span class="line">    navigation: &#123;</span><br><span class="line">        redirectCount: <span class="number">0</span>, <span class="comment">// 如果有重定向，页面通过几次重定向跳转而来</span></span><br><span class="line">        type: <span class="number">0</span>,    <span class="comment">// 0    即 TYPE_NAVIGATENEXT 正常进入的页面（非刷新、非重定向等）</span></span><br><span class="line">                    <span class="comment">// 1    即 TYPE_RELOAD 通过window.location.reload()刷新的页面</span></span><br><span class="line">                    <span class="comment">// 2    即 TYPE_BACK_FORWARD 通过浏览器的前进后退按钮进入的页面（历史记录）</span></span><br><span class="line">                    <span class="comment">// 225    即 TYPE_UNDEFINED 非以上方式进入的页面</span></span><br><span class="line">    &#125;,</span><br><span class="line">    timing: &#123;</span><br><span class="line">        <span class="comment">// 在同一个浏览器上下文中，前一个网页（与当前页面不一定同域）unload 的时间戳，如果无前一个网页 unload ，则与 fetchStart 值相等</span></span><br><span class="line">        navigationStart: <span class="number">1441112691935</span>,</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 前一个网页（与当前页面同域）unload 的时间戳，如果无前一个网页 unload 或者前一个网页与当前页面不同域，则值为 0</span></span><br><span class="line">        unloadEventStart: <span class="number">0</span>,</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 和 unloadEventStart 相对应，返回前一个网页 unload 事件绑定的回调函数执行完毕的时间戳</span></span><br><span class="line">        unloadEventEnd: <span class="number">0</span>,</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 第一个 HTTP 重定向发生时的时间。有跳转且是同域名内的重定向才算，否则值为 0 </span></span><br><span class="line">        redirectStart: <span class="number">0</span>,</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 最后一个 HTTP 重定向完成时的时间。有跳转且是同域名内部的重定向才算，否则值为 0 </span></span><br><span class="line">        redirectEnd: <span class="number">0</span>,</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 浏览器准备好使用 HTTP 请求抓取文档的时间，这发生在检查本地缓存之前</span></span><br><span class="line">        fetchStart: <span class="number">1441112692155</span>,</span><br><span class="line"></span><br><span class="line">        <span class="comment">// DNS 域名查询开始的时间，如果使用了本地缓存（即无 DNS 查询）或持久连接，则与 fetchStart 值相等</span></span><br><span class="line">        domainLookupStart: <span class="number">1441112692155</span>,</span><br><span class="line"></span><br><span class="line">        <span class="comment">// DNS 域名查询完成的时间，如果使用了本地缓存（即无 DNS 查询）或持久连接，则与 fetchStart 值相等</span></span><br><span class="line">        domainLookupEnd: <span class="number">1441112692155</span>,</span><br><span class="line"></span><br><span class="line">        <span class="comment">// HTTP（TCP） 开始建立连接的时间，如果是持久连接，则与 fetchStart 值相等</span></span><br><span class="line">        <span class="comment">// 注意如果在传输层发生了错误且重新建立连接，则这里显示的是新建立的连接开始的时间</span></span><br><span class="line">        connectStart: <span class="number">1441112692155</span>,</span><br><span class="line"></span><br><span class="line">        <span class="comment">// HTTP（TCP） 完成建立连接的时间（完成握手），如果是持久连接，则与 fetchStart 值相等</span></span><br><span class="line">        <span class="comment">// 注意如果在传输层发生了错误且重新建立连接，则这里显示的是新建立的连接完成的时间</span></span><br><span class="line">        <span class="comment">// 注意这里握手结束，包括安全连接建立完成、SOCKS 授权通过</span></span><br><span class="line">        connectEnd: <span class="number">1441112692155</span>,</span><br><span class="line"></span><br><span class="line">        <span class="comment">// HTTPS 连接开始的时间，如果不是安全连接，则值为 0</span></span><br><span class="line">        secureConnectionStart: <span class="number">0</span>,</span><br><span class="line"></span><br><span class="line">        <span class="comment">// HTTP 请求读取真实文档开始的时间（完成建立连接），包括从本地读取缓存</span></span><br><span class="line">        <span class="comment">// 连接错误重连时，这里显示的也是新建立连接的时间</span></span><br><span class="line">        requestStart: <span class="number">1441112692158</span>,</span><br><span class="line"></span><br><span class="line">        <span class="comment">// HTTP 开始接收响应的时间（获取到第一个字节），包括从本地读取缓存</span></span><br><span class="line">        responseStart: <span class="number">1441112692686</span>,</span><br><span class="line"></span><br><span class="line">        <span class="comment">// HTTP 响应全部接收完成的时间（获取到最后一个字节），包括从本地读取缓存</span></span><br><span class="line">        responseEnd: <span class="number">1441112692687</span>,</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 开始解析渲染 DOM 树的时间，此时 Document.readyState 变为 loading，并将抛出 readystatechange 相关事件</span></span><br><span class="line">        domLoading: <span class="number">1441112692690</span>,</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 完成解析 DOM 树的时间，Document.readyState 变为 interactive，并将抛出 readystatechange 相关事件</span></span><br><span class="line">        <span class="comment">// 注意只是 DOM 树解析完成，这时候并没有开始加载网页内的资源</span></span><br><span class="line">        domInteractive: <span class="number">1441112693093</span>,</span><br><span class="line"></span><br><span class="line">        <span class="comment">// DOM 解析完成后，网页内资源加载开始的时间</span></span><br><span class="line">        <span class="comment">// 在 DOMContentLoaded 事件抛出前发生</span></span><br><span class="line">        domContentLoadedEventStart: <span class="number">1441112693093</span>,</span><br><span class="line"></span><br><span class="line">        <span class="comment">// DOM 解析完成后，网页内资源加载完成的时间（如 JS 脚本加载执行完毕）</span></span><br><span class="line">        domContentLoadedEventEnd: <span class="number">1441112693101</span>,</span><br><span class="line"></span><br><span class="line">        <span class="comment">// DOM 树解析完成，且资源也准备就绪的时间，Document.readyState 变为 complete，并将抛出 readystatechange 相关事件</span></span><br><span class="line">        domComplete: <span class="number">1441112693214</span>,</span><br><span class="line"></span><br><span class="line">        <span class="comment">// load 事件发送给文档，也即 load 回调函数开始执行的时间</span></span><br><span class="line">        <span class="comment">// 注意如果没有绑定 load 事件，值为 0</span></span><br><span class="line">        loadEventStart: <span class="number">1441112693214</span>,</span><br><span class="line"></span><br><span class="line">        <span class="comment">// load 事件的回调函数执行完毕的时间</span></span><br><span class="line">        loadEventEnd: <span class="number">1441112693215</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="performance-now"><a href="#performance-now" class="headerlink" title="performance.now()"></a>performance.now()</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">performance.now();  <span class="comment">// 输出是微秒级别</span></span><br><span class="line"><span class="built_in">Date</span>.now();         <span class="comment">// 输出是毫秒级别</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>Date.now() 输出从1970年开始的毫秒数</li>
-<li>performance.now() 从performance.timing.navigationStart(页面开始加载)的时间，到当前时间的微妙数。</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> timesnipe = performance.now();</span><br><span class="line">    <span class="built_in">document</span>.addEventListener(<span class="string">'DOMContentLoaded'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(performance.now() - timesnipe);</span><br><span class="line">    &#125;, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">window</span>.addEventListener(<span class="string">'load'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(performance.now() - timesnipe);</span><br><span class="line">    &#125;, <span class="literal">false</span>);</span><br><span class="line">    <span class="comment">// 这样并不等同于，只能算约等于</span></span><br><span class="line">    performance.timing.domContentLoadedEvenntStart - performance.timing.domLoading; <span class="comment">// 检测domLoadEvent触发时间</span></span><br></pre></td></tr></table></figure>
-<h3 id="redirect-重定向，页面加载的第一步"><a href="#redirect-重定向，页面加载的第一步" class="headerlink" title="redirect 重定向，页面加载的第一步"></a>redirect 重定向，页面加载的第一步</h3><ul>
-<li><p>当一个页面迁移，但是你输入原来的网址就会发生重定向，这样就会经过两次DNS解析，TCP连接，以及请求的发送。</p>
-</li>
-<li><p>使用.performance 的属性，计算出重定向的时间</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redirectTime = redirectEnd - redirectStart</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="cache-DNS-TCP-Request-Response"><a href="#cache-DNS-TCP-Request-Response" class="headerlink" title="cache,DNS, TCP, Request, Response"></a>cache,DNS, TCP, Request, Response</h3><ul>
-<li>输入的域名正确，浏览器会查询本地是否有域名缓存（appCache）</li>
-<li>如果有，则不需要进行DNS解析，否则需要对域名进行解析，找到真正的IP地址</li>
-<li>建立3次握手连接</li>
-<li>发送请求</li>
-<li>接受数据</li>
-</ul>
-<p>这部分可以做的优化有：</p>
-<ol>
-<li>发送请求的优化:加异地机房，加CDN（加快解析request）</li>
-<li>请求加载数据的优化：页面内容经过gzip压缩，静态资源css/js等压缩（request到response的优化）</li>
-</ol>
-<p><strong>performance的相关操作，最好放在onload的回调中执行，避免出现异常的bug</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// DNS 缓存时间</span></span><br><span class="line">    times.apache = t.domainLookupStart - t.fetchStart;</span><br><span class="line"><span class="comment">// TCP 建立连接完成握手的时间</span></span><br><span class="line">    times.connect = t.connectEnd - t.connectStart;</span><br><span class="line"><span class="comment">// DNS 查询时间</span></span><br><span class="line">    times.lookupDomain = t.domainLookupEnd - t.domainLookupStart;</span><br><span class="line"><span class="comment">// 整个解析时间</span></span><br><span class="line">    <span class="keyword">var</span> lookup = t.responseEnd - t.responseStart;</span><br></pre></td></tr></table></figure></p>
-<h3 id="process-onload"><a href="#process-onload" class="headerlink" title="process,onload"></a>process,onload</h3><ul>
-<li>解析HTML结构</li>
-<li>加载外部脚本和样式表文件</li>
-<li>解析并执行脚本代码</li>
-<li>构造HTML DOM模型。 // ready 执行</li>
-<li>加载图片等外部文件</li>
-<li>页面加载完毕    // load 执行</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 计算DOMContentLoaded 触发时间</span></span><br><span class="line"><span class="keyword">var</span> contentLoadedTime = t.domContentLoadedEventStart - t.domLoading</span><br><span class="line"><span class="comment">// 计算load触发时间</span></span><br><span class="line"><span class="keyword">var</span> loadTime = t.domComplete - t.domLoading;</span><br></pre></td></tr></table></figure>
-<p>如果js文件设计DOM操作，可以直接在DOMContentLoaded里面添加回调函数，或者说基本上js文件都可以在写在里面进行调用。这和将js文件放在body底部，在js上面加async，defer，以及hard Callback异步加载js文件的效果一样。</p>
-<hr>
-<h2 id="jquery-ready-事件解析"><a href="#jquery-ready-事件解析" class="headerlink" title="jquery ready 事件解析"></a>jquery ready 事件解析</h2><h3 id="readyStateChange"><a href="#readyStateChange" class="headerlink" title="readyStateChange"></a>readyStateChange</h3><p>这是IE6，7，8的特有属性，用它来标识某个元素的加载状态。但w3c规定，只有xhr才有这个事件。一般只能在IE中使用readyStateChange。否则，其他浏览器是没有效果的。</p>
-<h3 id="doScroll-兼容"><a href="#doScroll-兼容" class="headerlink" title="doScroll 兼容"></a>doScroll 兼容</h3><p>这是IE低版本特有的，IE11已经弃用了。使用scrollLeft和scrollTop代替。</p>
-<p>doScroll的主要作用是检测DOM结构是否有问题，通常会使用轮训来检测doScroll是否可用，当可用时一定是DOM结构稳定，图片资源还未加载的时候。</p>
-<hr>
-<h2 id="JS-中运行时间函数console-time"><a href="#JS-中运行时间函数console-time" class="headerlink" title="JS 中运行时间函数console.time()"></a>JS 中运行时间函数console.time()</h2><p>需要在调试过程中知道代码执行的时间，可以通过在JS中添加console.time()和console.timeEnd()来对程序的执行进行计时</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> x = <span class="number">100</span>, y = <span class="number">300</span>;</span><br><span class="line">    <span class="keyword">return</span> x * y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 计时</span></span><br><span class="line"><span class="built_in">console</span>.time(<span class="string">'test'</span>);</span><br><span class="line"></span><br><span class="line">foo();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.timeEnd(<span class="string">'test'</span>);</span><br></pre></td></tr></table></figure>
-<p>console.time()和console.timeEnd()接收一个字符串作为参数，字符串相当于计时的id。浏览器会将拥有相同参数(id)的console.time()与console.timeEnd()进行配对，记录两者之间的时间差</p>
-<h3 id="浏览器兼容性"><a href="#浏览器兼容性" class="headerlink" title="浏览器兼容性"></a>浏览器兼容性</h3><ul>
-<li>ff &gt; 10.0<ul>
-<li>之前的版本可通过安装Firebug插件实现</li>
-</ul>
-</li>
-<li>chrone &gt; 2.0</li>
-<li>IE &gt; IE 11<ul>
-<li>之前版本的IE，可通过fireBug Lite实现<br></li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/15/axios-timeout/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lurel">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Laurel Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/15/axios-timeout/" itemprop="url">axios-timeout</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-15T21:27:59+08:00">
-                2018-03-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">in</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cate/" itemprop="url" rel="index">
-                    <span itemprop="name">cate</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="axios-使用拦截器全局处理请求重试"><a href="#axios-使用拦截器全局处理请求重试" class="headerlink" title="axios 使用拦截器全局处理请求重试"></a>axios 使用拦截器全局处理请求重试</h2><p>axios 提供了拦截器的接口能够全局处理请求和响应。Axios拦截器会在Promise的then和catch调用前拦截到。 </p>
-<ul>
-<li><p>请求拦截示例：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">axios.interceptors.request.use(<span class="function"><span class="keyword">function</span> (<span class="params">config</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 发起请求前做一些业务处理</span></span><br><span class="line">        <span class="keyword">return</span> config</span><br><span class="line">    &#125;, <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 对请求失败做处理</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error);</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>响应拦截示例：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">axios.interceptors.response.use(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 对响应数据做处理</span></span><br><span class="line">        <span class="keyword">return</span> response;</span><br><span class="line">    &#125;, <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error);</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="Axios-实现请求重试"><a href="#Axios-实现请求重试" class="headerlink" title="Axios 实现请求重试"></a>Axios 实现请求重试</h2><p>在某些情况（如请求超时），可能希望重新发起请求。可以再响应拦截器坐下处理，对请求发起重试。</p>
-<h3 id="请求重试需要考虑三个因素："><a href="#请求重试需要考虑三个因素：" class="headerlink" title="请求重试需要考虑三个因素："></a>请求重试需要考虑三个因素：</h3><ul>
-<li>重试条件</li>
-<li>重试次数</li>
-<li>重试时延</li>
-</ul>
-<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">axios.defaults.retry = <span class="number">1</span>; <span class="comment">// 重试次数</span></span><br><span class="line">axios.defaults.retryDelay = <span class="number">1000</span>; <span class="comment">// 重试时延</span></span><br><span class="line">axios.defaults.shouldretry = <span class="function">(<span class="params">error</span>) =&gt;</span> <span class="literal">true</span>; <span class="comment">// 重试条件</span></span><br></pre></td></tr></table></figure>
-<h3 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">axios.defaults.timeout = <span class="number">5000</span>; <span class="comment">// 设置所有请求的超时时间</span></span><br><span class="line">axios.defaults.retry = <span class="number">1</span>; <span class="comment">// 重试次数</span></span><br><span class="line">axios.defaults.retryDelay = <span class="number">1000</span>;<span class="comment">// 重试延时</span></span><br><span class="line">axios.defaults.shouldRetry = <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (error.code === <span class="string">'ECONNABORTED'</span> &amp;&amp; error.message.indexOf(<span class="string">'timeout'</span>) !== <span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;; <span class="comment">// 重试条件，只要是超时错误都需要重试</span></span><br><span class="line"></span><br><span class="line">axios.interceptors.response.use(<span class="literal">undefined</span>, <span class="function"><span class="keyword">function</span> <span class="title">axiosRetryInterceptor</span>(<span class="params">err</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> config = err.config;</span><br><span class="line">    <span class="keyword">if</span> (!config || !config.retry) &#123; <span class="comment">// 判断是否配置了重试</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(err);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!config.shouldRetry || <span class="keyword">typeof</span> config.shouldRetry !== <span class="string">'function'</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(err);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 判断是否满足重试条件</span></span><br><span class="line">    <span class="keyword">if</span> (!config.shouldRetry(err)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(err);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置重置次数，默认为0</span></span><br><span class="line">    config.__retryCount = config.__retryCount || <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 是否超过了重试次数</span></span><br><span class="line">    <span class="keyword">if</span> (config.__retryCount &gt;= config.retry) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(err);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    config.__retryCount += <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 延时处理</span></span><br><span class="line">    <span class="keyword">let</span> backoff = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve</span>) </span>&#123;</span><br><span class="line">        setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            resolve();</span><br><span class="line">        &#125;, config.retryDelay || <span class="number">1</span>);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 重新发起axios请求</span></span><br><span class="line">    <span class="keyword">return</span> backoff.then(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> axios(config);</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/08/检测字体支持/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lurel">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Laurel Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/08/检测字体支持/" itemprop="url">检测字体支持</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-08T17:07:00+08:00">
-                2018-03-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="原理："><a href="#原理：" class="headerlink" title="原理："></a>原理：</h3><blockquote>
-<p>根据用户设置的字体将某一个字符绘制在canvas上（fillText()），并提取像素信息（getImageData()），然后和默认字体进行比对，如果像素不一致，说明字体生效，说明字体不生效。</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> isSupportFontFamily = <span class="function"><span class="keyword">function</span> (<span class="params">fontFamily</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> fontFamily != <span class="string">'string'</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> defaultFontFamily = <span class="string">'Arial'</span>;</span><br><span class="line">        <span class="keyword">if</span> (fontFamily.toLowerCase() == defaultFontFamily.toLowerCase()) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> defaultLetter = <span class="string">'a'</span>;</span><br><span class="line">        <span class="keyword">var</span> defaultFontSize = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 使用该字体绘制的canvas</span></span><br><span class="line">        <span class="keyword">var</span> width = <span class="number">100</span>, height = <span class="number">100</span>;</span><br><span class="line">        <span class="keyword">var</span> canvas = <span class="built_in">document</span>.getElementById(<span class="string">'canvas'</span>);</span><br><span class="line">        <span class="keyword">var</span> context = canvas.getContext(<span class="string">'2d'</span>);</span><br><span class="line">        canvas.width = width;</span><br><span class="line">        canvas.height = height;</span><br><span class="line">        <span class="comment">// 全局一致的绘制设定</span></span><br><span class="line">        context.textAlign = <span class="string">'center'</span>;</span><br><span class="line">        context.fillStyle = <span class="string">'black'</span>;</span><br><span class="line">        context.textBaseline = <span class="string">'middle'</span>;</span><br><span class="line">        <span class="keyword">var</span> getFontData = <span class="function"><span class="keyword">function</span> (<span class="params">fontFamily</span>) </span>&#123;</span><br><span class="line">            <span class="comment">// 清除</span></span><br><span class="line">            context.clearRect(<span class="number">0</span>, <span class="number">0</span>, width, height);</span><br><span class="line">            <span class="comment">// 设置字体</span></span><br><span class="line">            context.font = defaultFontSize + <span class="string">'px '</span> + fontFamily + <span class="string">', '</span> + defaultFontFamily;</span><br><span class="line">            context.fillText(defaultLetter, width / <span class="number">2</span>, height / <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">var</span> data = context.getImageData(<span class="number">0</span>, <span class="number">0</span>, width, height).data;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> [].slice.call(data).filter(<span class="function"><span class="keyword">function</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> value != <span class="number">0</span>;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> getFontData(defaultFontFamily).join(<span class="string">''</span>) !== getFontData(fontFamily).join(<span class="string">''</span>);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(isSupportFontFamily(<span class="string">'Arial'</span>));</span><br></pre></td></tr></table></figure>
-<h3 id="说明："><a href="#说明：" class="headerlink" title="说明："></a>说明：</h3><ul>
-<li>用一个字体显示字母a。如果这个字体不存在，系统会默认显示成Arial字体。</li>
-<li>如果用字体X显示出来的字母的字符点阵和字体Arial不一样，说明字体X存在。</li>
-<li>如果用字体X显示出来的字母的字符点阵和字体Arial一样，说明字体X不存在，系统用的默认字体Arial显示的。</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1983,7 +2353,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
@@ -2005,7 +2375,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">Tags</span>
                 </a>
               </div>
