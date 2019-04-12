@@ -185,7 +185,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Accueil
+            Startseite
           </a>
         </li>
       
@@ -195,7 +195,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -261,7 +261,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-12T10:38:25+08:00">
                 2019-04-12
@@ -282,7 +282,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -333,23 +333,23 @@
 </ul>
 </li>
 </ul>
-<h2 id="具体示例"><a href="#具体示例" class="headerlink" title="具体示例"></a>具体示例</h2><ol>
+<h3 id="具体示例差别"><a href="#具体示例差别" class="headerlink" title="具体示例差别"></a>具体示例差别</h3><ol>
 <li><p>创建一个基础的Web服务（两者的区别是路由处理Express是自身集成的，而Koa需要引入中间件）</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. Express</span></span><br><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="keyword">var</span> app = express()</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">    res.send(<span class="string">'express'</span>)</span><br><span class="line">&#125;)</span><br><span class="line">app.listen(<span class="number">3000</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. Koa</span></span><br><span class="line"><span class="keyword">var</span> koa = <span class="built_in">require</span>(<span class="string">'koa'</span>)</span><br><span class="line"><span class="keyword">var</span> route = <span class="built_in">require</span>(<span class="string">'koa-route'</span>)</span><br><span class="line"><span class="keyword">var</span> app = koa()</span><br><span class="line"></span><br><span class="line">app.use(route.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> *(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.body = <span class="string">'koa'</span></span><br><span class="line">&#125;))</span><br><span class="line">app.listen(<span class="number">3000</span>)</span><br></pre></td></tr></table></figure>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. Express</span></span><br><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="keyword">var</span> app = express()</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">    res.send(<span class="string">'express'</span>)</span><br><span class="line">&#125;)</span><br><span class="line">app.listen(<span class="number">3000</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. Koa</span></span><br><span class="line"><span class="keyword">var</span> koa = <span class="built_in">require</span>(<span class="string">'koa'</span>)</span><br><span class="line"><span class="keyword">var</span> route = <span class="built_in">require</span>(<span class="string">'koa-route'</span>)</span><br><span class="line"><span class="keyword">var</span> app = koa()</span><br><span class="line"></span><br><span class="line">app.use(route.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> *(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.body = <span class="string">'koa'</span></span><br><span class="line">&#125;))</span><br><span class="line">app.listen(<span class="number">3000</span>)</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>Views</p>
 <ul>
 <li>Express自身集成了视图功能，提供了consolidate.js功能，支持几乎所有JS模板引擎，并提供了视图设置的便利方法</li>
-<li>Koa需要引入co-views中间件</li>
+<li><p>Koa需要引入co-views中间件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. Express</span></span><br><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="keyword">var</span> app = express()</span><br><span class="line"></span><br><span class="line">app.set(<span class="string">'views'</span>, __dirname + <span class="string">'/views'</span>)</span><br><span class="line">app.set(<span class="string">'view engine'</span>, <span class="string">'jade'</span>)</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">res.render(<span class="string">'index'</span>, &#123;</span><br><span class="line">    title: <span class="string">'bilibili'</span></span><br><span class="line">&#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. Koa</span></span><br><span class="line"><span class="keyword">var</span> koa = <span class="built_in">require</span>(<span class="string">'koa'</span>)</span><br><span class="line"><span class="keyword">var</span> route = <span class="built_in">require</span>(<span class="string">'koa-route'</span>)</span><br><span class="line"><span class="keyword">var</span> views = <span class="built_in">require</span>(<span class="string">'co-views'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> render = views(__dirname + <span class="string">'/views'</span>, &#123;</span><br><span class="line"><span class="keyword">default</span>: <span class="string">"jade"</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> app = koa()</span><br><span class="line"></span><br><span class="line">app.use(route.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> *(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="keyword">this</span>.body = <span class="keyword">yield</span> render(<span class="string">'index'</span>, &#123;</span><br><span class="line">    title: <span class="string">'bilibili'</span></span><br><span class="line">&#125;)</span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 </li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. Express</span></span><br><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="keyword">var</span> app = express()</span><br><span class="line"></span><br><span class="line">app.set(<span class="string">'views'</span>, __dirname + <span class="string">'/views'</span>)</span><br><span class="line">app.set(<span class="string">'view engine'</span>, <span class="string">'jade'</span>)</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">  res.render(<span class="string">'index'</span>, &#123;</span><br><span class="line">    title: <span class="string">'bilibili'</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. Koa</span></span><br><span class="line"><span class="keyword">var</span> koa = <span class="built_in">require</span>(<span class="string">'koa'</span>)</span><br><span class="line"><span class="keyword">var</span> route = <span class="built_in">require</span>(<span class="string">'koa-route'</span>)</span><br><span class="line"><span class="keyword">var</span> views = <span class="built_in">require</span>(<span class="string">'co-views'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> render = views(__dirname + <span class="string">'/views'</span>, &#123;</span><br><span class="line">  <span class="keyword">default</span>: <span class="string">"jade"</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> app = koa()</span><br><span class="line"></span><br><span class="line">app.use(route.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> *(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.body = <span class="keyword">yield</span> render(<span class="string">'index'</span>, &#123;</span><br><span class="line">    title: <span class="string">'bilibili'</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure>
-<ol>
-<li>HTTP Request<br>两个框架都封装了HTTP Request对象，区别是Koa v1使用this取代Express的req、res</li>
+<li><p>HTTP Request<br>两个框架都封装了HTTP Request对象，区别是Koa v1使用this取代Express的req、res</p>
+</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. Express</span></span><br><span class="line"><span class="keyword">var</span> app = <span class="built_in">require</span>(<span class="string">'express'</span>)()</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/room/:id'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(req.params)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取post数据需要body-parser中间件</span></span><br><span class="line"><span class="keyword">var</span> bodyParser = <span class="built_in">require</span>(<span class="string">'body-parser'</span>)</span><br><span class="line">app.use(bodyParser.json())</span><br><span class="line">app.post(<span class="string">'/sendapi'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(req.body)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. Koa</span></span><br><span class="line"><span class="keyword">var</span> app = <span class="built_in">require</span>(<span class="string">'koa'</span>)()</span><br><span class="line"><span class="keyword">var</span> route = <span class="built_in">require</span>(<span class="string">'koa-route'</span>)</span><br><span class="line"></span><br><span class="line">app.use(route.get(<span class="string">'/room/:id'</span>, <span class="function"><span class="keyword">function</span> *(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.req.query)</span><br><span class="line">&#125;))</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取POST数据需要co-body中间件</span></span><br><span class="line"><span class="keyword">var</span> parse = <span class="built_in">require</span>(<span class="string">'co-body'</span>)</span><br><span class="line">app.use(route.post(<span class="string">'/api'</span>, <span class="function"><span class="keyword">function</span> *(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> post = yeild parse(<span class="keyword">this</span>.request)</span><br><span class="line">    <span class="built_in">console</span>.log(post)</span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure>
-<h2 id="Express-和-Koa的区别"><a href="#Express-和-Koa的区别" class="headerlink" title="Express 和 Koa的区别"></a>Express 和 Koa的区别</h2><ol>
+<h3 id="Express-和-Koa的区别"><a href="#Express-和-Koa的区别" class="headerlink" title="Express 和 Koa的区别"></a>Express 和 Koa的区别</h3><ol>
 <li><p>异步流程控制</p>
 <ul>
 <li>Express采用callback来处理异步，Koa v1采用generator，Koa v2采用async/await.</li>
@@ -378,8 +378,108 @@
 </ul>
 </li>
 </ol>
-<pre><code class="javascript">
-</code></pre>
+<h2 id="Koa框架"><a href="#Koa框架" class="headerlink" title="Koa框架"></a>Koa框架</h2><p>Koa 就是一种简单好用的 Web 框架。它的特点是优雅、简洁、表达力强、自由度高。所有功能都通过插件实现</p>
+<p>检查Node版本，Koa必须使用7.6以上的版本。</p>
+<h3 id="用法："><a href="#用法：" class="headerlink" title="用法："></a>用法：</h3><ul>
+<li><p>架设HTTP服务： var app = new Koa(); app.listen(3000)</p>
+</li>
+<li><p>Context对象：标识一次对话的上下文(包括HTTP请求和回复)。通过加工这个对象，可以控制返回给用户的内容</p>
+<ul>
+<li>Context.response.body属性就是发送给用户的内容</li>
+<li>ctx.request代表 HTTP Request；ctx.response代表 HTTP Response</li>
+</ul>
+</li>
+<li><p>HTTP response的类型</p>
+<ul>
+<li>Koa默认返回的类型是text/plain</li>
+<li>若想要返回其他类型的内容，可以先用ctx.request.accepts判断客户端希望接受的数据类型（根据HTTP Request的Accept字段），然后使用ctx.response.type指定返回类型</li>
+</ul>
+</li>
+<li><p>网页模板<br>  实际开发中，返回给用户的网页都写成模板文件。可以先让Koa限度无模板文件，然后将这个模板返回给用户。</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> main = <span class="function"><span class="params">ctx</span> =&gt;</span> &#123;</span><br><span class="line">    ctx.response.type = <span class="string">'html'</span>;</span><br><span class="line">    ctx.response.body = fs.createReadStream(<span class="string">'./demos/template.html'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h3><ul>
+<li><p>原生路由</p>
+<p>  网站一般都有多个页面。通过ctx.request.path可以获取用户请求的路径，由此实现简单的路由。</p>
+</li>
+<li><p>koa-route模块</p>
+<p>  使用封装好的koa-route模块</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> route = <span class="built_in">require</span>(<span class="string">'koa-route'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> main = <span class="function"><span class="params">ctx</span> =&gt;</span> &#123;</span><br><span class="line">    ctx.response.body = <span class="string">'Hello World'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">app.use(route.get(<span class="string">'/'</span>, main));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>静态资源</p>
+<p>  koa-static模块封装静态资源的请求</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="keyword">const</span> serve = <span class="built_in">require</span>(<span class="string">'koa-static'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> main = serve(path.join(__dirname));</span><br><span class="line">app.use(main);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重定向<br>  服务器需要重定向（redirect）访问请求。ctx.response.redirect()方法可以发出一个302跳转。</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> redirect = <span class="function"><span class="params">ctx</span> =&gt;</span> &#123;</span><br><span class="line">    ctx.response.redirect(<span class="string">'/'</span>);</span><br><span class="line">    ctx.response.body = <span class="string">'&lt;a href="/"&gt;Index Page&lt;/a&gt;'</span>;</span><br><span class="line">&#125;;</span><br><span class="line">app.use(route.get(<span class="string">'/redirect'</span>, redirect));</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h3><ul>
+<li><p>Logger功能</p>
+<p>  Logger功能可以拆分成一个独立函数。</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> logger = <span class="function">(<span class="params">ctx, next</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;<span class="built_in">Date</span>.now()&#125;</span> <span class="subst">$&#123;ctx.request.method&#125;</span> <span class="subst">$&#123;ctx.request.url&#125;</span>`</span>);</span><br><span class="line">    next();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">app.use(logger);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>中间件</p>
+<p>  如上述的logger函数就叫‘中间件’，它处于HTTP Request和HTTP Response中间，用来实现某种中间功能。app.use()用来加载中间件。</p>
+<p>  Koa 所有的功能都是通过中间件实现的。每个中间件默认接受两个参数，第一个参数是 Context 对象，第二个参数是next函数。只要调用next函数，就可以把执行权转交给下一个中间件。</p>
+</li>
+<li><p>中间件栈</p>
+<p>  多个中间件栈会形成一个栈结构，以“先进先出”的顺序执行。</p>
+<p>  如果中间件内部没有调用next函数，那么执行权就不会传递下去</p>
+<blockquote>
+<blockquote>
+<blockquote>
+</blockquote>
+<pre><code>最外层的中间件首先执行。
+调用next函数，把执行权交给下一个中间件。
+...
+最内层的中间件最后执行。
+执行结束后，把执行权交回上一层的中间件。
+...
+最外层的中间件收回执行权之后，执行next函数后面的代码。
+</code></pre></blockquote>
+</blockquote>
+</li>
+<li><p>异步中间件</p>
+<p>  有异步操作（比如读取数据库），中间件就必须写成 async 函数。</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs.promised'</span>);</span><br><span class="line"><span class="keyword">const</span> Koa = <span class="built_in">require</span>(<span class="string">'koa'</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Koa();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> main = <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> (<span class="params">ctx, next</span>) </span>&#123;</span><br><span class="line">    ctx.response.type = <span class="string">'html'</span>;</span><br><span class="line">    ctx.response.body = <span class="keyword">await</span> fs.readFile(<span class="string">'./demos/template.html'</span>, <span class="string">'utf8'</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">app.use(main);</span><br><span class="line">app.listen(<span class="number">3000</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>中间件的合成</p>
+<p>  koa-compose模块可以将多个中间件合成为一个。</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> compose = <span class="built_in">require</span>(<span class="string">'koa-compose'</span>);</span><br><span class="line"><span class="keyword">const</span> middlewares = compose([logger, main]);</span><br><span class="line">app.use(middlewares);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h3><ul>
+<li><p>500错误</p>
+<p>  koa 提供了ctx.throw()方法，用来抛出错误，ctx.throw(500)就是抛出500错误</p>
+</li>
+<li><p>404错误</p>
+<p>  如果将ctx.response.status设置成404，就相当于ctx.throw(404)</p>
+</li>
+<li><p>处理错误的中间件</p>
+<p>  使用try…catch将其捕获</p>
+<p>  让最外层的中间件，负责所有中间件的错误处理</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> handler = <span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">await</span> next();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">        ctx.response.status = err.statusCode || err.status || <span class="number">500</span>;</span><br><span class="line">        ctx.response.body = &#123;</span><br><span class="line">            message: err.message</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">app.use(handler);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>error事件的监听</p>
+<p>  运行过程中一旦出错，Koa 会触发一个error事件。监听这个事件，也可以处理错误。</p>
+</li>
+<li><p>释放 error 事件</p>
+<p>  如果错误被try…catch捕获，就不会触发error事件。这时，必须调用ctx.app.emit()，手动释放error事件，才能让监听函数生效。</p>
+</li>
+</ul>
+<h3 id="Web-App的功能"><a href="#Web-App的功能" class="headerlink" title="Web App的功能"></a>Web App的功能</h3><ul>
+<li><p>Cookies</p>
+<p>  ctx.cookie用来读写Cookie。ctx.cookies.set();</p>
+</li>
+<li><p>表单</p>
+<p>  表单就是 POST 方法发送到服务器的键值对。koa-body模块可以用来从 POST 请求的数据体里面提取键值对。</p>
+</li>
+<li><p>文件上传</p>
+<p>  koa-body模块还可以用来处理文件上传</p>
+</li>
+</ul>
 
           
         
@@ -457,7 +557,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-02T17:17:49+08:00">
                 2019-04-02
@@ -478,7 +578,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -607,7 +707,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-02T15:24:48+08:00">
                 2018-11-02
@@ -726,7 +826,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-02T11:05:24+08:00">
                 2018-11-02
@@ -943,7 +1043,7 @@ fastcgi_temp_file_write_size 128k;
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-30T10:47:52+08:00">
                 2018-10-30
@@ -964,7 +1064,7 @@ fastcgi_temp_file_write_size 128k;
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1088,7 +1188,7 @@ fastcgi_temp_file_write_size 128k;
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-26T17:02:03+08:00">
                 2018-10-26
@@ -1455,7 +1555,7 @@ options: set-cookie 选项
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-24T14:06:44+08:00">
                 2018-05-24
@@ -1476,7 +1576,7 @@ options: set-cookie 选项
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1760,7 +1860,7 @@ options: set-cookie 选项
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-27T17:25:23+08:00">
                 2018-04-27
@@ -1899,7 +1999,7 @@ options: set-cookie 选项
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-19T15:23:47+08:00">
                 2018-04-19
@@ -1920,7 +2020,7 @@ options: set-cookie 选项
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -2150,7 +2250,7 @@ options: set-cookie 选项
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-08T14:41:03+08:00">
                 2018-04-08
@@ -2171,7 +2271,7 @@ options: set-cookie 选项
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -2332,7 +2432,7 @@ options: set-cookie 选项
                 <a href="/archives/">
               
                   <span class="site-state-item-count">27</span>
-                  <span class="site-state-item-name">articles</span>
+                  <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
             
@@ -2343,7 +2443,7 @@ options: set-cookie 选项
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
                   <span class="site-state-item-count">4</span>
-                  <span class="site-state-item-name">categories</span>
+                  <span class="site-state-item-name">Kategorien</span>
                 </a>
               </div>
             
@@ -2354,7 +2454,7 @@ options: set-cookie 选项
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
                   <span class="site-state-item-count">10</span>
-                  <span class="site-state-item-name">tags</span>
+                  <span class="site-state-item-name">Tags</span>
                 </a>
               </div>
             
@@ -2400,7 +2500,7 @@ options: set-cookie 选项
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 
@@ -2408,7 +2508,7 @@ options: set-cookie 选项
 
 
 
-  <div class="theme-info">Thème &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
 
 
 
