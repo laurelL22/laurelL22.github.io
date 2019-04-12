@@ -86,7 +86,7 @@
 <meta property="og:url" content="http://yoursite.com/2019/04/12/Express-vs-Koa/index.html">
 <meta property="og:site_name" content="Laurel Blog">
 <meta property="og:description" content="Node框架 Express，是一个基于Node.js平台的极简、灵活的web应用开发框架，主要基于Connect中间件，并且自身封装了路由、视图处理等功能，使用人数众多。 Koa，主要基于co中间件，框架自身不包含任何中间件，很多功能需要借助第三方中间件解决。Express的团队又基于ES6的新特性重新开发web框架koa 和Express相比，koa 1.0使用generator实现异步，代码">
-<meta property="og:updated_time" content="2019-04-12T06:44:11.414Z">
+<meta property="og:updated_time" content="2019-04-12T06:46:56.710Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Express-vs-Koa">
 <meta name="twitter:description" content="Node框架 Express，是一个基于Node.js平台的极简、灵活的web应用开发框架，主要基于Connect中间件，并且自身封装了路由、视图处理等功能，使用人数众多。 Koa，主要基于co中间件，框架自身不包含任何中间件，很多功能需要借助第三方中间件解决。Express的团队又基于ES6的新特性重新开发web框架koa 和Express相比，koa 1.0使用generator实现异步，代码">
@@ -424,8 +424,6 @@
 <p>  多个中间件栈会形成一个栈结构，以“先进先出”的顺序执行。</p>
 <p>  如果中间件内部没有调用next函数，那么执行权就不会传递下去</p>
 <blockquote>
-<blockquote>
-<blockquote>
 </blockquote>
 <pre><code>最外层的中间件首先执行。
 调用next函数，把执行权交给下一个中间件。
@@ -434,9 +432,7 @@
 执行结束后，把执行权交回上一层的中间件。
 ...
 最外层的中间件收回执行权之后，执行next函数后面的代码。
-</code></pre></blockquote>
-</blockquote>
-</li>
+</code></pre></li>
 <li><p>异步中间件</p>
 <p>  有异步操作（比如读取数据库），中间件就必须写成 async 函数。</p>
   <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs.promised'</span>);</span><br><span class="line"><span class="keyword">const</span> Koa = <span class="built_in">require</span>(<span class="string">'koa'</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Koa();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> main = <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> (<span class="params">ctx, next</span>) </span>&#123;</span><br><span class="line">    ctx.response.type = <span class="string">'html'</span>;</span><br><span class="line">    ctx.response.body = <span class="keyword">await</span> fs.readFile(<span class="string">'./demos/template.html'</span>, <span class="string">'utf8'</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">app.use(main);</span><br><span class="line">app.listen(<span class="number">3000</span>);</span><br></pre></td></tr></table></figure>
@@ -516,6 +512,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/04/12/express/" rel="prev" title="express">
+                express <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -591,7 +591,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
@@ -613,7 +613,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">Tags</span>
                 </a>
               </div>

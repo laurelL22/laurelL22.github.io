@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Node," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一、内容Express是一个node.js Web应用框架，提供了一系列特性帮助创建各种web应用，和丰富的HTTP工具。 Express 框架核心特性：  可以设置中间件来相应HTTP请求； 定义了路由表用于执行不同的HTTP请求动作； 可以通过向模块传递参数来动态渲染HTML页面  安装Express： npm install express –save 安装Express框架时，需与以下几个">
+<meta name="keywords" content="Node">
+<meta property="og:type" content="article">
+<meta property="og:title" content="express">
+<meta property="og:url" content="http://yoursite.com/2019/04/12/express/index.html">
+<meta property="og:site_name" content="Laurel Blog">
+<meta property="og:description" content="一、内容Express是一个node.js Web应用框架，提供了一系列特性帮助创建各种web应用，和丰富的HTTP工具。 Express 框架核心特性：  可以设置中间件来相应HTTP请求； 定义了路由表用于执行不同的HTTP请求动作； 可以通过向模块传递参数来动态渲染HTML页面  安装Express： npm install express –save 安装Express框架时，需与以下几个">
+<meta property="og:updated_time" content="2019-04-12T08:24:59.976Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="express">
+<meta name="twitter:description" content="一、内容Express是一个node.js Web应用框架，提供了一系列特性帮助创建各种web应用，和丰富的HTTP工具。 Express 框架核心特性：  可以设置中间件来相应HTTP请求； 定义了路由表用于执行不同的HTTP请求动作； 可以通过向模块传递参数来动态渲染HTML页面  安装Express： npm install express –save 安装Express框架时，需与以下几个">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/12/express/"/>
+
+
+
+
+
+  <title>express | Laurel Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Laurel Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">许多年前，曾是个朴素的少年</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/12/express/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lurel">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Laurel Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">express</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-12T14:48:01+08:00">
+                2019-04-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/node-framework/" itemprop="url" rel="index">
+                    <span itemprop="name">node-framework</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一、内容"><a href="#一、内容" class="headerlink" title="一、内容"></a>一、内容</h2><p>Express是一个node.js Web应用框架，提供了一系列特性帮助创建各种web应用，和丰富的HTTP工具。</p>
+<p>Express 框架核心特性：</p>
+<ul>
+<li>可以设置中间件来相应HTTP请求；</li>
+<li>定义了路由表用于执行不同的HTTP请求动作；</li>
+<li>可以通过向模块传递参数来动态渲染HTML页面</li>
+</ul>
+<p>安装Express： npm install express –save</p>
+<p>安装Express框架时，需与以下几个模块一起安装：</p>
+<ul>
+<li>body-parser：node.js 中间件，用于处理 JSON, Raw, Text 和 URL 编码的数据。</li>
+<li>cookie-parser： 是一个解析Cookie的工具。通过req.cookies可以取到传过来的cookie，并把它们转成对象。</li>
+<li>multer： node.js 中间件，用于处理 enctype=”multipart/form-data”（设置表单的MIME编码）的表单数据。</li>
+</ul>
+<p>请求和响应：</p>
+<p>Express 应用使用回调函数的参数： request 和 response 对象来处理请求和响应的数据。</p>
+<ul>
+<li><p>Request 对象 - request 对象表示 HTTP 请求，包含了请求查询字符串，参数，内容，HTTP 头部等属性。常见属性有：</p>
+<ul>
+<li>req.app：当callback为外部文件时，用req.app访问express的实例</li>
+<li>req.baseUrl：获取路由当前安装的URL路径</li>
+<li>req.body / req.cookies：获得「请求主体」/ Cookies</li>
+<li>req.fresh / req.stale：判断请求是否还「新鲜」</li>
+<li>req.hostname / req.ip：获取主机名和IP地址</li>
+<li>req.originalUrl：获取原始请求URL</li>
+<li>req.params：获取路由的parameters</li>
+<li>req.path：获取请求路径</li>
+<li>req.protocol：获取协议类型</li>
+<li>req.query：获取URL的查询参数串</li>
+<li>req.route：获取当前匹配的路由</li>
+<li>req.subdomains：获取子域名</li>
+<li>req.accepts()：检查可接受的请求的文档类型</li>
+<li>req.acceptsCharsets / req.acceptsEncodings / req.acceptsLanguages：返回指定字符集的第一个可接受字符编码</li>
+<li>req.get()：获取指定的HTTP请求头</li>
+<li>req.is()：判断请求头Content-Type的MIME类型</li>
+</ul>
+</li>
+<li><p>Response 对象 - response 对象表示 HTTP 响应，即在接收到请求时向客户端发送的 HTTP 响应数据。常见属性有：</p>
+<ul>
+<li>res.app：同req.app一样</li>
+<li>res.append()：追加指定HTTP头</li>
+<li>res.set()在res.append()后将重置之前设置的头</li>
+<li>res.cookie(name，value [，option])：设置Cookie<br>opition: domain / expires / httpOnly / maxAge / path / secure / signed</li>
+<li>res.clearCookie()：清除Cookie</li>
+<li>res.download()：传送指定路径的文件</li>
+<li>res.get()：返回指定的HTTP头</li>
+<li>res.json()：传送JSON响应</li>
+<li>res.jsonp()：传送JSONP响应</li>
+<li>res.location()：只设置响应的Location HTTP头，不设置状态码或者close response</li>
+<li>res.redirect()：设置响应的Location HTTP头，并且设置状态码302</li>
+<li>res.render(view,[locals],callback)：渲染一个view，同时向callback传递渲染后的字符串，如果在渲染过程中有错误发生next(err)将会被自动调用。callback将会被传入一个可能发生的错误以及渲染后的页面，这样就不会自动输出了。</li>
+<li>res.send()：传送HTTP响应</li>
+<li>res.sendFile(path [，options] [，fn])：传送指定路径的文件 -会自动根据文件extension设定Content-Type</li>
+<li>res.set()：设置HTTP头，传入object可以一次设置多个头</li>
+<li>res.status()：设置HTTP状态码</li>
+<li>res.type()：设置Content-Type的MIME类型</li>
+</ul>
+</li>
+</ul>
+<h2 id="二、guide"><a href="#二、guide" class="headerlink" title="二、guide"></a>二、guide</h2><h3 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h3><ol>
+<li><p>路由表示应用程序端点（URI）的定义以及端点响应客户机请求的方式。决定了由谁(指定脚本)去响应客户端请求</p>
+</li>
+<li><p>路由方法</p>
+<p> 路由方法派生自HTTP方法之一，附加到express类的实例。</p>
+<ul>
+<li><p>Express 支持对应于HTTP方法的以下路由方法：get、post、put…</p>
+<p>  app.get(‘/‘, function )</p>
+</li>
+<li><p>特殊的路由方法：app.all()，并非派生自HTTP方法。该方法用于在所有请求方法的路径中装入中间件函数。</p>
+<p>  app.all(‘/‘, function (req, res){</p>
+<pre><code>next();
+</code></pre><p>  })</p>
+</li>
+</ul>
+</li>
+<li><p>路由路径</p>
+<p> 路由路径和请求方法相结合， 用于定义可以在其中提出请求的端点。路由路径可以是字符串、字符串模式或正则表达式。</p>
+<p> 示例：</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">app.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123; <span class="comment">// demo01:（此路由路径将请求与跟路由/匹配）</span></span><br><span class="line">    res.send(<span class="string">'root'</span>);</span><br><span class="line">&#125;);</span><br><span class="line">app.get(<span class="string">'/ab?cd'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>) </span>&#123; <span class="comment">// demo02: （路由路径将匹配acd和abcd）</span></span><br><span class="line">    res.send(<span class="string">'ab?cd'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>路由处理程序（中间件系统）<br> 可以提供多个回调函数，类似于中间件的行为方式来处理请求。这些回调函数可能调用next(‘route’)来绕过剩余的路由回调。</p>
+<ul>
+<li><p>路由处理程序的形式可以是一个函数、一组函数或者两者的结合。</p>
+</li>
+<li><p>多个回调函数可以处理一个路由（确保指定next对象）</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">app.get(<span class="string">'/example/b'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'lala'</span>);</span><br><span class="line">    next();</span><br><span class="line">&#125;, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">    res.send(<span class="string">'Hello'</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>一组回调函数可以处理一个路由</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cb0 = <span class="function"><span class="keyword">function</span> (<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'cb0'</span>);</span><br><span class="line">    next();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> cb1 = <span class="function"><span class="keyword">function</span> (<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'cb1'</span>);</span><br><span class="line">    next();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> cb2 = <span class="function"><span class="keyword">function</span> (<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">    res.send(<span class="string">'Hello from 2'</span>);</span><br><span class="line">&#125;</span><br><span class="line">app.get(<span class="string">'/example/c'</span>, [cb0, cb1, cb2])</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>响应方法</p>
+<p> 响应对象(res)的方法可以向客户机发送响应，并终止请求/响应循环。如没有从路由处理程序调起其中任何方法，客户机请求将保持挂起状态。</p>
+<ul>
+<li>res.download() // 提示将要下载文件</li>
+<li>res.end() // 结束响应</li>
+<li>res.json() // 发送JSON响应</li>
+<li>res.jsonp() // 在JSONP的支持下发送JSON响应</li>
+<li>res.redirect() // 重定向请求</li>
+<li>res.render() // 呈现视图模板</li>
+<li>res.send() // 发送各种类型的响应</li>
+<li>res.sendFile() // 以八位元流形式发送文件。</li>
+<li>res.sendStatus() // 设置响应状态码并以响应主体形式发送其字符串表示</li>
+</ul>
+</li>
+<li><p>app.route()</p>
+<p> 使用app.route()为路由路径创建可链接的路由处理程序。在单一位置指定路径，可减少冗余和输入错误。</p>
+<p> 使用app.route()定义的链式路由处理程序的示例</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">app.route(<span class="string">'/book'</span>)</span><br><span class="line">    .get(<span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">        res.send(<span class="string">'Get a data'</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">    .post(<span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">        res.send(<span class="string">'Add a data'</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">    .put(<span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">        res.send(<span class="string">'update a data'</span>);</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>express.Router</p>
+<p> 使用express.Router类来创建可安装的模块化路由程序。Router实例是完整的中间件和路由系统；</p>
+</li>
+<li><p>编写中间件用于Express 应用程序</p>
+<p> 中间件函数能够访问请求对象（req），响应对象（res）以及应用程序的请求/响应循环中的下一个中间函数。下一个中间件函数通常由名为 next 的变量来表示。</p>
+</li>
+</ol>
+<ul>
+<li><p>中间件函数可以执行任务：</p>
+<ul>
+<li>执行任何代码</li>
+<li>对请求和响应对象进行更改。</li>
+<li>结束请求/响应循环。</li>
+<li>调用堆栈中的下一个中间件函数</li>
+</ul>
+</li>
+<li><p>中间件类型：</p>
+<ul>
+<li>应用层中间件</li>
+<li>路由层中间件</li>
+<li>错误处理中间件</li>
+<li>内置中间件</li>
+<li>第三方中间件</li>
+</ul>
+</li>
+<li><p>应用层中间件</p>
+<ol>
+<li><p>使用app.use()和app.METHOD()函数将应用层中间件绑定到应用程序对象的实例（METHOD是中间件函数处理的请求的小写HTTP方法：GET、PUT 或 POST）</p>
+</li>
+<li><p>一般有两种参数：路由路径及其处理程序函数(中间件系统)</p>
+</li>
+<li><p>跳过路由器中间件堆栈中剩余的中间件函数，调用 next(‘route’) 将控制权传递给下一个路由。仅在使用 app.METHOD() 或 router.METHOD() 函数装入的中间件函数中有效。</p>
+</li>
+</ol>
+</li>
+<li><p>路由层中间件： 使用 router.use() 和 router.METHOD() 函数装入路由器层中间件</p>
+</li>
+<li><p>错误处理中间件：错误处理函数有四个自变量而不是三个，专门具有特征符 (err, req, res, next)</p>
+</li>
+<li><p>内置中间件</p>
+</li>
+<li><p>第三方中间件：使用第三方中间件向 Express 应用程序添加功能。</p>
+<ul>
+<li>安装具有所需功能的 Node.js 模块，然后在应用层或路由器层的应用程序中将其加装入。</li>
+<li>第三方中间件列表：<ul>
+<li>body-parser</li>
+<li>cookie-parser</li>
+<li>cookie-session</li>
+<li>passport：用于认证的 Express 中间件模块</li>
+<li>serve-static：用于提供静态内容的模块</li>
+<li>express-session</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Node/" rel="tag"># Node</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/12/Express-vs-Koa/" rel="next" title="Express-vs-Koa">
+                <i class="fa fa-chevron-left"></i> Express-vs-Koa
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/12/RPC/" rel="prev" title="RPC">
+                RPC <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Lurel</p>
+              <p class="site-description motion-element" itemprop="description">desc</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">Artikel</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">Kategorien</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">Tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、内容"><span class="nav-number">1.</span> <span class="nav-text">一、内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、guide"><span class="nav-number">2.</span> <span class="nav-text">二、guide</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#路由"><span class="nav-number">2.1.</span> <span class="nav-text">路由</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lurel</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

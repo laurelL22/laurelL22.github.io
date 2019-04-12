@@ -232,6 +232,608 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/12/RPC-REST/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lurel">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Laurel Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/12/RPC-REST/" itemprop="url">RPC-REST</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-12T16:39:31+08:00">
+                2019-04-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="RPC"><a href="#RPC" class="headerlink" title="RPC"></a>RPC</h2><p>远程调用框架（Remote Procedure Call），被调用方法的具体实现不在程序运行本地，而是在别的某个远程地方</p>
+<ol>
+<li>远程调用原理： A (client) 调用 B (server) 提供的方法<ul>
+<li>首先A与B之间建立一个TCP连接；</li>
+<li>然后A把需要调用的方法名以及方法参数序列化成字节流发送出去；</li>
+<li>B接受A发送过来的字节流，然后反序列化得到目标方法名，方法参数，接着执行相应的方法调用并把结果返回；</li>
+<li>A接受远程调用结果,输出结果</li>
+</ul>
+</li>
+</ol>
+<p><strong>RPC框架就是把这几点细节给封装起来，给用户暴露简单友好的API使用</strong></p>
+<ol>
+<li>好处：</li>
+</ol>
+<p>解耦：当server需要对方法内实现修改时，client完全感知不到，不用做任何变更；这种方式在跨部门，跨公司合作的时候经常用到，并且方法的提供者我们通常称为：服务的暴露</p>
+<h2 id="RESTful-API"><a href="#RESTful-API" class="headerlink" title="RESTful API"></a>RESTful API</h2><p>RESTful 是目前最流行的 API 设计规范，用于 Web 数据接口的设计</p>
+<p>REST – REpresentational State Transfer：表现层状态转移。资源在网络中以某种表现形式进行状态转移。分解开来：</p>
+<ul>
+<li>Resource：资源，即数据（前面说过网络的核心）。比如 newsfeed，friends等；</li>
+<li>Representational：某种表现形式，比如用JSON，XML，JPEG等；</li>
+<li>State Transfer：状态变化。通过HTTP动词实现。</li>
+</ul>
+<h3 id="URL设计"><a href="#URL设计" class="headerlink" title="URL设计"></a>URL设计</h3><ol>
+<li><p>RESTful 的核心思想是客户端发出的数据操作指令都是”动词 + 宾语”的结构</p>
+<p> 动词通常就是五种 HTTP 方法，对应 CRUD 操作：</p>
+<ul>
+<li>GET：读取（Read）</li>
+<li>POST：新建（Create）</li>
+<li>PUT：更新（Update）</li>
+<li>PATCH：更新（Update），通常是部分更新</li>
+<li><p>DELETE：删除（Delete）</p>
+<p>宾语就是 API 的 URL，是 HTTP 动词作用的对象。</p>
+</li>
+</ul>
+</li>
+<li><p>状态码必须精确</p>
+<p> HTTP状态码，分5个类别：</p>
+<ul>
+<li>1xx：相关信息</li>
+<li>2xx：操作成功</li>
+<li>3xx：重定向</li>
+<li>4xx：客户端错误</li>
+<li>5xx：服务器错误</li>
+</ul>
+</li>
+<li><p>服务器回应</p>
+<ul>
+<li>API 返回的数据格式不应是纯本文，而应该是一个 JSON 对象（Content-Type属性设为application/json）</li>
+<li>发生错误时，不要返回 200 状态码</li>
+<li>提供链接</li>
+</ul>
+</li>
+</ol>
+<h2 id="RPC与REST有什么区别"><a href="#RPC与REST有什么区别" class="headerlink" title="RPC与REST有什么区别"></a>RPC与REST有什么区别</h2><p>RPC是client/server模式的，调用远程的方法，REST也是一套API调用协议方法，它也是基于client/server模式的，调用远程的方法的。</p>
+<p>REST API 和 RPC 都是在 Server端 把一个个函数封装成接口暴露出去，以供 Client端 调用，但REST API 是基于HTTP协议的，REST致力于通过http协议中的POST/GET/PUT/DELETE等方法和一个可读性强的URL来提供一个http请求。而 RPC 则可以不基于 HTTP协议<br>因此，如果是后端两种语言互相调用，用 RPC 可以获得更好的性能（省去了 HTTP 报头等一系列东西），应该也更容易配置</p>
+<p>PS:<br><a href="http://www.ruanyifeng.com/blog/2018/10/restful-api-best-practices.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2018/10/restful-api-best-practices.html</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/12/RPC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lurel">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Laurel Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/12/RPC/" itemprop="url">RPC</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-12T16:39:23+08:00">
+                2019-04-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/12/express/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lurel">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Laurel Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/12/express/" itemprop="url">express</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-12T14:48:01+08:00">
+                2019-04-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/node-framework/" itemprop="url" rel="index">
+                    <span itemprop="name">node-framework</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一、内容"><a href="#一、内容" class="headerlink" title="一、内容"></a>一、内容</h2><p>Express是一个node.js Web应用框架，提供了一系列特性帮助创建各种web应用，和丰富的HTTP工具。</p>
+<p>Express 框架核心特性：</p>
+<ul>
+<li>可以设置中间件来相应HTTP请求；</li>
+<li>定义了路由表用于执行不同的HTTP请求动作；</li>
+<li>可以通过向模块传递参数来动态渲染HTML页面</li>
+</ul>
+<p>安装Express： npm install express –save</p>
+<p>安装Express框架时，需与以下几个模块一起安装：</p>
+<ul>
+<li>body-parser：node.js 中间件，用于处理 JSON, Raw, Text 和 URL 编码的数据。</li>
+<li>cookie-parser： 是一个解析Cookie的工具。通过req.cookies可以取到传过来的cookie，并把它们转成对象。</li>
+<li>multer： node.js 中间件，用于处理 enctype=”multipart/form-data”（设置表单的MIME编码）的表单数据。</li>
+</ul>
+<p>请求和响应：</p>
+<p>Express 应用使用回调函数的参数： request 和 response 对象来处理请求和响应的数据。</p>
+<ul>
+<li><p>Request 对象 - request 对象表示 HTTP 请求，包含了请求查询字符串，参数，内容，HTTP 头部等属性。常见属性有：</p>
+<ul>
+<li>req.app：当callback为外部文件时，用req.app访问express的实例</li>
+<li>req.baseUrl：获取路由当前安装的URL路径</li>
+<li>req.body / req.cookies：获得「请求主体」/ Cookies</li>
+<li>req.fresh / req.stale：判断请求是否还「新鲜」</li>
+<li>req.hostname / req.ip：获取主机名和IP地址</li>
+<li>req.originalUrl：获取原始请求URL</li>
+<li>req.params：获取路由的parameters</li>
+<li>req.path：获取请求路径</li>
+<li>req.protocol：获取协议类型</li>
+<li>req.query：获取URL的查询参数串</li>
+<li>req.route：获取当前匹配的路由</li>
+<li>req.subdomains：获取子域名</li>
+<li>req.accepts()：检查可接受的请求的文档类型</li>
+<li>req.acceptsCharsets / req.acceptsEncodings / req.acceptsLanguages：返回指定字符集的第一个可接受字符编码</li>
+<li>req.get()：获取指定的HTTP请求头</li>
+<li>req.is()：判断请求头Content-Type的MIME类型</li>
+</ul>
+</li>
+<li><p>Response 对象 - response 对象表示 HTTP 响应，即在接收到请求时向客户端发送的 HTTP 响应数据。常见属性有：</p>
+<ul>
+<li>res.app：同req.app一样</li>
+<li>res.append()：追加指定HTTP头</li>
+<li>res.set()在res.append()后将重置之前设置的头</li>
+<li>res.cookie(name，value [，option])：设置Cookie<br>opition: domain / expires / httpOnly / maxAge / path / secure / signed</li>
+<li>res.clearCookie()：清除Cookie</li>
+<li>res.download()：传送指定路径的文件</li>
+<li>res.get()：返回指定的HTTP头</li>
+<li>res.json()：传送JSON响应</li>
+<li>res.jsonp()：传送JSONP响应</li>
+<li>res.location()：只设置响应的Location HTTP头，不设置状态码或者close response</li>
+<li>res.redirect()：设置响应的Location HTTP头，并且设置状态码302</li>
+<li>res.render(view,[locals],callback)：渲染一个view，同时向callback传递渲染后的字符串，如果在渲染过程中有错误发生next(err)将会被自动调用。callback将会被传入一个可能发生的错误以及渲染后的页面，这样就不会自动输出了。</li>
+<li>res.send()：传送HTTP响应</li>
+<li>res.sendFile(path [，options] [，fn])：传送指定路径的文件 -会自动根据文件extension设定Content-Type</li>
+<li>res.set()：设置HTTP头，传入object可以一次设置多个头</li>
+<li>res.status()：设置HTTP状态码</li>
+<li>res.type()：设置Content-Type的MIME类型</li>
+</ul>
+</li>
+</ul>
+<h2 id="二、guide"><a href="#二、guide" class="headerlink" title="二、guide"></a>二、guide</h2><h3 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h3><ol>
+<li><p>路由表示应用程序端点（URI）的定义以及端点响应客户机请求的方式。决定了由谁(指定脚本)去响应客户端请求</p>
+</li>
+<li><p>路由方法</p>
+<p> 路由方法派生自HTTP方法之一，附加到express类的实例。</p>
+<ul>
+<li><p>Express 支持对应于HTTP方法的以下路由方法：get、post、put…</p>
+<p>  app.get(‘/‘, function )</p>
+</li>
+<li><p>特殊的路由方法：app.all()，并非派生自HTTP方法。该方法用于在所有请求方法的路径中装入中间件函数。</p>
+<p>  app.all(‘/‘, function (req, res){</p>
+<pre><code>next();
+</code></pre><p>  })</p>
+</li>
+</ul>
+</li>
+<li><p>路由路径</p>
+<p> 路由路径和请求方法相结合， 用于定义可以在其中提出请求的端点。路由路径可以是字符串、字符串模式或正则表达式。</p>
+<p> 示例：</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">app.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123; <span class="comment">// demo01:（此路由路径将请求与跟路由/匹配）</span></span><br><span class="line">    res.send(<span class="string">'root'</span>);</span><br><span class="line">&#125;);</span><br><span class="line">app.get(<span class="string">'/ab?cd'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>) </span>&#123; <span class="comment">// demo02: （路由路径将匹配acd和abcd）</span></span><br><span class="line">    res.send(<span class="string">'ab?cd'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>路由处理程序（中间件系统）<br> 可以提供多个回调函数，类似于中间件的行为方式来处理请求。这些回调函数可能调用next(‘route’)来绕过剩余的路由回调。</p>
+<ul>
+<li><p>路由处理程序的形式可以是一个函数、一组函数或者两者的结合。</p>
+</li>
+<li><p>多个回调函数可以处理一个路由（确保指定next对象）</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">app.get(<span class="string">'/example/b'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'lala'</span>);</span><br><span class="line">    next();</span><br><span class="line">&#125;, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">    res.send(<span class="string">'Hello'</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>一组回调函数可以处理一个路由</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cb0 = <span class="function"><span class="keyword">function</span> (<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'cb0'</span>);</span><br><span class="line">    next();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> cb1 = <span class="function"><span class="keyword">function</span> (<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'cb1'</span>);</span><br><span class="line">    next();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> cb2 = <span class="function"><span class="keyword">function</span> (<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">    res.send(<span class="string">'Hello from 2'</span>);</span><br><span class="line">&#125;</span><br><span class="line">app.get(<span class="string">'/example/c'</span>, [cb0, cb1, cb2])</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>响应方法</p>
+<p> 响应对象(res)的方法可以向客户机发送响应，并终止请求/响应循环。如没有从路由处理程序调起其中任何方法，客户机请求将保持挂起状态。</p>
+<ul>
+<li>res.download() // 提示将要下载文件</li>
+<li>res.end() // 结束响应</li>
+<li>res.json() // 发送JSON响应</li>
+<li>res.jsonp() // 在JSONP的支持下发送JSON响应</li>
+<li>res.redirect() // 重定向请求</li>
+<li>res.render() // 呈现视图模板</li>
+<li>res.send() // 发送各种类型的响应</li>
+<li>res.sendFile() // 以八位元流形式发送文件。</li>
+<li>res.sendStatus() // 设置响应状态码并以响应主体形式发送其字符串表示</li>
+</ul>
+</li>
+<li><p>app.route()</p>
+<p> 使用app.route()为路由路径创建可链接的路由处理程序。在单一位置指定路径，可减少冗余和输入错误。</p>
+<p> 使用app.route()定义的链式路由处理程序的示例</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">app.route(<span class="string">'/book'</span>)</span><br><span class="line">    .get(<span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">        res.send(<span class="string">'Get a data'</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">    .post(<span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">        res.send(<span class="string">'Add a data'</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">    .put(<span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">        res.send(<span class="string">'update a data'</span>);</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>express.Router</p>
+<p> 使用express.Router类来创建可安装的模块化路由程序。Router实例是完整的中间件和路由系统；</p>
+</li>
+<li><p>编写中间件用于Express 应用程序</p>
+<p> 中间件函数能够访问请求对象（req），响应对象（res）以及应用程序的请求/响应循环中的下一个中间函数。下一个中间件函数通常由名为 next 的变量来表示。</p>
+</li>
+</ol>
+<ul>
+<li><p>中间件函数可以执行任务：</p>
+<ul>
+<li>执行任何代码</li>
+<li>对请求和响应对象进行更改。</li>
+<li>结束请求/响应循环。</li>
+<li>调用堆栈中的下一个中间件函数</li>
+</ul>
+</li>
+<li><p>中间件类型：</p>
+<ul>
+<li>应用层中间件</li>
+<li>路由层中间件</li>
+<li>错误处理中间件</li>
+<li>内置中间件</li>
+<li>第三方中间件</li>
+</ul>
+</li>
+<li><p>应用层中间件</p>
+<ol>
+<li><p>使用app.use()和app.METHOD()函数将应用层中间件绑定到应用程序对象的实例（METHOD是中间件函数处理的请求的小写HTTP方法：GET、PUT 或 POST）</p>
+</li>
+<li><p>一般有两种参数：路由路径及其处理程序函数(中间件系统)</p>
+</li>
+<li><p>跳过路由器中间件堆栈中剩余的中间件函数，调用 next(‘route’) 将控制权传递给下一个路由。仅在使用 app.METHOD() 或 router.METHOD() 函数装入的中间件函数中有效。</p>
+</li>
+</ol>
+</li>
+<li><p>路由层中间件： 使用 router.use() 和 router.METHOD() 函数装入路由器层中间件</p>
+</li>
+<li><p>错误处理中间件：错误处理函数有四个自变量而不是三个，专门具有特征符 (err, req, res, next)</p>
+</li>
+<li><p>内置中间件</p>
+</li>
+<li><p>第三方中间件：使用第三方中间件向 Express 应用程序添加功能。</p>
+<ul>
+<li>安装具有所需功能的 Node.js 模块，然后在应用层或路由器层的应用程序中将其加装入。</li>
+<li>第三方中间件列表：<ul>
+<li>body-parser</li>
+<li>cookie-parser</li>
+<li>cookie-session</li>
+<li>passport：用于认证的 Express 中间件模块</li>
+<li>serve-static：用于提供静态内容的模块</li>
+<li>express-session</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/12/Express-vs-Koa/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -428,8 +1030,6 @@
 <p>  多个中间件栈会形成一个栈结构，以“先进先出”的顺序执行。</p>
 <p>  如果中间件内部没有调用next函数，那么执行权就不会传递下去</p>
 <blockquote>
-<blockquote>
-<blockquote>
 </blockquote>
 <pre><code>最外层的中间件首先执行。
 调用next函数，把执行权交给下一个中间件。
@@ -438,9 +1038,7 @@
 执行结束后，把执行权交回上一层的中间件。
 ...
 最外层的中间件收回执行权之后，执行next函数后面的代码。
-</code></pre></blockquote>
-</blockquote>
-</li>
+</code></pre></li>
 <li><p>异步中间件</p>
 <p>  有异步操作（比如读取数据库），中间件就必须写成 async 函数。</p>
   <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs.promised'</span>);</span><br><span class="line"><span class="keyword">const</span> Koa = <span class="built_in">require</span>(<span class="string">'koa'</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Koa();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> main = <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> (<span class="params">ctx, next</span>) </span>&#123;</span><br><span class="line">    ctx.response.type = <span class="string">'html'</span>;</span><br><span class="line">    ctx.response.body = <span class="keyword">await</span> fs.readFile(<span class="string">'./demos/template.html'</span>, <span class="string">'utf8'</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">app.use(main);</span><br><span class="line">app.listen(<span class="number">3000</span>);</span><br></pre></td></tr></table></figure>
@@ -1818,569 +2416,6 @@ options: set-cookie 选项
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/27/webpack-path-config/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lurel">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Laurel Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/27/webpack-path-config/" itemprop="url">webpack-path-config</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-27T17:25:23+08:00">
-                2018-04-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="http://www.qinshenxue.com/article/20170315092242.html" target="_blank" rel="noopener">link</a></p>
-<h2 id="关于webpack-路径参数的配置"><a href="#关于webpack-路径参数的配置" class="headerlink" title="关于webpack 路径参数的配置"></a>关于webpack 路径参数的配置</h2><h3 id="convention"><a href="#convention" class="headerlink" title="convention"></a>convention</h3><p><a href="http://javascript.ruanyifeng.com/nodejs/path.html" target="_blank" rel="noopener">path</a></p>
-<ul>
-<li>__dirname: 当前文件所在目录</li>
-<li>process.cwd(): node当前运行目录，webpack运行所在目录</li>
-<li>path.join(): 用于连接路径（依据当前系统的路径分割符）</li>
-<li>path.resolve(): 将相对路径转为绝对路径</li>
-<li>accessSync(): 用于同步读取一个路径</li>
-<li>path.relative(): 返回第二个参数相对于第一个路径的相对路径。接收两个参数，两个参数都是绝对路径。</li>
-<li>path.parse(): 可以返回路径各部分的信息  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> filePath = <span class="string">'/dir/file.json'</span></span><br><span class="line">path.parse(filePath).base; ()</span><br><span class="line">path.parse(filePath).name</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<p><strong>dirname, process.cwd(),  path.resolve(</strong>dirname, ‘../‘)<br>/Users/baidu/ai-voice/build /Users/baidu/ai-voice /Users/baidu/ai-voice</p>
-</blockquote>
-<h3 id="context"><a href="#context" class="headerlink" title="context"></a>context</h3><p>webpack编译时的基础目录，入口起点（entry）会相对于此目录查找。</p>
-<p>默认为当前目录：</p>
-<blockquote>
-<p>this.set(‘context’, process.cwd) // process.cwd() 即为webpack运行所在的目录</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/19/bohe项目总结/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lurel">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Laurel Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/19/bohe项目总结/" itemprop="url">bohe足迹</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-19T15:23:47+08:00">
-                2018-04-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">in</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cate-summary/" itemprop="url" rel="index">
-                    <span itemprop="name">cate-summary</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="一、聊天消息由下向上冒效果"><a href="#一、聊天消息由下向上冒效果" class="headerlink" title="一、聊天消息由下向上冒效果"></a>一、聊天消息由下向上冒效果</h2><h3 id="scrollIntoView-amp-scrollIntoViewIfNeeded"><a href="#scrollIntoView-amp-scrollIntoViewIfNeeded" class="headerlink" title="scrollIntoView &amp; scrollIntoViewIfNeeded"></a>scrollIntoView &amp; scrollIntoViewIfNeeded</h3><ul>
-<li>Element.scrollIntoView(): 让当前的元素滚动到浏览器窗口的可视区域内。</li>
-<li>Element.scrollIntoViewIfNeeded(): 将不在浏览器窗口的可见区域内的元素滚动到浏览器窗口的可见区域。但如果该元素已经在浏览器窗口的可见区域内，则不会发生滚动。</li>
-</ul>
-<h3 id="scrollIntoView"><a href="#scrollIntoView" class="headerlink" title="scrollIntoView"></a>scrollIntoView</h3><p>两种参数：</p>
-<ul>
-<li>Boolean<ul>
-<li>为true，元素的顶端将和其所在滚动区的可视区域的顶端对齐。</li>
-<li>为false，元素的底端将和可视区域的底端对齐</li>
-</ul>
-</li>
-<li>Object<ul>
-<li>block： start | end （同上面的布尔值一样）</li>
-<li>behavior： auto | instant | smooth （决定页面滚动行为）</li>
-<li><strong>有些浏览器不支持behavior取值为smooth</strong></li>
-</ul>
-</li>
-</ul>
-<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Element/scrollIntoView" target="_blank" rel="noopener">scrollIntoView</a></p>
-<h3 id="scrollIntoViewIfNeeded"><a href="#scrollIntoViewIfNeeded" class="headerlink" title="scrollIntoViewIfNeeded"></a>scrollIntoViewIfNeeded</h3><p>区别：</p>
-<ul>
-<li>scrollIntoViewIfNeeded比较随机，如果元素在可视区域，调用时，页面不会发生滚动。</li>
-<li>scrollIntoViewIfNeeded只有Boolean型参数，没有动画效果。<ul>
-<li>true为默认值，不是滚动到顶部，而是让元素在可视区域中<strong>居中对齐</strong>；</li>
-<li>false时元素可能<strong>顶部或底部</strong>对齐</li>
-<li><font color="#c82829">元素处于部分可见，无论参数值是什么，都会滚动到元素与可视区域顶部或底部对齐，取决于元素离哪端更近</font>
-
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="scroll-behavior"><a href="#scroll-behavior" class="headerlink" title="scroll-behavior"></a>scroll-behavior</h3><p><a href="https://css-tricks.com/almanac/properties/s/scroll-behavior/" target="_blank" rel="noopener">https://css-tricks.com/almanac/properties/s/scroll-behavior/</a></p>
-<p><a href="https://jsfiddle.net/laurel/3s8kekqs/" target="_blank" rel="noopener">demo</a></p>
-<h2 id="二、CSS3-animation-—-播放、暂停动画"><a href="#二、CSS3-animation-—-播放、暂停动画" class="headerlink" title="二、CSS3 animation — 播放、暂停动画"></a>二、CSS3 animation — 播放、暂停动画</h2><p>animation-play-state: paused | running</p>
-<p>可以通查询它来确定动画是否正在运行。值可以被设置为暂停和恢复的动画的重放。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.animation</span> &#123;</span><br><span class="line">    <span class="attribute">animation</span>: move <span class="number">2s</span> linear infinite alternate;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#stop</span><span class="selector-pseudo">:checked</span> ~ <span class="selector-class">.animation</span> &#123;</span><br><span class="line">    <span class="attribute">animation-play-state</span>: paused;</span><br><span class="line">    // -webkit-animation: none !important; // ios 替代方案</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#play</span><span class="selector-pseudo">:checked</span> ~ <span class="selector-class">.animation</span> &#123;</span><br><span class="line">    <span class="attribute">animation-play-state</span>: running;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">keyframes</span> move &#123;</span><br><span class="line">    0% &#123;</span><br><span class="line">        <span class="attribute">transform</span>: <span class="built_in">translate</span>(-100px, 0);</span><br><span class="line">    &#125;</span><br><span class="line">    100% &#123;</span><br><span class="line">        <span class="attribute">transform</span>: <span class="built_in">translate</span>(100px, 0);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><a href="https://jsfiddle.net/laurel/rhc3e6nw/" target="_blank" rel="noopener">demo</a></p>
-<h3 id="animation-play-state-在ios上不生效，在安卓上ok"><a href="#animation-play-state-在ios上不生效，在安卓上ok" class="headerlink" title="animation-play-state 在ios上不生效，在安卓上ok"></a>animation-play-state 在ios上不生效，在安卓上ok</h3><ul>
-<li><p>-webkit-animation-play-state: paused 在ios 替代方案：</p>
-<ul>
-<li>-webkit-animation: none !important;</li>
-<li>but 会还原动画效果，不能记录当前动画状态</li>
-</ul>
-</li>
-<li><p>添加父元素记录状态，彻底解决：<br><a href="https://www.jianshu.com/p/b6f71cdbe063" target="_blank" rel="noopener">https://www.jianshu.com/p/b6f71cdbe063</a></p>
-</li>
-</ul>
-<h2 id="三、IOS移动端隐藏滚动条"><a href="#三、IOS移动端隐藏滚动条" class="headerlink" title="三、IOS移动端隐藏滚动条"></a>三、IOS移动端隐藏滚动条</h2><p><a href="https://github.com/o2team/H5Skills/issues/72" target="_blank" rel="noopener">问题</a></p>
-<p>app是IOS 内核，但是使用display: none;无效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&amp;::-webkit-scrollbar</span><br><span class="line">    display: none</span><br><span class="line">    visibility: hidden</span><br></pre></td></tr></table></figure></p>
-<p>解决方案：<br>方案1：（包一层container，高度拉高，再用上面的盖掉）<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">scroll-list</span></span><br><span class="line">    <span class="selector-tag">overflow</span>: <span class="selector-tag">hidden</span></span><br><span class="line">    @<span class="keyword">include</span> px2rem(height, <span class="number">440</span>)</span><br><span class="line">    &amp;-container</span><br><span class="line">        @include px2rem(height, <span class="number">455</span>)</span><br><span class="line">        white-space: nowrap</span><br><span class="line">        overflow-x: scroll</span><br></pre></td></tr></table></figure></p>
-<p>方案2：把滚动条撑开，然后通过负外边距抵消撑开的部分，使得外容器高度不受影响<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"slider"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css"><span class="selector-class">.slider</span> &#123;</span></span><br><span class="line"><span class="undefined">    overflow: hidden;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="css"><span class="selector-class">.slider</span> <span class="selector-tag">ul</span> &#123;</span></span><br><span class="line"><span class="undefined">    padding-bottom: 10px;</span></span><br><span class="line"><span class="undefined">    margin-bottom: -10px;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="四、footer固定在页面底部"><a href="#四、footer固定在页面底部" class="headerlink" title="四、footer固定在页面底部"></a>四、footer固定在页面底部</h2><p>只要四行就解决</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">flex-flow</span>: column;</span><br><span class="line">    <span class="attribute">min-height</span>: <span class="number">100vh</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">main</span> &#123;</span><br><span class="line">    <span class="attribute">flex</span>: <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">header</span>&gt;</span></span><br><span class="line">    header</span><br><span class="line"><span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">main</span>&gt;</span></span><br><span class="line">    main</span><br><span class="line"><span class="tag">&lt;/<span class="name">main</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">footer</span>&gt;</span></span><br><span class="line">    footer</span><br><span class="line"><span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 法二: footer高度固定 + 绝对定位</span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">min-height</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">main</span> &#123;</span><br><span class="line">    <span class="attribute">padding-bottom</span>: <span class="number">100px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">footer</span> &#123;</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">bottom</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100px</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 法二: footer高度固定 + margin负值</span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">min-height</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">main</span> &#123;</span><br><span class="line">    <span class="attribute">padding-bottom</span>: <span class="number">100px</span>;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">footer</span> &#123;</span><br><span class="line">    <span class="attribute">margin-top</span>: -<span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100px</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="https://segmentfault.com/a/1190000004453249" target="_blank" rel="noopener">https://segmentfault.com/a/1190000004453249</a></p>
-<h2 id="五、判断是否为iphonex"><a href="#五、判断是否为iphonex" class="headerlink" title="五、判断是否为iphonex"></a>五、判断是否为iphonex</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isIPhoneX</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="regexp">/iphone/gi</span>.test(<span class="built_in">window</span>.navigator.userAgent) &amp;&amp; (screen.height === <span class="number">812</span> &amp;&amp; screen.width === <span class="number">375</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="六、取消浏览器就滚动条位置"><a href="#六、取消浏览器就滚动条位置" class="headerlink" title="六、取消浏览器就滚动条位置"></a>六、取消浏览器就滚动条位置</h2><p>history.scrollRestoration是新增的一个属性，值为auto|manual,默认为auto记录滚动条位置, 设为manual时就禁用记录位置的功能。<br>兼容性不乐观（至少iOS 10.3.2版本的浏览器不行）</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="string">'scrollRestoration'</span> <span class="keyword">in</span> history) &#123;</span><br><span class="line">    history.scrollRestoration = <span class="string">'manual'</span>;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="built_in">window</span>.onunload= <span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">window</span>.scrollTo(<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="七、axios-请求携带cookie信息"><a href="#七、axios-请求携带cookie信息" class="headerlink" title="七、axios 请求携带cookie信息"></a>七、axios 请求携带cookie信息</h2><ul>
-<li>设置axios.defaults.withCredentials为true</li>
-<li>服务器端需要配置header(“Access-Control-Allow-Credentials: true”)</li>
-<li>!!! 当Access-Control-Allow-Credentials设为true的时候，Access-Control-Allow-Origin不能设为星号*</li>
-</ul>
-<h2 id="八、移动端底部固定定位fixed-amp-IOS上autofoucs失效，需要手动触发"><a href="#八、移动端底部固定定位fixed-amp-IOS上autofoucs失效，需要手动触发" class="headerlink" title="八、移动端底部固定定位fixed &amp; IOS上autofoucs失效，需要手动触发"></a>八、移动端底部固定定位fixed &amp; IOS上autofoucs失效，需要手动触发</h2><p>ios下fixed元素容易定位出错,软键盘弹出时影响fixed元素定位,而android下不会。</p>
-<p>ios下由于软键盘唤出后，页面fixed元素会失效，导致跟随页面一起滚动。假如-页面不会过长出现滚动，即便fixed元素失效，也无法跟随页面滚动，也就不会出现上面的问题。</p>
-<ul>
-<li><p>通常将底部设置为fixed，当激活输入框的时候，将底部定位改为absolute，即可兼容ios和Android。</p>
-</li>
-<li><p>ios：在激活输入框的时候，保证页面滚动至底部，执行：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">document</span>.body.scrollTop = <span class="built_in">document</span>.body.scrollHeight;</span><br><span class="line">&#125;, <span class="number">500</span>);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>点击按钮，触发输入框的focus事件</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="regexp">/(iphone|ipod|ipad)/gi</span>.test(<span class="built_in">window</span>.navigator.userAgent)) &#123;</span><br><span class="line">    <span class="keyword">this</span>.$refs.inputbar.focus();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">_</span> =&gt;</span> &#123; <span class="comment">// fixed 安卓点击穿透</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="regexp">/android/gi</span>.test(<span class="built_in">window</span>.navigator.userAgent)) &#123;</span><br><span class="line">        <span class="keyword">this</span>.$refs.inputbar.focus();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;, <span class="number">200</span>);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>但仍有体验问题</p>
-</li>
-</ul>
-<h2 id="九、ios系统手机无法自动播放音频-视频，-HTML5-audio-autoplay无效"><a href="#九、ios系统手机无法自动播放音频-视频，-HTML5-audio-autoplay无效" class="headerlink" title="九、ios系统手机无法自动播放音频/视频， HTML5 audio autoplay无效"></a>九、ios系统手机无法自动播放音频/视频， HTML5 audio autoplay无效</h2><p>这个是苹果系统限制默认不允许自动播放音频/视频,需要点一下触发play()事件才能播放;</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">'music'</span>).play();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<p>android 4.2添加了允许用户手势触发音视频播放接口，该接口默认为 true ，即默认不允许自动播放音视频，只能是用户交互的方式由用户自己促发播放。</p>
-<blockquote>
-<p>mWebview.getSettings().setMediaPlaybackRequiresUserGesture(false);</p>
-</blockquote>
-<h2 id="十、浏览器后退不刷新"><a href="#十、浏览器后退不刷新" class="headerlink" title="十、浏览器后退不刷新"></a>十、浏览器后退不刷新</h2><p>当点击后退时页面以缓存形式出现,而不是刷新后的,解决方法是用js:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onpageshow = <span class="function"><span class="keyword">function</span>(<span class="params">evt</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(evt.persisted)&#123; </span><br><span class="line">     <span class="built_in">document</span>.body.style.display =<span class="string">"none"</span>;</span><br><span class="line">     location.reload();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>onpageshow每次页面加载都会触发,无论是从缓存中加载还是正常加载,是和onload的区别;</li>
-<li>persisted判断页面是否从缓存中读出</li>
-</ul>
-<h2 id="十一、个别设备样式问题"><a href="#十一、个别设备样式问题" class="headerlink" title="十一、个别设备样式问题"></a>十一、个别设备样式问题</h2><ul>
-<li><p>input的placeholder文本位置偏上： line-height:normal;</p>
-</li>
-<li><p>部分安卓机box-sizing 有上边框：删除box-sizing:border-box;</p>
-</li>
-<li><p>CSS3 动画在安卓上卡顿：</p>
-<p>  开启硬件加速：</p>
-<ul>
-<li>opacity: 1</li>
-<li>-webkit-backface-visibility: hidden</li>
-</ul>
-</li>
-</ul>
-<h2 id="十二、屏幕像素比-屏幕缩放比"><a href="#十二、屏幕像素比-屏幕缩放比" class="headerlink" title="十二、屏幕像素比/屏幕缩放比"></a>十二、屏幕像素比/屏幕缩放比</h2><p>屏幕像素比 = window.devicePixelRatio</p>
-<p>缩放比例 = 设备像素 / CSS像素 ===&gt; screen.availWidth/window.innerWidth</p>
-<h2 id="十三、input的compositionstart-和-compositionend"><a href="#十三、input的compositionstart-和-compositionend" class="headerlink" title="十三、input的compositionstart 和 compositionend"></a>十三、input的compositionstart 和 compositionend</h2><p>在IOS中，input事件会截断非直接输入<br>（非直接输入：在输入汉字时，中间过程会输入拼音，每次输入一个字母会触发input事件，然而在没有点选择候选字或者点击【选定】按钮前，都属于非直接输入）</p>
-<p><strong>需求：</strong> 直接输入之后才触发input事件，需引出：compositionstart 和 compositionend<br>compositionstart 事件在用户开始进行非直接输入时触发，在非直接输入结束，也即用户点选候选词 或者 点击【选定】按钮之后，会触发compositionend事件</p>
-<p>添加一个inputLock变量，当用户未完成直接输入前，inputLock 为true，不触发input事件中的逻辑，当用户完成有效输入之后，inputLock设置为false，触发input事件的逻辑。<br>compositionend 事件在input事件后触发的，在compositionend事件出发时，也要调用input事件处理逻辑</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">inputHandle(e) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.inputLock) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> value = e.target.value;</span><br><span class="line">    value &amp;&amp; <span class="keyword">this</span>.searchHandler(value);</span><br><span class="line">&#125;,</span><br><span class="line">onCompositionstart(e) &#123;</span><br><span class="line">    <span class="comment">// 未完成直接输入前, inputLock 为true</span></span><br><span class="line">    throttle(<span class="function"><span class="params">_</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.inputLock = <span class="literal">true</span>;</span><br><span class="line">    &#125;, <span class="number">200</span>);</span><br><span class="line">&#125;,</span><br><span class="line">onCompositionend(e) &#123;</span><br><span class="line">    <span class="comment">// 完成有效输入后, inputLock 为false</span></span><br><span class="line">    throttle(<span class="function"><span class="params">_</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.inputLock = <span class="literal">false</span>;</span><br><span class="line">    &#125;, <span class="number">200</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// compositionend 事件是在 input 事件后触发，在 compositionend事件触发时，也要调用 input处理逻辑</span></span><br><span class="line">    <span class="keyword">let</span> value = e.target.value;</span><br><span class="line">    value &amp;&amp; <span class="keyword">this</span>.searchHandler(value);</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/08/移动端开发/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lurel">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Laurel Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/08/移动端开发/" itemprop="url">移动端开发</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-08T14:41:03+08:00">
-                2018-04-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">in</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cate/" itemprop="url" rel="index">
-                    <span itemprop="name">cate</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ol>
-<li>移动端点击事件<br><strong>点击穿透：</strong><br>如果一个绝对定位或者固定定位元素处于页面最顶层，对这个元素绑定一个点击事件，点击这个元素，对应下面凡是有点击事件或者a标签都会被触发执行。</li>
-</ol>
-<ul>
-<li>移动端： touchstart, touchmove, touched以及tap</li>
-<li>pc端：mousedown, mousemove, mouseup, click</li>
-</ul>
-<ol>
-<li>去掉a, input 在移动端浏览器中的默认样式</li>
-</ol>
-<ul>
-<li>[1] 禁止a标签背景</li>
-</ul>
-<p>在移动端使用a标签做按钮的时候，点按会出现「暗色」的背景，去掉该背景的方法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a,button,input,optgroup,select,textarea &#123;</span><br><span class="line">    -webkit-tap-highlight-color: rgba(0,0,0,0);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>[2] 禁止长按a,img 标签出现菜单栏</li>
-</ul>
-<p>使用a标签时，移动端长按会出现一个菜单栏，禁止呼出菜单栏：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a, img &#123;</span><br><span class="line">    -webkit-touch-callout: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>[3] 流畅滚动</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">body &#123;</span><br><span class="line">    -webkit-overflow-scrolling: touch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>[4] 修改webkit表单输入框placeholder 的样式</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">input::-webkit-input-placeholder&#123;</span><br><span class="line">    color: #AAA;</span><br><span class="line">&#125;</span><br><span class="line">input:focus::-webkit-input-placeholder&#123;</span><br><span class="line">    color: #EEE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>[5] 禁止IOS和Android用户选中文字<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.css &#123;</span><br><span class="line">    -webkit-user-select: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<pre><code>
-</code></pre>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2431,7 +2466,7 @@ options: set-cookie 选项
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
@@ -2453,7 +2488,7 @@ options: set-cookie 选项
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">Tags</span>
                 </a>
               </div>
