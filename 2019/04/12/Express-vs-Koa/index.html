@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="desc">
+<meta name="description" content="Node框架 Express，是一个基于Node.js平台的极简、灵活的web应用开发框架，主要基于Connect中间件，并且自身封装了路由、视图处理等功能，使用人数众多。 Koa，主要基于co中间件，框架自身不包含任何中间件，很多功能需要借助第三方中间件解决。Express的团队又基于ES6的新特性重新开发web框架koa 和Express相比，koa 1.0使用generator实现异步，代码">
 <meta name="keywords" content="Node">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Express-vs-Koa">
 <meta property="og:url" content="http://yoursite.com/2019/04/12/Express-vs-Koa/index.html">
 <meta property="og:site_name" content="Laurel Blog">
-<meta property="og:description" content="desc">
-<meta property="og:updated_time" content="2019-04-12T02:39:49.540Z">
+<meta property="og:description" content="Node框架 Express，是一个基于Node.js平台的极简、灵活的web应用开发框架，主要基于Connect中间件，并且自身封装了路由、视图处理等功能，使用人数众多。 Koa，主要基于co中间件，框架自身不包含任何中间件，很多功能需要借助第三方中间件解决。Express的团队又基于ES6的新特性重新开发web框架koa 和Express相比，koa 1.0使用generator实现异步，代码">
+<meta property="og:updated_time" content="2019-04-12T03:28:19.017Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Express-vs-Koa">
-<meta name="twitter:description" content="desc">
+<meta name="twitter:description" content="Node框架 Express，是一个基于Node.js平台的极简、灵活的web应用开发框架，主要基于Connect中间件，并且自身封装了路由、视图处理等功能，使用人数众多。 Koa，主要基于co中间件，框架自身不包含任何中间件，很多功能需要借助第三方中间件解决。Express的团队又基于ES6的新特性重新开发web框架koa 和Express相比，koa 1.0使用generator实现异步，代码">
 
 
 
@@ -185,7 +185,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            Accueil
           </a>
         </li>
       
@@ -259,7 +259,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-12T10:38:25+08:00">
                 2019-04-12
@@ -284,8 +284,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/framework/" itemprop="url" rel="index">
-                    <span itemprop="name">framework</span>
+                  <a href="/categories/node-framework/" itemprop="url" rel="index">
+                    <span itemprop="name">node-framework</span>
                   </a>
                 </span>
 
@@ -321,7 +321,62 @@
       
 
       
-        
+        <h2 id="Node框架"><a href="#Node框架" class="headerlink" title="Node框架"></a>Node框架</h2><ul>
+<li>Express，是一个基于Node.js平台的极简、灵活的web应用开发框架，主要基于Connect中间件，并且自身封装了路由、视图处理等功能，使用人数众多。</li>
+<li>Koa，主要基于co中间件，框架自身不包含任何中间件，很多功能需要借助第三方中间件解决。Express的团队又基于ES6的新特性重新开发web框架koa<ul>
+<li>和Express相比，koa 1.0使用generator实现异步，代码看起来像同步的，解决了 “callback hell” 和麻烦的错误处理问题。</li>
+<li>generator的本意并不是异步，koa团队又非常超前地基于ES7开发了koa2，和koa 1相比，koa2完全使用Promise并配合async来实现异步</li>
+</ul>
+</li>
+</ul>
+<h2 id="具体示例"><a href="#具体示例" class="headerlink" title="具体示例"></a>具体示例</h2><ol>
+<li><p>创建一个基础的Web服务（两者的区别是路由处理Express是自身集成的，而Koa需要引入中间件）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. Express</span></span><br><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="keyword">var</span> app = express()</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">    res.send(<span class="string">'express'</span>)</span><br><span class="line">&#125;)</span><br><span class="line">app.listen(<span class="number">3000</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. Koa</span></span><br><span class="line"><span class="keyword">var</span> koa = <span class="built_in">require</span>(<span class="string">'koa'</span>)</span><br><span class="line"><span class="keyword">var</span> route = <span class="built_in">require</span>(<span class="string">'koa-route'</span>)</span><br><span class="line"><span class="keyword">var</span> app = koa()</span><br><span class="line"></span><br><span class="line">app.use(route.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> *(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.body = <span class="string">'koa'</span></span><br><span class="line">&#125;))</span><br><span class="line">app.listen(<span class="number">3000</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Views</p>
+<ul>
+<li>Express自身集成了视图功能，提供了consolidate.js功能，支持几乎所有JS模板引擎，并提供了视图设置的便利方法</li>
+<li>Koa需要引入co-views中间件</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. Express</span></span><br><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="keyword">var</span> app = express()</span><br><span class="line"></span><br><span class="line">app.set(<span class="string">'views'</span>, __dirname + <span class="string">'/views'</span>)</span><br><span class="line">app.set(<span class="string">'view engine'</span>, <span class="string">'jade'</span>)</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">  res.render(<span class="string">'index'</span>, &#123;</span><br><span class="line">    title: <span class="string">'bilibili'</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. Koa</span></span><br><span class="line"><span class="keyword">var</span> koa = <span class="built_in">require</span>(<span class="string">'koa'</span>)</span><br><span class="line"><span class="keyword">var</span> route = <span class="built_in">require</span>(<span class="string">'koa-route'</span>)</span><br><span class="line"><span class="keyword">var</span> views = <span class="built_in">require</span>(<span class="string">'co-views'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> render = views(__dirname + <span class="string">'/views'</span>, &#123;</span><br><span class="line">  <span class="keyword">default</span>: <span class="string">"jade"</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> app = koa()</span><br><span class="line"></span><br><span class="line">app.use(route.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> *(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.body = <span class="keyword">yield</span> render(<span class="string">'index'</span>, &#123;</span><br><span class="line">    title: <span class="string">'bilibili'</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure>
+<ol>
+<li>HTTP Request<br>两个框架都封装了HTTP Request对象，区别是Koa v1使用this取代Express的req、res</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. Express</span></span><br><span class="line"><span class="keyword">var</span> app = <span class="built_in">require</span>(<span class="string">'express'</span>)()</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/room/:id'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(req.params)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取post数据需要body-parser中间件</span></span><br><span class="line"><span class="keyword">var</span> bodyParser = <span class="built_in">require</span>(<span class="string">'body-parser'</span>)</span><br><span class="line">app.use(bodyParser.json())</span><br><span class="line">app.post(<span class="string">'/sendapi'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(req.body)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. Koa</span></span><br><span class="line"><span class="keyword">var</span> app = <span class="built_in">require</span>(<span class="string">'koa'</span>)()</span><br><span class="line"><span class="keyword">var</span> route = <span class="built_in">require</span>(<span class="string">'koa-route'</span>)</span><br><span class="line"></span><br><span class="line">app.use(route.get(<span class="string">'/room/:id'</span>, <span class="function"><span class="keyword">function</span> *(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.req.query)</span><br><span class="line">&#125;))</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取POST数据需要co-body中间件</span></span><br><span class="line"><span class="keyword">var</span> parse = <span class="built_in">require</span>(<span class="string">'co-body'</span>)</span><br><span class="line">app.use(route.post(<span class="string">'/api'</span>, <span class="function"><span class="keyword">function</span> *(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> post = yeild parse(<span class="keyword">this</span>.request)</span><br><span class="line">    <span class="built_in">console</span>.log(post)</span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure>
+<h2 id="Express-和-Koa的区别"><a href="#Express-和-Koa的区别" class="headerlink" title="Express 和 Koa的区别"></a>Express 和 Koa的区别</h2><ol>
+<li><p>异步流程控制</p>
+<ul>
+<li>Express采用callback来处理异步，Koa v1采用generator，Koa v2采用async/await.</li>
+<li>generator和async/await使用同步的写法来处理异步，明显好于callback和promise；</li>
+<li>async/await在语义化上又要比generator更强</li>
+</ul>
+</li>
+<li><p>错误处理</p>
+<ul>
+<li>Express使用callback捕获异常，对于深层次的异常捕获不了</li>
+<li>Koa使用try catch，能更好地解决异常捕获</li>
+</ul>
+</li>
+<li><p>总结</p>
+<ul>
+<li>Express<ul>
+<li>优点：线性逻辑，通过中间件形式把业务逻辑细分、简化，一个请求进来经过一系列中间件处理后再响应给用户，清晰明了。 </li>
+<li>缺点：基于 callback 组合业务逻辑，业务逻辑复杂时嵌套过多，异常捕获困难。</li>
+</ul>
+</li>
+<li>Koa<ul>
+<li>优点：首先，借助 co 和 generator，很好地解决了异步流程控制和异常捕获问题。其次，Koa 把 Express 中内置的 router、view 等功能都移除了，使得框架本身更轻量。 </li>
+<li>缺点：社区相对较小</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<pre><code class="javascript">
+</code></pre>
+
       
     </div>
     
@@ -411,8 +466,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table Des Matières
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Ensemble
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -428,7 +492,7 @@
                 <a href="/archives/">
               
                   <span class="site-state-item-count">27</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-name">articles</span>
                 </a>
               </div>
             
@@ -449,7 +513,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -472,6 +536,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Node框架"><span class="nav-number">1.</span> <span class="nav-text">Node框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体示例"><span class="nav-number">2.</span> <span class="nav-text">具体示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Express-和-Koa的区别"><span class="nav-number">3.</span> <span class="nav-text">Express 和 Koa的区别</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -504,7 +584,7 @@
 
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">Thème &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
 
 
 
