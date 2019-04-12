@@ -185,7 +185,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Startseite
+            Home
           </a>
         </li>
       
@@ -195,7 +195,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archiv
+            Archives
           </a>
         </li>
       
@@ -218,6 +218,192 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/04/ES6-tips/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lurel">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Laurel Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/04/ES6-tips/" itemprop="url">ES6-tips</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-04T14:43:54+08:00">
+                2018-04-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/cate/" itemprop="url" rel="index">
+                    <span itemprop="name">cate</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="ES6-Tips"><a href="#ES6-Tips" class="headerlink" title="ES6 Tips"></a>ES6 Tips</h2><h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><ol>
+<li>带标签的模板字符</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> name = <span class="string">'zhang3'</span>;</span><br><span class="line"><span class="keyword">let</span> age = <span class="number">9</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">tag</span>(<span class="params">strArr, ...args</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> str = <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; args.length; i++) &#123;</span><br><span class="line">        str += strArr[i] + args[i]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(strArr, args);</span><br><span class="line"></span><br><span class="line">    str += strArr[strArr.length - <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">return</span> str;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> str = tag<span class="string">`<span class="subst">$&#123;name&#125;</span>今年<span class="subst">$&#123;age&#125;</span>岁了`</span>；</span><br><span class="line"><span class="built_in">console</span>.info(str);</span><br></pre></td></tr></table></figure>
+<ol>
+<li>includes 方法</li>
+</ol>
+<p>判断字符串中是否包含某个字符串<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> str = <span class="string">'xingqitian'</span>；</span><br><span class="line">str.includes(<span class="string">'ti'</span>); <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>endsWidth、startsWith 方法</li>
+</ol>
+<p>判断字符串是否以某一个字符串开始或结束<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">'234567899sddcdhs'</span>;</span><br><span class="line">a.startsWith(<span class="string">'23'</span>);</span><br><span class="line">a.endsWith(<span class="string">'Hs'</span>);</span><br></pre></td></tr></table></figure></p>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><ol>
+<li>函数参数可赋值，可解构</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">&#123;a=<span class="number">5</span>&#125;</span>)</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>箭头函数</li>
+</ol>
+<ul>
+<li>如果参数只有一个，可省略小括号</li>
+<li>如果不写return，可以不写大括号</li>
+<li>没有arguments变量</li>
+<li>不改变this指向</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 求和</span></span><br><span class="line"><span class="keyword">let</span> sum = <span class="function">(<span class="params">a,b</span>)=&gt;</span>a+b;</span><br></pre></td></tr></table></figure>
+<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><ol>
+<li>数组新方法</li>
+</ol>
+<ul>
+<li>Array.from(); //将类数组转化成数组</li>
+<li>Array.of(); //创建数组</li>
+<li>Array.fill();//填充数组</li>
+<li>Array.reduce();//传入回调适合处理 临近数组元素</li>
+<li>Array.filter();//数组过滤</li>
+<li>Array.find();//查找返回值</li>
+<li>Array.includes();//判断数组是否有某值</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.of(<span class="number">2</span>,<span class="number">3</span>)   <span class="comment">// [2,3]</span></span><br></pre></td></tr></table></figure>
+<h3 id="Class-类"><a href="#Class-类" class="headerlink" title="Class 类"></a>Class 类</h3><ul>
+<li>Class 定义类</li>
+<li>extends 实现继承</li>
+<li>支持静态方法</li>
+<li>constructor 构造方法</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -261,7 +447,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-29T16:19:04+08:00">
                 2018-03-29
@@ -410,7 +596,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-26T21:08:32+08:00">
                 2018-03-26
@@ -562,7 +748,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-23T18:38:48+08:00">
                 2018-03-23
@@ -726,7 +912,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-22T10:33:47+08:00">
                 2018-03-22
@@ -747,7 +933,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -940,7 +1126,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-15T21:27:59+08:00">
                 2018-03-15
@@ -961,7 +1147,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1098,7 +1284,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-08T17:07:00+08:00">
                 2018-03-08
@@ -1226,7 +1412,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-13T14:36:14+08:00">
                 2018-02-13
@@ -1247,7 +1433,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1385,7 +1571,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-07T15:38:38+08:00">
                 2018-02-07
@@ -1517,7 +1703,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-01T14:50:50+08:00">
                 2018-02-01
@@ -1648,158 +1834,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/25/throttle-debounce/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lurel">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Laurel Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/25/throttle-debounce/" itemprop="url">throttle-debounce</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-25T21:49:10+08:00">
-                2018-01-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">in</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cate/" itemprop="url" rel="index">
-                    <span itemprop="name">cate</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="throttle-amp-debounce-节流和防抖"><a href="#throttle-amp-debounce-节流和防抖" class="headerlink" title="throttle &amp; debounce (节流和防抖)"></a>throttle &amp; debounce (节流和防抖)</h2><h3 id="节流-throttle"><a href="#节流-throttle" class="headerlink" title="节流[throttle]"></a>节流[throttle]</h3><p>使用setTimeout方法，给定两个时间，后面的时间减去前面的时间，到达给定的时间就去触发一个这个事件。<br>在规定的每300毫秒触发一次，当然时间可以自定义，根据需求来；</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> scrollBox = <span class="built_in">document</span>.querySelector(<span class="string">'.scroll-box'</span>);</span><br><span class="line">    <span class="built_in">console</span>.info(scrollBox)</span><br><span class="line">    <span class="comment">// 调用throttle函数，传入相应的方法和规定时间</span></span><br><span class="line">    <span class="keyword">var</span> thro = throttle(throFunc, <span class="number">300</span>);</span><br><span class="line">    <span class="comment">// 触发时间</span></span><br><span class="line">    scrollBox.on(<span class="string">'scroll'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 调用此函数</span></span><br><span class="line">        thro();</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 封装函数</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">method, time</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> timer = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">var</span> startTime = <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> context = <span class="keyword">this</span></span><br><span class="line">            <span class="keyword">var</span> endTime = <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line">            <span class="keyword">var</span> resTime = endTime - startTime</span><br><span class="line">            <span class="keyword">if</span>(resTime &gt;= time) &#123; <span class="comment">// 判断大于等于给定的时间就采取执行函数</span></span><br><span class="line">                method.call(context)</span><br><span class="line">                <span class="comment">// 执行完函数之后重置初始时间，等于最后一次触发的时间</span></span><br><span class="line">                startTime = endTime;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 封装函数</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">method, time</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> timer = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> context = <span class="keyword">this</span>;</span><br><span class="line">            <span class="comment">// 在函数执行的时候先清除timer定时器；</span></span><br><span class="line">            clearTimeout(timer);</span><br><span class="line">            timer = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                method.call(context);</span><br><span class="line">            &#125;,time);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">throFunc</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'success'</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="防抖-debounce"><a href="#防抖-debounce" class="headerlink" title="防抖[debounce]"></a>防抖[debounce]</h3><p>防抖的思想就是当拖动完成之后，两边的窗口位置再重新去计算，这样操作dom结构的次数就大大减少了；<br>优化了页面性能，降低了内存消耗<br>在某个事件没有结束之前，函数不会执行，当结束之后，给定延时时间，让他在给定的延时时间之后再去执行这个函数，这就是防抖函数；</p>
-<h3 id="sumary"><a href="#sumary" class="headerlink" title="sumary"></a>sumary</h3><p>节流就是每ms执行一次函数，防抖就是最后一次触发后ms后执行一次回调函数。</p>
-<ul>
-<li>当做keyup像后台请求检验的时候，可以使用防抖函数，不然每按一次键盘就请求一次，请求太频繁，这样当结束按键盘的时候再去请求，请求少很多了，性能自然不用说；</li>
-<li>resize 窗口大小调整的时候，可以采用防抖技术也可以使用节流；</li>
-<li>mousemove 鼠标移动事件既可以采用防抖也可以使用节流；</li>
-<li>scroll 滚动条触发的事件，当然既可以采用防抖也可以采用节流；</li>
-<li>连续高频发的事件都可以采用这两种方式去解决，优化页面性能；</li>
-</ul>
-<h3 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h3>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1850,8 +1884,8 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">26</span>
-                  <span class="site-state-item-name">Artikel</span>
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">posts</span>
                 </a>
               </div>
             
@@ -1861,8 +1895,8 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">3</span>
-                  <span class="site-state-item-name">Kategorien</span>
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">categories</span>
                 </a>
               </div>
             
@@ -1872,8 +1906,8 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">10</span>
-                  <span class="site-state-item-name">Tags</span>
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">tags</span>
                 </a>
               </div>
             
@@ -1919,7 +1953,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 
