@@ -232,6 +232,152 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/15/webpack多入口文件页面配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lurel">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Laurel Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/15/webpack多入口文件页面配置/" itemprop="url">webpack多入口文件页面配置</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-15T11:27:39+08:00">
+                2019-04-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="webpack多入口文件页面配置"><a href="#webpack多入口文件页面配置" class="headerlink" title="webpack多入口文件页面配置"></a>webpack多入口文件页面配置</h2><p>webpack的多页面文件的打包配置</p>
+<pre><code>单页应用程序和多页应用程序的webpack配置文件绝大部分是相同的，loader、output、plugins这些基本不需改动；
+
+需要改动的一般都是入口文件entry，如果用到抽离css样式的插件extract-text-webpack-plugin、自动模板插件html-webpack-plugin,需要进行额外的改写。
+</code></pre><ul>
+<li><p>entry</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 多页应用程序，则需要多个入口文件(如：项目里有多个入口文件)</span></span><br><span class="line">entry: &#123;</span><br><span class="line">    home: resolve(__dirname, <span class="string">'src/home/index.js'</span>),</span><br><span class="line">    about: resolve(__dirname, <span class="string">'src/about/index.js'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>extract-text-webpack-plugin</p>
+<p>  主要是为了抽离css样式，防止将样式打包在js中引起页面样式加载错乱或者js脚本体积过大等情况；</p>
+<ol>
+<li><p>多页程序，因为存在多个入口文件以及对应的多个页面，每个页面都有自己的css样式，所以需要为每个页面各自配置:</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//为每个页面定义一个 ExtractTextPlugin</span></span><br><span class="line"><span class="keyword">const</span> homeExtractCss = <span class="keyword">new</span> ExtractTextPlugin(<span class="string">'home/[name].[contenthash].css'</span>)</span><br><span class="line"><span class="keyword">const</span> aboutExtractCss = <span class="keyword">new</span> ExtractTextPlugin(<span class="string">'about/[name].[contenthash].css'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 多页应用程序，则需要多个入口文件(如：项目里有多个入口文件)</span></span><br><span class="line">plugins: [</span><br><span class="line">    homeExtractCss</span><br><span class="line">    aboutExtractCss</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>每个页面只需要知己的css样式，不需要别的页面css样式，以防样式覆盖和代码冗余，需要对loader配置进行修改：</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [ <span class="comment">// 每个页面的 ExtractTextPlugin 只处理这个页面的样式文件</span></span><br><span class="line">        &#123;</span><br><span class="line">            test: <span class="regexp">/src(\\|\/)home(\\|\/)css(\\|\/).*\.(css|scss)$/</span>,</span><br><span class="line">            use: homeExtractCss.extract(&#123;</span><br><span class="line">                fallback: <span class="string">'style-loader'</span>,</span><br><span class="line">                use: [<span class="string">'css-loader'</span>, <span class="string">'postcss-loader'</span>, <span class="string">'sass-loader'</span>]</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;,  &#123;</span><br><span class="line">            test: <span class="regexp">/src(\\|\/)about(\\|\/)css(\\|\/).*\.(css|scss)$/</span>,</span><br><span class="line">            use: aboutExtractCss.extract(&#123;</span><br><span class="line">                fallback: <span class="string">'style-loader'</span>,</span><br><span class="line">                use: [<span class="string">'css-loader'</span>, <span class="string">'postcss-loader'</span>, <span class="string">'sass-loader'</span>]</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 每个页面都有各自的 ExtractTextPlugin，所以需要都声明一遍</span></span><br><span class="line">plugins: [homeExtractCss, aboutExtractCss]</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>html-webpack-plugin<br>  在单页应用程序和多页应用程序中的 webpack配置没什么区别，有几个页面，就对每个页面进行配置即可</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">    filename: <span class="string">'about/about.html'</span>, <span class="comment">// 'home/home.html'</span></span><br><span class="line">    template: <span class="string">'src/about/html/index.html'</span>, <span class="comment">// 'src/about/html/index.html'</span></span><br><span class="line">    inject: <span class="literal">true</span>,</span><br><span class="line">    minify: &#123;</span><br><span class="line">        removeComments: <span class="literal">true</span>,</span><br><span class="line">        collapseWhitespace: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>自动配置<br>  每个页面都是 src/目录下的一个文件夹，这个文件夹中有两个子目录，分别存放这个页面的模板 html，样式文件 css，还有一个入口文件 index.js</p>
+<p>  通过一个通用方法来获取所有的页面名称（每个页面都是 ./src下的一个目录，目录名即为页面名）：</p>
+<pre><code><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getEntry</span> (<span class="params"></span>) </span>&#123; <span class="comment">// 借助glob库，遍历.src/目录下具有这种规律src/**/html/*.html的子目录，通过正则匹配出子目录的名称</span></span><br><span class="line">    <span class="keyword">let</span> globPath = <span class="string">'src/**/html/*.html'</span></span><br><span class="line">    <span class="comment">// (\/|\\\\) 这种写法是为了兼容 windows和 mac系统目录路径的不同写法</span></span><br><span class="line">    <span class="keyword">let</span> pathDir = <span class="string">'src(\/|\\\\)(.*?)(\/|\\\\)html'</span></span><br><span class="line">    <span class="keyword">let</span> files = glob.sync(globPath)</span><br><span class="line">    <span class="keyword">let</span> dirname, entries = []</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; files.length; i++) &#123;</span><br><span class="line">        dirname = path.dirname(files[i])</span><br><span class="line">        entries.push(dirname.replace(<span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">'^'</span> + pathDir), <span class="string">'$2'</span>))</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> entries</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</code></pre></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/12/vue中computed分析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2063,223 +2209,6 @@ clients: 表示 Service Worker 接管的页面
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/02/nginx-configure-explanation/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lurel">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Laurel Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/02/nginx-configure-explanation/" itemprop="url">nginx-configure-explanation</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-02T11:05:24+08:00">
-                2018-11-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="nginx-配置文件nginx-conf-详解"><a href="#nginx-配置文件nginx-conf-详解" class="headerlink" title="nginx 配置文件nginx.conf 详解"></a>nginx 配置文件nginx.conf 详解</h2><blockquote>
-<p>#nginx 进程，一般设置为和cpu核数一样</p>
-</blockquote>
-<pre><code>worker_process 4;
-</code></pre><blockquote>
-<p>#错误日志存放目录</p>
-</blockquote>
-<pre><code>error_log   /logs/error.log   crit;
-</code></pre><blockquote>
-<p>#运行用户，默认即是nginx,可不设置</p>
-</blockquote>
-<pre><code>user nginx;
-</code></pre><blockquote>
-<p>#进程pid存放位置</p>
-</blockquote>
-<pre><code>pid     /logs/nginx.pid;
-</code></pre><blockquote>
-<p>#最大文件打开书（连接），可设置为系统优化后的ulimit-HSn的结果</p>
-</blockquote>
-<pre><code>worker_rlimit_nofile 51200;
-</code></pre><blockquote>
-<p>#cpu亲和力配置，让不同的进程使用不同的cpu</p>
-</blockquote>
-<pre><code>worker_cpu_affinity 0001 0010 0100 1000 0001 00100100 1000;
-</code></pre><blockquote>
-<p>#工作模式及连接数上限</p>
-</blockquote>
-<pre><code>events 
-{
-    use epoll;       #epoll是多路复用IO(I/O Multiplexing)中的一种方式,但是仅用于linux2.6以上内核,可以大大提高nginx的性能
-    worker_connections 1024;  #;单个后台worker process进程的最大并发链接数
-}
-###################################################
-
-http
-
-{
-    include mime.types; #文件扩展名与类型映射表
-    default_type application/octet-stream; #默认文件类型
-</code></pre><blockquote>
-<p>#limit 模块，可防范一定量的DDOS攻击</p>
-<p>#用来存储session会话的状态，如下是session分配一个名为one的10M的内存存储区，限制了每秒只接收一个ip的一次请求 1r/s</p>
-</blockquote>
-<pre><code>limit_req_zone $binary_remote_addr zone=one:10m rate=1r/s;
-limit_conn_zone $binary_remote_addr zone=addr:10m;
-</code></pre><blockquote>
-<p>#设定请求缓存</p>
-</blockquote>
-<pre><code>server_names_hash_bucket_size 128;
-
-client_header_buffer_size 512k;
-
-large_client_header_buffers 4512k;
-
-client_max_body-size 100m;
-</code></pre><blockquote>
-<p>#隐藏响应header和错误通知中的版本号</p>
-</blockquote>
-<pre><code>server_tokens off;
-</code></pre><blockquote>
-<p>#开启高效传输模式</p>
-</blockquote>
-<pre><code>sendfile on;
-</code></pre><blockquote>
-<p>#激活tcp_nopush 参数可以允许把httpresponse header 和文件的开始放在一个文件里发布，积极的作用是减少网络报文段的数量</p>
-</blockquote>
-<pre><code>tcp_nopush on;
-</code></pre><blockquote>
-<p>#激活<br>tcp_nodelay, 内核会等待将更多的字节组成一个数据包，从而提高I/O性能</p>
-</blockquote>
-<pre><code>tcp_nodelay on;
-</code></pre><blockquote>
-<p>#FastCGI 相关参数：为了改善网站性能：减少资源占用，提高访问速度</p>
-</blockquote>
-<pre><code>fastcgi_connect_timeout 300;
-fastcgi_send_timeout 300;
-fastcgi_read_timeout 300;
-fastcgi_buffer_size 64k;
-fastcgi_buffers 4 64k;
-fastcgi_busy_buffers_size 128k;
-fastcgi_temp_file_write_size 128k;
-</code></pre><blockquote>
-<p>#连接超时时间，单位为秒</p>
-</blockquote>
-<p>   keepalive_timeout 60;</p>
-<blockquote>
-<p>#开启gzip 压缩功能</p>
-</blockquote>
-<pre><code>gzip on;
-</code></pre><blockquote>
-<p>#设置允许压缩的页面最小字节数，页面字节数从header头的Content-Length 中获取。默认值是0，表示不管页面多大都进行压缩。建议设置成大于1K。如果小于1K可能会越压越大</p>
-</blockquote>
-<pre><code>gzip_min_length 1k;
-</code></pre><blockquote>
-<p>#</p>
-</blockquote>
-<pre><code>}
-</code></pre><p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">user  nobody;</span></span><br><span class="line">worker_processes  1;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">error_log  logs/error.log;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">error_log  logs/error.log  notice;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">error_log  logs/error.log  info;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">pid        logs/nginx.pid;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    resolver 172.22.1.253;</span><br><span class="line"></span><br><span class="line">    #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '</span><br><span class="line">    #                  '$status $body_bytes_sent "$http_referer" '</span><br><span class="line">    #                  '"$http_user_agent" "$http_x_forwarded_for"';</span><br><span class="line"></span><br><span class="line">    #access_log  logs/access.log  main;</span><br><span class="line"></span><br><span class="line">    sendfile        on;</span><br><span class="line">    #tcp_nopush     on;</span><br><span class="line"></span><br><span class="line">    #keepalive_timeout  0;</span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line"></span><br><span class="line">    #gzip  on;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen       8086;</span><br><span class="line">        server_name  localhost;</span><br><span class="line"></span><br><span class="line">        #charset koi8-r;</span><br><span class="line"></span><br><span class="line">        access_log  lihuan.access.log;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">	    proxy_pass http://family.baidu.com$request_uri;</span><br><span class="line">        &#125;</span><br><span class="line">        #error_page  404              /404.html;</span><br><span class="line"></span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">	listen       8087;</span><br><span class="line">	server_name  127.0.0.1;</span><br><span class="line"></span><br><span class="line">	location / &#123;</span><br><span class="line">	    proxy_pass http://127.0.0.1:8080;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="meta">	#</span><span class="bash"> location /api &#123;</span></span><br><span class="line"><span class="meta">	#</span><span class="bash">	rewrite ^.+api/?(.*)$ /<span class="variable">$1</span> <span class="built_in">break</span>;</span></span><br><span class="line"><span class="meta">	#</span><span class="bash">	proxy_pass http://api.b.com:8080/api/<span class="variable">$1</span></span></span><br><span class="line"><span class="meta">	#</span><span class="bash"> &#125;</span></span><br><span class="line"></span><br><span class="line">        location ~ /api/ &#123;</span><br><span class="line">	    proxy_pass http://meeting-bot.dev.weiyun.baidu.com;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    # another virtual host using mix of IP-, name-, and port-based configuration</span><br><span class="line">    #</span><br><span class="line">    #server &#123;</span><br><span class="line">    #    listen       8000;</span><br><span class="line">    #    listen       somename:8080;</span><br><span class="line">    #    server_name  somename  alias  another.alias;</span><br><span class="line"></span><br><span class="line">    #    location / &#123;</span><br><span class="line">    #        root   html;</span><br><span class="line">    #        index  index.html index.htm;</span><br><span class="line">    #    &#125;</span><br><span class="line">    #&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    # HTTPS server</span><br><span class="line">    #</span><br><span class="line">    #server &#123;</span><br><span class="line">    #    listen       443 ssl;</span><br><span class="line">    #    server_name  localhost;</span><br><span class="line"></span><br><span class="line">    #    ssl_certificate      cert.pem;</span><br><span class="line">    #    ssl_certificate_key  cert.key;</span><br><span class="line"></span><br><span class="line">    #    ssl_session_cache    shared:SSL:1m;</span><br><span class="line">    #    ssl_session_timeout  5m;</span><br><span class="line"></span><br><span class="line">    #    ssl_ciphers  HIGH:!aNULL:!MD5;</span><br><span class="line">    #    ssl_prefer_server_ciphers  on;</span><br><span class="line"></span><br><span class="line">    #    location / &#123;</span><br><span class="line">    #        root   html;</span><br><span class="line">    #        index  index.html index.htm;</span><br><span class="line">    #    &#125;</span><br><span class="line">    #&#125;</span><br><span class="line"></span><br><span class="line">    include servers/*;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2330,7 +2259,7 @@ fastcgi_temp_file_write_size 128k;
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

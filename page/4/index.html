@@ -232,6 +232,178 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/24/intersectionObserver/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lurel">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Laurel Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/24/intersectionObserver/" itemprop="url">intersectionObserver</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-24T10:18:42+08:00">
+                2018-01-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/cate/" itemprop="url" rel="index">
+                    <span itemprop="name">cate</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="IntersectionObserver-API-交叉观察器"><a href="#IntersectionObserver-API-交叉观察器" class="headerlink" title="IntersectionObserver API 交叉观察器"></a>IntersectionObserver API 交叉观察器</h2><p>可以自动观察元素是否在视口内。可见（visible）的本质：目标元素与视口产生一个交叉区</p>
+<h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><ul>
+<li>参数：<ul>
+<li>callback, 可见性变化时的回调函数</li>
+<li>option, 配置对象（可选）</li>
+</ul>
+</li>
+<li>返回值：观察器实例</li>
+<li>方法：<ul>
+<li>observe() 方法可以指定观察哪个 DOM 节点。(参数是一个DOM节点对象)</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> io = <span class="keyword">new</span> IntersectionObserver(callback, option);</span><br></pre></td></tr></table></figure>
+<h3 id="callback参数"><a href="#callback参数" class="headerlink" title="callback参数"></a>callback参数</h3><p>目标元素的可见性变化时，就会调用</p>
+<p>callback一般会触发两次。一次是目标元素刚刚进入视口（开始可见），另一次是完全离开视口（开始不可见）。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> io = <span class="keyword">new</span> IntersectionObserver(</span><br><span class="line">    entries =&gt; &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(entries);</span><br><span class="line">    &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>callback函数的参数（entries）是一个数组，每个成员都是一个IntersectionObserverEntry对象。举例来说，如果同时有两个被观察的对象的可见性发生变化，entries数组就会有两个成员。</p>
+<h3 id="IntersectionObserverEntry-对象"><a href="#IntersectionObserverEntry-对象" class="headerlink" title="IntersectionObserverEntry 对象"></a>IntersectionObserverEntry 对象</h3><p>提供目标元素的信息，一共有六个属性：</p>
+<ul>
+<li>time</li>
+<li>rootBounds</li>
+<li>boundingClientRect</li>
+<li>intersectionRect</li>
+<li>intersectionRatio</li>
+<li>target</li>
+</ul>
+<h3 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">checkImgs</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> imgs = <span class="built_in">Array</span>.from(<span class="built_in">document</span>.querySelectorAll(<span class="string">'.my-photo'</span>));</span><br><span class="line">    <span class="built_in">console</span>.log(imgs)</span><br><span class="line">    imgs.forEach(<span class="function"><span class="params">item</span> =&gt;</span> io.observe(item));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadImg</span>(<span class="params">el</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!el.src) &#123;</span><br><span class="line">        <span class="keyword">const</span> source = el.dataset.src;</span><br><span class="line">        el.src = source;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> io = <span class="keyword">new</span> IntersectionObserver(<span class="function"><span class="params">ioes</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.info(ioes[<span class="number">0</span>]);</span><br><span class="line">    ioes.forEach(<span class="function"><span class="params">ioe</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> el = ioe.target;</span><br><span class="line">        <span class="keyword">const</span> intersectionRatio = ioe.intersectionRatio;</span><br><span class="line">        <span class="keyword">if</span> (intersectionRatio &gt; <span class="number">0</span> &amp;&amp; intersectionRatio &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">            loadImg(el);</span><br><span class="line">        &#125;</span><br><span class="line">        el.onload = el.onerror = <span class="function"><span class="params">()</span> =&gt;</span> io.unobserve(el);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><p>IntersectionObserver API 是异步的，不随着目标元素的滚动同步触发。</p>
+<p>规格写明，IntersectionObserver的实现，应该采用requestIdleCallback()，即只有线程空闲下来，才会执行观察器。这意味着，这个观察器的优先级非常低，只在其他任务执行完，浏览器有了空闲才会执行。</p>
+<p><a href="http://www.ruanyifeng.com/blog/2016/11/intersectionobserver_api.html" target="_blank" rel="noopener">link</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/23/houdini/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -816,7 +988,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
