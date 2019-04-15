@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="framework," />
+  <meta name="keywords" content="webpack," />
 
 
 
@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="vuex原理vuex依赖于vue的computed依赖检测系统以及插件系统 Vuex.store除了初始化以外还有重置VM方法，即resetStoreVM(this, state).本质是将传入的state作为一个隐藏的vue组件的data，commit操作本质是修改这个组件的data值。结合computed，修改被defineReactive代理的对象值后，会将其收集到的依赖的watcher中的">
-<meta name="keywords" content="framework">
+<meta name="description" content="babel插件实现按需打包的功能目的  import {flatten,join} from &amp;apos;lodash&amp;apos;;  转化成=========&amp;gt;  import flatten from &amp;apos;lodash/flatten&amp;apos;; import join from &amp;apos;lodash/join&amp;apos;; 实现 配置.babelrc   12345678">
+<meta name="keywords" content="webpack">
 <meta property="og:type" content="article">
-<meta property="og:title" content="vue中computed分析&amp;vuex原理">
-<meta property="og:url" content="http://yoursite.com/2019/04/12/vue中computed分析/index.html">
+<meta property="og:title" content="webpack中按需打包的babel插件实现">
+<meta property="og:url" content="http://yoursite.com/2019/04/15/webpack中按需打包的babel插件实现/index.html">
 <meta property="og:site_name" content="Laurel Blog">
-<meta property="og:description" content="vuex原理vuex依赖于vue的computed依赖检测系统以及插件系统 Vuex.store除了初始化以外还有重置VM方法，即resetStoreVM(this, state).本质是将传入的state作为一个隐藏的vue组件的data，commit操作本质是修改这个组件的data值。结合computed，修改被defineReactive代理的对象值后，会将其收集到的依赖的watcher中的">
-<meta property="og:updated_time" content="2019-04-12T12:44:30.438Z">
+<meta property="og:description" content="babel插件实现按需打包的功能目的  import {flatten,join} from &amp;apos;lodash&amp;apos;;  转化成=========&amp;gt;  import flatten from &amp;apos;lodash/flatten&amp;apos;; import join from &amp;apos;lodash/join&amp;apos;; 实现 配置.babelrc   12345678">
+<meta property="og:updated_time" content="2019-04-15T07:37:26.095Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="vue中computed分析&amp;vuex原理">
-<meta name="twitter:description" content="vuex原理vuex依赖于vue的computed依赖检测系统以及插件系统 Vuex.store除了初始化以外还有重置VM方法，即resetStoreVM(this, state).本质是将传入的state作为一个隐藏的vue组件的data，commit操作本质是修改这个组件的data值。结合computed，修改被defineReactive代理的对象值后，会将其收集到的依赖的watcher中的">
+<meta name="twitter:title" content="webpack中按需打包的babel插件实现">
+<meta name="twitter:description" content="babel插件实现按需打包的功能目的  import {flatten,join} from &amp;apos;lodash&amp;apos;;  转化成=========&amp;gt;  import flatten from &amp;apos;lodash/flatten&amp;apos;; import join from &amp;apos;lodash/join&amp;apos;; 实现 配置.babelrc   12345678">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/04/12/vue中computed分析/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/04/15/webpack中按需打包的babel插件实现/"/>
 
 
 
 
 
-  <title>vue中computed分析&vuex原理 | Laurel Blog</title>
+  <title>webpack中按需打包的babel插件实现 | Laurel Blog</title>
   
 
 
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/12/vue中computed分析/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/15/webpack中按需打包的babel插件实现/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Lurel">
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">vue中computed分析&vuex原理</h1>
+          <h1 class="post-title" itemprop="name headline">webpack中按需打包的babel插件实现</h1>
         
 
         <div class="post-meta">
@@ -261,8 +261,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-12T17:22:44+08:00">
-                2019-04-12
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-15T14:41:32+08:00">
+                2019-04-15
               </time>
             
 
@@ -299,81 +299,25 @@
       
 
       
-        <h3 id="vuex原理"><a href="#vuex原理" class="headerlink" title="vuex原理"></a>vuex原理</h3><p>vuex依赖于vue的computed依赖检测系统以及插件系统</p>
-<p>Vuex.store除了初始化以外还有重置VM方法，即resetStoreVM(this, state).<br>本质是将传入的state作为一个隐藏的vue组件的data，commit操作本质是修改这个组件的data值。结合computed，修改被defineReactive代理的对象值后，会将其收集到的依赖的watcher中的dirty设置为true，等下一次访问该watcher中的值后重新获取最新值。可推出：store._vm.$data.$$state === store.state</p>
-<p>vuex的实现方式使用了vue自身的响应式设计，依赖监听、依赖收集都属于vue对对象Property set get方式的代理劫持。即vuex工作原理：vuex中的store本质就是没有template的隐藏着的vue组件</p>
-<h3 id="computed"><a href="#computed" class="headerlink" title="computed"></a>computed</h3><ul>
-<li>计算属性如何与属性建立依赖关系</li>
-<li>属性发生变化如何通知到计算属性重新计算</li>
-</ul>
-<p>依赖收集、动态计算的流程：</p>
-<ol>
-<li>data属性初始化getter setter</li>
-<li>computed 计算属性初始化，提供的函数用作属性(vm.reverseMsg)的getter</li>
-<li>当首次获取计算属性(vm.reverseMsg)的值时，Dep开始依赖收集</li>
-<li>在执行msg getter方法时，如果Dep处于依赖收集状态，则判定 msg为reverseMsg的依赖，并建立依赖关系</li>
-<li>当 msg 发生变化时，根据依赖关系，触发 reverseMsg 的重新计算。</li>
-</ol>
-<h3 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h3><ul>
-<li><p>初始化组件的state方法：initState</p>
-<ul>
-<li>当组件实例化时会自动触发，主要完成了初始化data、props、computed、watch等属性，以及initData和initComputed</li>
-<li><p>initData</p>
-<ul>
-<li>将vue的data传入observer方法（该方法本质是实例化了一个Observer对象）</li>
-<li>Observer里的重点：new Dep对象；给data的所有属性调用defineReactive</li>
-<li>defineReactive是vue实现 MDV(Model-Driven-View)的基础，就是代理数据的get，set方法。当数据修改或获取的时候，能够感知<ul>
-<li>在给具体属性调用defineReactive方法时，都会为该属性生成唯一的dep对象。</li>
-<li>重新定义data当中的属性，对get和set进行代理</li>
-<li>get里收集依赖，dep.depend() // reversedMessage为什么会跟着message变化的原因<ul>
-<li>dep.depend()是将该dep加入watcher的newDeps中,同时将所访问当前属性的dep对象中的subs插入当前Dep.target的watcher</li>
-</ul>
+        <h2 id="babel插件实现按需打包的功能"><a href="#babel插件实现按需打包的功能" class="headerlink" title="babel插件实现按需打包的功能"></a>babel插件实现按需打包的功能</h2><h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><blockquote>
+</blockquote>
+<pre><code>import {flatten,join} from &apos;lodash&apos;;
+
+转化成=========&gt;
+
+import flatten from &apos;lodash/flatten&apos;;
+import join from &apos;lodash/join&apos;;
+</code></pre><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ul>
+<li><p>配置.babelrc</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"plugins"</span>: [</span><br><span class="line">        [</span><br><span class="line">            <span class="string">"babel-plugin-sui-import"</span>, <span class="comment">// 这个是自己写的插件名</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="string">"libraryName"</span>: <span class="string">"vant"</span>, <span class="comment">// 在引用哪个库时候使用自己写的这个插件</span></span><br><span class="line">                <span class="string">"libraryDirectory"</span>: <span class="string">"lib"</span></span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li>set里通知依赖进行更新，dep.notify()<ul>
-<li>notify方法即将加入该dep的watcher全部更新，即当修改data中某个属性值时，会同时调用dep.notify()来更新依赖该值的所有watcher</li>
-</ul>
+<li><p>引入脚本，进行对比</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// import &#123;flatten,join&#125; from 'lodash' // 打包后大小：483k</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> flatten <span class="keyword">from</span> <span class="string">'lodash/flatten'</span> <span class="comment">// 打包后大小：21.3K</span></span><br><span class="line"><span class="keyword">import</span> join <span class="keyword">from</span> <span class="string">'lodash/join'</span></span><br></pre></td></tr></table></figure>
+<p>  两种引入方式的抽象语法树的差别，只是IMportDeclaration不同</p>
 </li>
-</ul>
-</li>
-<li>Dep 是 vue 实现的一个处理依赖关系的对象，主要起到一个纽带的作用，就是连接 reactive data 与 watcher<ul>
-<li>重点方法：addSub()；depend()；notify() // 更新watcher 的值</li>
-<li>当首次计算 computed 属性的值时，Dep 将会在计算期间对依赖进行收集</li>
-<li>pushTarget：在一次依赖收集期间，如果有其他依赖收集任务开始，将会把当前 target 暂存到 targetStack，先进行其他 target 的依赖收集，</li>
-<li>popTarget: 当嵌套的依赖收集任务完成后，将 target 恢复为上一层的 Watcher，并继续做依赖收集</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>initComputed</p>
-<ul>
-<li>对每一个属性都生成了一个属于自己的Watcher实例，并将 { lazy: true }作为options传入<ul>
-<li>在computed生成的watcher，会将watcher的lazy设置为true,以减少计算量。因此，实例化时，this.dirty也是true,标明数据需要更新操作</li>
-<li>先记住现在computed中初始化对各个属性生成的watcher的dirty和lazy都设置为了true。同时，将computed传入的属性值（一般为funtion）,放入watcher的getter中保存起来。</li>
-</ul>
-</li>
-<li>对每一个属性调用了defineComputed方法(本质和data一样，代理了自己的set和get方法)<ul>
-<li>当第一次访问computed中的值时，会因为初始化watcher.dirty = watcher.lazy的原因，从而调用watcher.evalute()方法，evalute()方法就是调用了watcher实例中的get方法以及设置dirty = false,我们将这两个方法放在一起<ul>
-<li>get方法： 调用了pushTarget方法，其作用就是将Dep.target设置为所传入的watcher,即所访问的computed中属性的watcher</li>
-<li>this.getter 在Watcher构建函数中提到，本质就是用户传入的方法，也就是说，this.getter.call(vm, vm)就会调用用户自己声明的方法，那么如果方法里面用到了 this.data中的值或者其他被用defineReactive包装过的对象，那么，访问this.data.或者其他被defineReactive包装过的属性，是不是就会访问被代理的该属性的get方法（computed的watcher依赖了this.data的dep）</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>拆解获取依赖并更新的过程：</p>
-<ul>
-<li>初始化 data和computed，分别代理其get和set方法，对data中的所有属性生成唯一的dep实例</li>
-<li>对computed中的属性A生成唯一的watcher，并保存到vm._computedWatchers中</li>
-<li>访问计算属性A，设置Dep.target指向计算属性A的watcher，调用该属性具体的方法A()</li>
-<li>方法中访问属性this.a，即会调用this.a代理的get方法，将this.a的dep加入计算属性A的watcher，同时该dep中的subs添加这个watcher</li>
-<li>设置vm.a = ‘new a’，调用a代理的set方法触发dep的notify方法</li>
-<li>因为是computed属性，只是将watcher中的dirty设置为true</li>
-<li>查询计算属性vm.A，访问其get方法时，得知计算属性A的watcher.dirty为true,调用watcher.evaluate()方法获取新的值。</li>
-</ul>
-</li>
+<li><p>整理插件代码到node_modules文件中</p>
+<p>  babel插件的文件名，必须以babel-plugin-xxx命名，否则引入不成功；babel插件返回的是一个对象，里面是个访问者模式的visitor对象，里面是转化代码</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> t = <span class="built_in">require</span>(<span class="string">'@babel/types'</span>);</span><br><span class="line"><span class="keyword">const</span> humps = <span class="built_in">require</span>(<span class="string">'humps'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        visitor: &#123;</span><br><span class="line">            ImportDeclaration(</span><br><span class="line">                path,</span><br><span class="line">                &#123;</span><br><span class="line">                opts: &#123; libraryName, libraryDirectory &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            ) &#123;</span><br><span class="line">                <span class="keyword">if</span> (!t.isStringLiteral(path.node.source, &#123; <span class="attr">value</span>: libraryName &#125;)) &#123;</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">const</span> specifiers = path.node.specifiers;</span><br><span class="line">                <span class="keyword">const</span> declarations = specifiers.map(<span class="function"><span class="params">specifier</span> =&gt;</span> &#123;</span><br><span class="line">                    <span class="keyword">return</span> t.ImportDeclaration(</span><br><span class="line">                        [t.importDefaultSpecifier(specifier.local)],</span><br><span class="line">                        t.StringLiteral(</span><br><span class="line">                        <span class="string">`<span class="subst">$&#123;libraryName&#125;</span>/<span class="subst">$&#123;libraryDirectory&#125;</span>/<span class="subst">$&#123;humps.camelize(</span></span></span><br><span class="line"><span class="string"><span class="subst">                            specifier.local.name</span></span></span><br><span class="line"><span class="string"><span class="subst">                        )&#125;</span>`</span></span><br><span class="line">                        )</span><br><span class="line">                    );</span><br><span class="line">                &#125;);</span><br><span class="line">                path.replaceWithMultiple(declarations);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
 </ul>
 
       
@@ -392,7 +336,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/framework/" rel="tag"># framework</a>
+            <a href="/tags/webpack/" rel="tag"># webpack</a>
           
         </div>
       
@@ -405,8 +349,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/12/webpack-loader/" rel="next" title="webpack-loader">
-                <i class="fa fa-chevron-left"></i> webpack-loader
+              <a href="/2019/04/15/webpack多入口文件页面配置/" rel="next" title="webpack多入口文件页面配置">
+                <i class="fa fa-chevron-left"></i> webpack多入口文件页面配置
               </a>
             
           </div>
@@ -414,10 +358,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/15/webpack多入口文件页面配置/" rel="prev" title="webpack多入口文件页面配置">
-                webpack多入口文件页面配置 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -549,7 +489,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#vuex原理"><span class="nav-number">1.</span> <span class="nav-text">vuex原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#computed"><span class="nav-number">2.</span> <span class="nav-text">computed</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#源码分析"><span class="nav-number">3.</span> <span class="nav-text">源码分析</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#babel插件实现按需打包的功能"><span class="nav-number">1.</span> <span class="nav-text">babel插件实现按需打包的功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#目的"><span class="nav-number">1.1.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现"><span class="nav-number">1.2.</span> <span class="nav-text">实现</span></a></li></ol></li></ol></div>
             
 
           </div>

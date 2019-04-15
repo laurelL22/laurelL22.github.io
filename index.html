@@ -232,6 +232,145 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/15/webpack中按需打包的babel插件实现/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lurel">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Laurel Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/15/webpack中按需打包的babel插件实现/" itemprop="url">webpack中按需打包的babel插件实现</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-15T14:41:32+08:00">
+                2019-04-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="babel插件实现按需打包的功能"><a href="#babel插件实现按需打包的功能" class="headerlink" title="babel插件实现按需打包的功能"></a>babel插件实现按需打包的功能</h2><h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><blockquote>
+</blockquote>
+<pre><code>import {flatten,join} from &apos;lodash&apos;;
+
+转化成=========&gt;
+
+import flatten from &apos;lodash/flatten&apos;;
+import join from &apos;lodash/join&apos;;
+</code></pre><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ul>
+<li><p>配置.babelrc</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"plugins"</span>: [</span><br><span class="line">        [</span><br><span class="line">            <span class="string">"babel-plugin-sui-import"</span>, <span class="comment">// 这个是自己写的插件名</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="string">"libraryName"</span>: <span class="string">"vant"</span>, <span class="comment">// 在引用哪个库时候使用自己写的这个插件</span></span><br><span class="line">                <span class="string">"libraryDirectory"</span>: <span class="string">"lib"</span></span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>引入脚本，进行对比</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// import &#123;flatten,join&#125; from 'lodash' // 打包后大小：483k</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> flatten <span class="keyword">from</span> <span class="string">'lodash/flatten'</span> <span class="comment">// 打包后大小：21.3K</span></span><br><span class="line"><span class="keyword">import</span> join <span class="keyword">from</span> <span class="string">'lodash/join'</span></span><br></pre></td></tr></table></figure>
+<p>  两种引入方式的抽象语法树的差别，只是IMportDeclaration不同</p>
+</li>
+<li><p>整理插件代码到node_modules文件中</p>
+<p>  babel插件的文件名，必须以babel-plugin-xxx命名，否则引入不成功；babel插件返回的是一个对象，里面是个访问者模式的visitor对象，里面是转化代码</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> t = <span class="built_in">require</span>(<span class="string">'@babel/types'</span>);</span><br><span class="line"><span class="keyword">const</span> humps = <span class="built_in">require</span>(<span class="string">'humps'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        visitor: &#123;</span><br><span class="line">            ImportDeclaration(</span><br><span class="line">                path,</span><br><span class="line">                &#123;</span><br><span class="line">                opts: &#123; libraryName, libraryDirectory &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            ) &#123;</span><br><span class="line">                <span class="keyword">if</span> (!t.isStringLiteral(path.node.source, &#123; <span class="attr">value</span>: libraryName &#125;)) &#123;</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">const</span> specifiers = path.node.specifiers;</span><br><span class="line">                <span class="keyword">const</span> declarations = specifiers.map(<span class="function"><span class="params">specifier</span> =&gt;</span> &#123;</span><br><span class="line">                    <span class="keyword">return</span> t.ImportDeclaration(</span><br><span class="line">                        [t.importDefaultSpecifier(specifier.local)],</span><br><span class="line">                        t.StringLiteral(</span><br><span class="line">                        <span class="string">`<span class="subst">$&#123;libraryName&#125;</span>/<span class="subst">$&#123;libraryDirectory&#125;</span>/<span class="subst">$&#123;humps.camelize(</span></span></span><br><span class="line"><span class="string"><span class="subst">                            specifier.local.name</span></span></span><br><span class="line"><span class="string"><span class="subst">                        )&#125;</span>`</span></span><br><span class="line">                        )</span><br><span class="line">                    );</span><br><span class="line">                &#125;);</span><br><span class="line">                path.replaceWithMultiple(declarations);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/15/webpack多入口文件页面配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2090,125 +2229,6 @@ clients: 表示 Service Worker 接管的页面
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/02/轮询/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lurel">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Laurel Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/02/轮询/" itemprop="url">轮询</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-02T15:24:48+08:00">
-                2018-11-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"btn"</span>&gt;</span>按钮<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"text"</span>&gt;</span>0<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> access = <span class="built_in">document</span>.querySelector(<span class="string">'#text'</span>).innerText;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.info(<span class="string">'-----------'</span>, access);</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> count = <span class="number">0</span>;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">if</span> (!<span class="built_in">Number</span>(access)) &#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">let</span> timer = setInterval(<span class="function"><span class="params">_</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="undefined">                count += 1;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.info(<span class="string">'access'</span>, <span class="built_in">document</span>.querySelector(<span class="string">'#text'</span>).innerText);</span></span><br><span class="line"><span class="javascript">                <span class="keyword">if</span> (<span class="built_in">Number</span>(<span class="built_in">document</span>.querySelector(<span class="string">'#text'</span>).innerText) || count === <span class="number">20</span>) &#123;</span></span><br><span class="line"><span class="undefined">                    </span></span><br><span class="line"><span class="javascript">                    <span class="built_in">console</span>.info(<span class="string">'&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;'</span>, access, count);</span></span><br><span class="line"><span class="undefined">                    clearInterval(timer);</span></span><br><span class="line"><span class="undefined">                &#125;</span></span><br><span class="line"><span class="undefined">            &#125;, 500);</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.getElementById(<span class="string">'btn'</span>).addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">            <span class="built_in">document</span>.querySelector(<span class="string">'#text'</span>).innerText = <span class="number">1</span>;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.info(<span class="string">'access==========='</span>, <span class="built_in">document</span>.querySelector(<span class="string">'#text'</span>).innerText)</span></span><br><span class="line"><span class="undefined">            </span></span><br><span class="line"><span class="undefined">        &#125;)</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">        </span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2259,7 +2279,7 @@ clients: 表示 Service Worker 接管的页面
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
