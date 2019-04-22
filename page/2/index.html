@@ -185,7 +185,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            Startseite
           </a>
         </li>
       
@@ -195,7 +195,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -218,6 +218,773 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/12/express/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lurel">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Laurel Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/12/express/" itemprop="url">express</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-12T14:48:01+08:00">
+                2019-04-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/node-framework/" itemprop="url" rel="index">
+                    <span itemprop="name">node-framework</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一、内容"><a href="#一、内容" class="headerlink" title="一、内容"></a>一、内容</h2><p>Express是一个node.js Web应用框架，提供了一系列特性帮助创建各种web应用，和丰富的HTTP工具。</p>
+<p>Express 框架核心特性：</p>
+<ul>
+<li>可以设置中间件来相应HTTP请求；</li>
+<li>定义了路由表用于执行不同的HTTP请求动作；</li>
+<li>可以通过向模块传递参数来动态渲染HTML页面</li>
+</ul>
+<p>安装Express： npm install express –save</p>
+<p>安装Express框架时，需与以下几个模块一起安装：</p>
+<ul>
+<li>body-parser：node.js 中间件，用于处理 JSON, Raw, Text 和 URL 编码的数据。</li>
+<li>cookie-parser： 是一个解析Cookie的工具。通过req.cookies可以取到传过来的cookie，并把它们转成对象。</li>
+<li>multer： node.js 中间件，用于处理 enctype=”multipart/form-data”（设置表单的MIME编码）的表单数据。</li>
+</ul>
+<p>请求和响应：</p>
+<p>Express 应用使用回调函数的参数： request 和 response 对象来处理请求和响应的数据。</p>
+<ul>
+<li><p>Request 对象 - request 对象表示 HTTP 请求，包含了请求查询字符串，参数，内容，HTTP 头部等属性。常见属性有：</p>
+<ul>
+<li>req.app：当callback为外部文件时，用req.app访问express的实例</li>
+<li>req.baseUrl：获取路由当前安装的URL路径</li>
+<li>req.body / req.cookies：获得「请求主体」/ Cookies</li>
+<li>req.fresh / req.stale：判断请求是否还「新鲜」</li>
+<li>req.hostname / req.ip：获取主机名和IP地址</li>
+<li>req.originalUrl：获取原始请求URL</li>
+<li>req.params：获取路由的parameters</li>
+<li>req.path：获取请求路径</li>
+<li>req.protocol：获取协议类型</li>
+<li>req.query：获取URL的查询参数串</li>
+<li>req.route：获取当前匹配的路由</li>
+<li>req.subdomains：获取子域名</li>
+<li>req.accepts()：检查可接受的请求的文档类型</li>
+<li>req.acceptsCharsets / req.acceptsEncodings / req.acceptsLanguages：返回指定字符集的第一个可接受字符编码</li>
+<li>req.get()：获取指定的HTTP请求头</li>
+<li>req.is()：判断请求头Content-Type的MIME类型</li>
+</ul>
+</li>
+<li><p>Response 对象 - response 对象表示 HTTP 响应，即在接收到请求时向客户端发送的 HTTP 响应数据。常见属性有：</p>
+<ul>
+<li>res.app：同req.app一样</li>
+<li>res.append()：追加指定HTTP头</li>
+<li>res.set()在res.append()后将重置之前设置的头</li>
+<li>res.cookie(name，value [，option])：设置Cookie<br>opition: domain / expires / httpOnly / maxAge / path / secure / signed</li>
+<li>res.clearCookie()：清除Cookie</li>
+<li>res.download()：传送指定路径的文件</li>
+<li>res.get()：返回指定的HTTP头</li>
+<li>res.json()：传送JSON响应</li>
+<li>res.jsonp()：传送JSONP响应</li>
+<li>res.location()：只设置响应的Location HTTP头，不设置状态码或者close response</li>
+<li>res.redirect()：设置响应的Location HTTP头，并且设置状态码302</li>
+<li>res.render(view,[locals],callback)：渲染一个view，同时向callback传递渲染后的字符串，如果在渲染过程中有错误发生next(err)将会被自动调用。callback将会被传入一个可能发生的错误以及渲染后的页面，这样就不会自动输出了。</li>
+<li>res.send()：传送HTTP响应</li>
+<li>res.sendFile(path [，options] [，fn])：传送指定路径的文件 -会自动根据文件extension设定Content-Type</li>
+<li>res.set()：设置HTTP头，传入object可以一次设置多个头</li>
+<li>res.status()：设置HTTP状态码</li>
+<li>res.type()：设置Content-Type的MIME类型</li>
+</ul>
+</li>
+</ul>
+<h2 id="二、guide"><a href="#二、guide" class="headerlink" title="二、guide"></a>二、guide</h2><h3 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h3><ol>
+<li><p>路由表示应用程序端点（URI）的定义以及端点响应客户机请求的方式。决定了由谁(指定脚本)去响应客户端请求</p>
+</li>
+<li><p>路由方法</p>
+<p> 路由方法派生自HTTP方法之一，附加到express类的实例。</p>
+<ul>
+<li><p>Express 支持对应于HTTP方法的以下路由方法：get、post、put…</p>
+<p>  app.get(‘/‘, function )</p>
+</li>
+<li><p>特殊的路由方法：app.all()，并非派生自HTTP方法。该方法用于在所有请求方法的路径中装入中间件函数。</p>
+<p>  app.all(‘/‘, function (req, res){</p>
+<pre><code>next();
+</code></pre><p>  })</p>
+</li>
+</ul>
+</li>
+<li><p>路由路径</p>
+<p> 路由路径和请求方法相结合， 用于定义可以在其中提出请求的端点。路由路径可以是字符串、字符串模式或正则表达式。</p>
+<p> 示例：</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">app.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123; <span class="comment">// demo01:（此路由路径将请求与跟路由/匹配）</span></span><br><span class="line">    res.send(<span class="string">'root'</span>);</span><br><span class="line">&#125;);</span><br><span class="line">app.get(<span class="string">'/ab?cd'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>) </span>&#123; <span class="comment">// demo02: （路由路径将匹配acd和abcd）</span></span><br><span class="line">    res.send(<span class="string">'ab?cd'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>路由处理程序（中间件系统）<br> 可以提供多个回调函数，类似于中间件的行为方式来处理请求。这些回调函数可能调用next(‘route’)来绕过剩余的路由回调。</p>
+<ul>
+<li><p>路由处理程序的形式可以是一个函数、一组函数或者两者的结合。</p>
+</li>
+<li><p>多个回调函数可以处理一个路由（确保指定next对象）</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">app.get(<span class="string">'/example/b'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'lala'</span>);</span><br><span class="line">    next();</span><br><span class="line">&#125;, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">    res.send(<span class="string">'Hello'</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>一组回调函数可以处理一个路由</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cb0 = <span class="function"><span class="keyword">function</span> (<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'cb0'</span>);</span><br><span class="line">    next();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> cb1 = <span class="function"><span class="keyword">function</span> (<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'cb1'</span>);</span><br><span class="line">    next();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> cb2 = <span class="function"><span class="keyword">function</span> (<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">    res.send(<span class="string">'Hello from 2'</span>);</span><br><span class="line">&#125;</span><br><span class="line">app.get(<span class="string">'/example/c'</span>, [cb0, cb1, cb2])</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>响应方法</p>
+<p> 响应对象(res)的方法可以向客户机发送响应，并终止请求/响应循环。如没有从路由处理程序调起其中任何方法，客户机请求将保持挂起状态。</p>
+<ul>
+<li>res.download() // 提示将要下载文件</li>
+<li>res.end() // 结束响应</li>
+<li>res.json() // 发送JSON响应</li>
+<li>res.jsonp() // 在JSONP的支持下发送JSON响应</li>
+<li>res.redirect() // 重定向请求</li>
+<li>res.render() // 呈现视图模板</li>
+<li>res.send() // 发送各种类型的响应</li>
+<li>res.sendFile() // 以八位元流形式发送文件。</li>
+<li>res.sendStatus() // 设置响应状态码并以响应主体形式发送其字符串表示</li>
+</ul>
+</li>
+<li><p>app.route()</p>
+<p> 使用app.route()为路由路径创建可链接的路由处理程序。在单一位置指定路径，可减少冗余和输入错误。</p>
+<p> 使用app.route()定义的链式路由处理程序的示例</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">app.route(<span class="string">'/book'</span>)</span><br><span class="line">    .get(<span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">        res.send(<span class="string">'Get a data'</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">    .post(<span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">        res.send(<span class="string">'Add a data'</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">    .put(<span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">        res.send(<span class="string">'update a data'</span>);</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>express.Router</p>
+<p> 使用express.Router类来创建可安装的模块化路由程序。Router实例是完整的中间件和路由系统；</p>
+</li>
+<li><p>编写中间件用于Express 应用程序</p>
+<p> 中间件函数能够访问请求对象（req），响应对象（res）以及应用程序的请求/响应循环中的下一个中间函数。下一个中间件函数通常由名为 next 的变量来表示。</p>
+</li>
+</ol>
+<ul>
+<li><p>中间件函数可以执行任务：</p>
+<ul>
+<li>执行任何代码</li>
+<li>对请求和响应对象进行更改。</li>
+<li>结束请求/响应循环。</li>
+<li>调用堆栈中的下一个中间件函数</li>
+</ul>
+</li>
+<li><p>中间件类型：</p>
+<ul>
+<li>应用层中间件</li>
+<li>路由层中间件</li>
+<li>错误处理中间件</li>
+<li>内置中间件</li>
+<li>第三方中间件</li>
+</ul>
+</li>
+<li><p>应用层中间件</p>
+<ol>
+<li><p>使用app.use()和app.METHOD()函数将应用层中间件绑定到应用程序对象的实例（METHOD是中间件函数处理的请求的小写HTTP方法：GET、PUT 或 POST）</p>
+</li>
+<li><p>一般有两种参数：路由路径及其处理程序函数(中间件系统)</p>
+</li>
+<li><p>跳过路由器中间件堆栈中剩余的中间件函数，调用 next(‘route’) 将控制权传递给下一个路由。仅在使用 app.METHOD() 或 router.METHOD() 函数装入的中间件函数中有效。</p>
+</li>
+</ol>
+</li>
+<li><p>路由层中间件： 使用 router.use() 和 router.METHOD() 函数装入路由器层中间件</p>
+</li>
+<li><p>错误处理中间件：错误处理函数有四个自变量而不是三个，专门具有特征符 (err, req, res, next)</p>
+</li>
+<li><p>内置中间件</p>
+</li>
+<li><p>第三方中间件：使用第三方中间件向 Express 应用程序添加功能。</p>
+<ul>
+<li>安装具有所需功能的 Node.js 模块，然后在应用层或路由器层的应用程序中将其加装入。</li>
+<li>第三方中间件列表：<ul>
+<li>body-parser</li>
+<li>cookie-parser</li>
+<li>cookie-session</li>
+<li>passport：用于认证的 Express 中间件模块</li>
+<li>serve-static：用于提供静态内容的模块</li>
+<li>express-session</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/12/Express-vs-Koa/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lurel">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Laurel Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/12/Express-vs-Koa/" itemprop="url">Express-vs-Koa</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-12T10:38:25+08:00">
+                2019-04-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/node-framework/" itemprop="url" rel="index">
+                    <span itemprop="name">node-framework</span>
+                  </a>
+                </span>
+
+                
+                
+                  . 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/node-framework/interview/" itemprop="url" rel="index">
+                    <span itemprop="name">interview</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Node框架"><a href="#Node框架" class="headerlink" title="Node框架"></a>Node框架</h2><ul>
+<li>Express，是一个基于Node.js平台的极简、灵活的web应用开发框架，主要基于Connect中间件，并且自身封装了路由、视图处理等功能，使用人数众多。</li>
+<li>Koa，主要基于co中间件，框架自身不包含任何中间件，很多功能需要借助第三方中间件解决。Express的团队又基于ES6的新特性重新开发web框架koa<ul>
+<li>和Express相比，koa 1.0使用generator实现异步，代码看起来像同步的，解决了 “callback hell” 和麻烦的错误处理问题。</li>
+<li>generator的本意并不是异步，koa团队又非常超前地基于ES7开发了koa2，和koa 1相比，koa2完全使用Promise并配合async来实现异步</li>
+</ul>
+</li>
+</ul>
+<h3 id="具体示例差别"><a href="#具体示例差别" class="headerlink" title="具体示例差别"></a>具体示例差别</h3><ol>
+<li><p>创建一个基础的Web服务（两者的区别是路由处理Express是自身集成的，而Koa需要引入中间件）</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. Express</span></span><br><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="keyword">var</span> app = express()</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">    res.send(<span class="string">'express'</span>)</span><br><span class="line">&#125;)</span><br><span class="line">app.listen(<span class="number">3000</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. Koa</span></span><br><span class="line"><span class="keyword">var</span> koa = <span class="built_in">require</span>(<span class="string">'koa'</span>)</span><br><span class="line"><span class="keyword">var</span> route = <span class="built_in">require</span>(<span class="string">'koa-route'</span>)</span><br><span class="line"><span class="keyword">var</span> app = koa()</span><br><span class="line"></span><br><span class="line">app.use(route.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> *(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.body = <span class="string">'koa'</span></span><br><span class="line">&#125;))</span><br><span class="line">app.listen(<span class="number">3000</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Views</p>
+<ul>
+<li>Express自身集成了视图功能，提供了consolidate.js功能，支持几乎所有JS模板引擎，并提供了视图设置的便利方法</li>
+<li><p>Koa需要引入co-views中间件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. Express</span></span><br><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="keyword">var</span> app = express()</span><br><span class="line"></span><br><span class="line">app.set(<span class="string">'views'</span>, __dirname + <span class="string">'/views'</span>)</span><br><span class="line">app.set(<span class="string">'view engine'</span>, <span class="string">'jade'</span>)</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">res.render(<span class="string">'index'</span>, &#123;</span><br><span class="line">    title: <span class="string">'bilibili'</span></span><br><span class="line">&#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. Koa</span></span><br><span class="line"><span class="keyword">var</span> koa = <span class="built_in">require</span>(<span class="string">'koa'</span>)</span><br><span class="line"><span class="keyword">var</span> route = <span class="built_in">require</span>(<span class="string">'koa-route'</span>)</span><br><span class="line"><span class="keyword">var</span> views = <span class="built_in">require</span>(<span class="string">'co-views'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> render = views(__dirname + <span class="string">'/views'</span>, &#123;</span><br><span class="line"><span class="keyword">default</span>: <span class="string">"jade"</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> app = koa()</span><br><span class="line"></span><br><span class="line">app.use(route.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> *(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="keyword">this</span>.body = <span class="keyword">yield</span> render(<span class="string">'index'</span>, &#123;</span><br><span class="line">    title: <span class="string">'bilibili'</span></span><br><span class="line">&#125;)</span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>HTTP Request<br>两个框架都封装了HTTP Request对象，区别是Koa v1使用this取代Express的req、res</p>
+</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. Express</span></span><br><span class="line"><span class="keyword">var</span> app = <span class="built_in">require</span>(<span class="string">'express'</span>)()</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/room/:id'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(req.params)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取post数据需要body-parser中间件</span></span><br><span class="line"><span class="keyword">var</span> bodyParser = <span class="built_in">require</span>(<span class="string">'body-parser'</span>)</span><br><span class="line">app.use(bodyParser.json())</span><br><span class="line">app.post(<span class="string">'/sendapi'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(req.body)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. Koa</span></span><br><span class="line"><span class="keyword">var</span> app = <span class="built_in">require</span>(<span class="string">'koa'</span>)()</span><br><span class="line"><span class="keyword">var</span> route = <span class="built_in">require</span>(<span class="string">'koa-route'</span>)</span><br><span class="line"></span><br><span class="line">app.use(route.get(<span class="string">'/room/:id'</span>, <span class="function"><span class="keyword">function</span> *(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.req.query)</span><br><span class="line">&#125;))</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取POST数据需要co-body中间件</span></span><br><span class="line"><span class="keyword">var</span> parse = <span class="built_in">require</span>(<span class="string">'co-body'</span>)</span><br><span class="line">app.use(route.post(<span class="string">'/api'</span>, <span class="function"><span class="keyword">function</span> *(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> post = yeild parse(<span class="keyword">this</span>.request)</span><br><span class="line">    <span class="built_in">console</span>.log(post)</span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure>
+<h3 id="Express-和-Koa的区别"><a href="#Express-和-Koa的区别" class="headerlink" title="Express 和 Koa的区别"></a>Express 和 Koa的区别</h3><ol>
+<li><p>异步流程控制</p>
+<ul>
+<li>Express采用callback来处理异步，Koa v1采用generator，Koa v2采用async/await.</li>
+<li>generator和async/await使用同步的写法来处理异步，明显好于callback和promise；</li>
+<li>async/await在语义化上又要比generator更强</li>
+</ul>
+</li>
+<li><p>错误处理</p>
+<ul>
+<li>Express使用callback捕获异常，对于深层次的异常捕获不了</li>
+<li>Koa使用try catch，能更好地解决异常捕获</li>
+</ul>
+</li>
+<li><p>总结</p>
+<ul>
+<li>Express<ul>
+<li>优点：线性逻辑，通过中间件形式把业务逻辑细分、简化，一个请求进来经过一系列中间件处理后再响应给用户，清晰明了。 </li>
+<li>缺点：基于 callback 组合业务逻辑，业务逻辑复杂时嵌套过多，异常捕获困难。</li>
+</ul>
+</li>
+<li><p>Koa</p>
+<ul>
+<li>优点：首先，借助 co 和 generator，很好地解决了异步流程控制和异常捕获问题。其次，Koa 把 Express 中内置的 router、view 等功能都移除了，使得框架本身更轻量。 </li>
+<li>缺点：社区相对较小</li>
+</ul>
+</li>
+<li><p>koa的中间件模式与express不一样，koa是洋葱型，express是直线型</p>
+<ul>
+<li></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="Koa框架"><a href="#Koa框架" class="headerlink" title="Koa框架"></a>Koa框架</h2><p>Koa 就是一种简单好用的 Web 框架。它的特点是优雅、简洁、表达力强、自由度高。所有功能都通过插件实现</p>
+<p>检查Node版本，Koa必须使用7.6以上的版本。</p>
+<h3 id="用法："><a href="#用法：" class="headerlink" title="用法："></a>用法：</h3><ul>
+<li><p>架设HTTP服务： var app = new Koa(); app.listen(3000)</p>
+</li>
+<li><p>Context对象：标识一次对话的上下文(包括HTTP请求和回复)。通过加工这个对象，可以控制返回给用户的内容</p>
+<ul>
+<li>Context.response.body属性就是发送给用户的内容</li>
+<li>ctx.request代表 HTTP Request；ctx.response代表 HTTP Response</li>
+</ul>
+</li>
+<li><p>HTTP response的类型</p>
+<ul>
+<li>Koa默认返回的类型是text/plain</li>
+<li>若想要返回其他类型的内容，可以先用ctx.request.accepts判断客户端希望接受的数据类型（根据HTTP Request的Accept字段），然后使用ctx.response.type指定返回类型</li>
+</ul>
+</li>
+<li><p>网页模板<br>  实际开发中，返回给用户的网页都写成模板文件。可以先让Koa限度无模板文件，然后将这个模板返回给用户。</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> main = <span class="function"><span class="params">ctx</span> =&gt;</span> &#123;</span><br><span class="line">    ctx.response.type = <span class="string">'html'</span>;</span><br><span class="line">    ctx.response.body = fs.createReadStream(<span class="string">'./demos/template.html'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h3><ul>
+<li><p>原生路由</p>
+<p>  网站一般都有多个页面。通过ctx.request.path可以获取用户请求的路径，由此实现简单的路由。</p>
+</li>
+<li><p>koa-route模块</p>
+<p>  使用封装好的koa-route模块</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> route = <span class="built_in">require</span>(<span class="string">'koa-route'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> main = <span class="function"><span class="params">ctx</span> =&gt;</span> &#123;</span><br><span class="line">    ctx.response.body = <span class="string">'Hello World'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">app.use(route.get(<span class="string">'/'</span>, main));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>静态资源</p>
+<p>  koa-static模块封装静态资源的请求</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="keyword">const</span> serve = <span class="built_in">require</span>(<span class="string">'koa-static'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> main = serve(path.join(__dirname));</span><br><span class="line">app.use(main);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重定向<br>  服务器需要重定向（redirect）访问请求。ctx.response.redirect()方法可以发出一个302跳转。</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> redirect = <span class="function"><span class="params">ctx</span> =&gt;</span> &#123;</span><br><span class="line">    ctx.response.redirect(<span class="string">'/'</span>);</span><br><span class="line">    ctx.response.body = <span class="string">'&lt;a href="/"&gt;Index Page&lt;/a&gt;'</span>;</span><br><span class="line">&#125;;</span><br><span class="line">app.use(route.get(<span class="string">'/redirect'</span>, redirect));</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h3><ul>
+<li><p>Logger功能</p>
+<p>  Logger功能可以拆分成一个独立函数。</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> logger = <span class="function">(<span class="params">ctx, next</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;<span class="built_in">Date</span>.now()&#125;</span> <span class="subst">$&#123;ctx.request.method&#125;</span> <span class="subst">$&#123;ctx.request.url&#125;</span>`</span>);</span><br><span class="line">    next();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">app.use(logger);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>中间件</p>
+<p>  如上述的logger函数就叫‘中间件’，它处于HTTP Request和HTTP Response中间，用来实现某种中间功能。app.use()用来加载中间件。</p>
+<p>  Koa 所有的功能都是通过中间件实现的。每个中间件默认接受两个参数，第一个参数是 Context 对象，第二个参数是next函数。只要调用next函数，就可以把执行权转交给下一个中间件。</p>
+</li>
+<li><p>中间件栈</p>
+<p>  多个中间件栈会形成一个栈结构，以“先进先出”的顺序执行。</p>
+<p>  如果中间件内部没有调用next函数，那么执行权就不会传递下去</p>
+<blockquote>
+</blockquote>
+<pre><code>最外层的中间件首先执行。
+调用next函数，把执行权交给下一个中间件。
+...
+最内层的中间件最后执行。
+执行结束后，把执行权交回上一层的中间件。
+...
+最外层的中间件收回执行权之后，执行next函数后面的代码。
+</code></pre></li>
+<li><p>异步中间件</p>
+<p>  有异步操作（比如读取数据库），中间件就必须写成 async 函数。</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs.promised'</span>);</span><br><span class="line"><span class="keyword">const</span> Koa = <span class="built_in">require</span>(<span class="string">'koa'</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Koa();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> main = <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> (<span class="params">ctx, next</span>) </span>&#123;</span><br><span class="line">    ctx.response.type = <span class="string">'html'</span>;</span><br><span class="line">    ctx.response.body = <span class="keyword">await</span> fs.readFile(<span class="string">'./demos/template.html'</span>, <span class="string">'utf8'</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">app.use(main);</span><br><span class="line">app.listen(<span class="number">3000</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>中间件的合成</p>
+<p>  koa-compose模块可以将多个中间件合成为一个。</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> compose = <span class="built_in">require</span>(<span class="string">'koa-compose'</span>);</span><br><span class="line"><span class="keyword">const</span> middlewares = compose([logger, main]);</span><br><span class="line">app.use(middlewares);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h3><ul>
+<li><p>500错误</p>
+<p>  koa 提供了ctx.throw()方法，用来抛出错误，ctx.throw(500)就是抛出500错误</p>
+</li>
+<li><p>404错误</p>
+<p>  如果将ctx.response.status设置成404，就相当于ctx.throw(404)</p>
+</li>
+<li><p>处理错误的中间件</p>
+<p>  使用try…catch将其捕获</p>
+<p>  让最外层的中间件，负责所有中间件的错误处理</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> handler = <span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">await</span> next();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">        ctx.response.status = err.statusCode || err.status || <span class="number">500</span>;</span><br><span class="line">        ctx.response.body = &#123;</span><br><span class="line">            message: err.message</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">app.use(handler);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>error事件的监听</p>
+<p>  运行过程中一旦出错，Koa 会触发一个error事件。监听这个事件，也可以处理错误。</p>
+</li>
+<li><p>释放 error 事件</p>
+<p>  如果错误被try…catch捕获，就不会触发error事件。这时，必须调用ctx.app.emit()，手动释放error事件，才能让监听函数生效。</p>
+</li>
+</ul>
+<h3 id="Web-App的功能"><a href="#Web-App的功能" class="headerlink" title="Web App的功能"></a>Web App的功能</h3><ul>
+<li><p>Cookies</p>
+<p>  ctx.cookie用来读写Cookie。ctx.cookies.set();</p>
+</li>
+<li><p>表单</p>
+<p>  表单就是 POST 方法发送到服务器的键值对。koa-body模块可以用来从 POST 请求的数据体里面提取键值对。</p>
+</li>
+<li><p>文件上传</p>
+<p>  koa-body模块还可以用来处理文件上传</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/02/JSCode-Test/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lurel">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Laurel Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/02/JSCode-Test/" itemprop="url">JSCode-Test</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-02T17:17:49+08:00">
+                2019-04-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/code-test/" itemprop="url" rel="index">
+                    <span itemprop="name">code-test</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="异步队列类"><a href="#异步队列类" class="headerlink" title="异步队列类"></a>异步队列类</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    TaskQe = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>._arrayFn = [];  <span class="comment">// 事件集合 </span></span><br><span class="line">        <span class="keyword">this</span>._callback = &#123;&#125;; <span class="comment">// 事件回调</span></span><br><span class="line">        <span class="keyword">this</span>._backdata = []; <span class="comment">// 返回数据集合</span></span><br><span class="line">        <span class="keyword">this</span>._isParallel = <span class="literal">false</span>; <span class="comment">// 是否并行，默认否 </span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 加入队列</span></span><br><span class="line">    TaskQe.prototype.add = <span class="function"><span class="keyword">function</span> (<span class="params">fn</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>._arrayFn.push(fn);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 队列数目</span></span><br><span class="line">    TaskQe.prototype.size = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>._arrayFn.length;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 获取返回数据集合</span></span><br><span class="line">    TaskQe.prototype.getCallBack = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>._backdata;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 依次运行队列</span></span><br><span class="line">    TaskQe.prototype.next = <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> fn = <span class="keyword">this</span>.getNext()；</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 并行 or 串行</span></span><br><span class="line">        (<span class="keyword">this</span>._isParallel)</span><br><span class="line">            ? ((fn) &amp;&amp;fn())</span><br><span class="line">        	: ((fn) &amp;&amp; ((data) ? fn(data): fn()))</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 集合返回数据</span></span><br><span class="line">        (data) ? <span class="keyword">this</span>._backdata.push(data) : <span class="keyword">this</span>._backdata.push(<span class="literal">false</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 返回总回调</span></span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">this</span>.size() &amp;&amp; !fn) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="keyword">this</span>._callback === <span class="string">"function"</span>) &#123;</span><br><span class="line">                (data) ? <span class="keyword">this</span>._callback(data) : <span class="keyword">this</span>._callback();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 队列执行</span></span><br><span class="line">    TaskQe.prototype.getNext = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.size()) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.arrayFn.shift();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 初始化，完成后执行，第一个参数是否执行，第二个参数返回</span></span><br><span class="line">    TaskQe.prototype.run = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">arguments</span>.length === <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>._callback = (<span class="keyword">typeof</span> <span class="built_in">arguments</span>[<span class="number">0</span>] === <span class="string">"function"</span>) ? <span class="built_in">arguments</span>[<span class="number">0</span>] : &#123;&#125;;</span><br><span class="line">            <span class="keyword">this</span>._isParallel = (<span class="keyword">typeof</span> <span class="built_in">arguments</span>[<span class="number">0</span>] === <span class="string">"boolean"</span>) ? <span class="built_in">arguments</span>[<span class="number">0</span>] :<span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">arguments</span>.length === <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>._callback = (<span class="keyword">typeof</span> <span class="built_in">arguments</span>[<span class="number">1</span>] === <span class="string">"function"</span>) ? <span class="built_in">arguments</span>[<span class="number">1</span>] : &#123;&#125;;</span><br><span class="line">            <span class="keyword">this</span>._isParallel = (<span class="keyword">typeof</span> <span class="built_in">arguments</span>[<span class="number">0</span>] === <span class="string">"boolean"</span>) ? <span class="built_in">arguments</span>[<span class="number">0</span>] :<span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">var</span> firstFn = <span class="keyword">this</span>.getNext();</span><br><span class="line">        firstFn();</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> TaskQe;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<h3 id="实现一个Event类"><a href="#实现一个Event类" class="headerlink" title="实现一个Event类"></a>实现一个Event类</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 实现一个event类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EventEmitter</span></span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>()&#123;</span><br><span class="line">        <span class="keyword">this</span>._events=&#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    on(event,callback)&#123;</span><br><span class="line">        <span class="keyword">let</span> callbacks = <span class="keyword">this</span>._events[event] || []</span><br><span class="line">        callbacks.push(callback)</span><br><span class="line">        <span class="keyword">this</span>._events[event] = callbacks</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">    &#125;</span><br><span class="line">    off(event,callback)&#123;</span><br><span class="line">        <span class="keyword">let</span> callbacks = <span class="keyword">this</span>._events[event]</span><br><span class="line">        <span class="keyword">this</span>._events[event] = callbacks &amp;&amp; callbacks.filter(<span class="function"><span class="params">fn</span> =&gt;</span> fn !== callback)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">    &#125;</span><br><span class="line">    emit(...args)&#123;</span><br><span class="line">        <span class="keyword">const</span> event = args[<span class="number">0</span>]</span><br><span class="line">        <span class="keyword">const</span> params = [].slice.call(args,<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">const</span> callbacks = <span class="keyword">this</span>._events[event]</span><br><span class="line">        callbacks.forEach(<span class="function"><span class="params">fn</span> =&gt;</span> fn.apply(<span class="keyword">this</span>, params))</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">    &#125;</span><br><span class="line">    once(event,callback)&#123;</span><br><span class="line">        <span class="keyword">let</span> wrapFunc = <span class="function">(<span class="params">...args</span>) =&gt;</span> &#123;</span><br><span class="line">            callback.apply(<span class="keyword">this</span>,args)</span><br><span class="line">            <span class="keyword">this</span>.off(event,wrapFunc)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.on(event,wrapFunc)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line"><span class="keyword">let</span> ee = <span class="keyword">new</span> EventEmitter();</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'a'</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">b</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'b'</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">c</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'c'</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">d</span>(<span class="params">...a</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'d'</span>,...a)</span><br><span class="line">&#125;</span><br><span class="line">ee.on(<span class="string">'TEST1'</span>, a).on(<span class="string">'TEST2'</span>, b).once(<span class="string">'TEST2'</span>, c).on(<span class="string">'TEST2'</span>,d);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ee.emit(<span class="string">'TEST1'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'....'</span>)</span><br><span class="line">ee.emit(<span class="string">'TEST2'</span>);</span><br><span class="line"><span class="comment">// In test2</span></span><br><span class="line"><span class="comment">// In test2 again</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'....'</span>)</span><br><span class="line">ee.emit(<span class="string">'TEST2'</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="1到N数字中由多少个1"><a href="#1到N数字中由多少个1" class="headerlink" title="1到N数字中由多少个1"></a>1到N数字中由多少个1</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">long</span> n = <span class="number">13</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line"></span><br><span class="line">cnt += count(i);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">System.out.println(cnt);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">count</span><span class="params">(<span class="keyword">long</span> number)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (number &gt; <span class="number">0</span>) &#123;</span><br><span class="line"></span><br><span class="line">cnt += number % <span class="number">10</span> == <span class="number">1</span> ? <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">number /= <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> cnt;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function">function <span class="title">main</span><span class="params">(n)</span> </span>&#123;</span><br><span class="line">  var cnt = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span>(var i = <span class="number">0</span>; i &lt; n.length; i++) &#123;</span><br><span class="line">    cnt += count(i)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">function count(number) &#123;</span><br><span class="line">  var cnt = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span>(number &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    cnt += number % <span class="number">10</span> === <span class="number">1</span> ? <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line">    number = number / <span class="number">10</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> cnt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="实现bind"><a href="#实现bind" class="headerlink" title="实现bind"></a>实现bind</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myBind = <span class="function"><span class="keyword">function</span> (<span class="params">context</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="keyword">this</span> !== <span class="string">'function'</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">'Error'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> _this = <span class="keyword">this</span></span><br><span class="line">  <span class="keyword">var</span> args = [...arguments].slice(<span class="number">1</span>)</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">F</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span> <span class="keyword">instanceof</span> F) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> _this(...args, ..arguments)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> _this.apply(context, args.concat(...arguments))</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 冒泡排序</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">selection</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> len = arr.length;</span><br><span class="line">    <span class="keyword">var</span> temp;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; len; i++ ) &#123;</span><br><span class="line">         <span class="keyword">for</span> (<span class="keyword">var</span> j = i + <span class="number">1</span>; j &lt; len; j++ ) &#123;</span><br><span class="line">             <span class="keyword">if</span> (arr[i] &gt; arr[j]) &#123;</span><br><span class="line">                 temp = arr[i];</span><br><span class="line">                 arr[i] = arr[j];</span><br><span class="line">                 arr[j] = temp;</span><br><span class="line">             &#125;</span><br><span class="line">         &#125; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> ret = selection([<span class="number">2</span>,<span class="number">34</span>,<span class="number">6</span>,<span class="number">1</span>])</span><br><span class="line"><span class="built_in">console</span>.info(ret)</span><br></pre></td></tr></table></figure>
+<h3 id="promise实现"><a href="#promise实现" class="headerlink" title="promise实现"></a>promise实现</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 三种状态</span></span><br><span class="line"><span class="keyword">const</span> PENDING = <span class="string">'pending'</span>;</span><br><span class="line"><span class="keyword">const</span> RESOLVED = <span class="string">'resolved'</span>;</span><br><span class="line"><span class="keyword">const</span> REJECTED = <span class="string">'rejected'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MyPromise</span>(<span class="params">fn</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> _this = <span class="keyword">this</span>;</span><br><span class="line">    _this.currentState = PENDING;</span><br><span class="line">    _this.value =  <span class="literal">undefined</span>;</span><br><span class="line">    _this.resolvedCallbacks = [];</span><br><span class="line">    _this.rejectedCallbacks = [];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    _this.resolve = <span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (value <span class="keyword">instanceof</span> MyPromise) &#123;</span><br><span class="line">            <span class="keyword">return</span> value.then(_this.resolve, _this.reject)</span><br><span class="line">        &#125;</span><br><span class="line">        setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (_this.currentState === PENDING) &#123;</span><br><span class="line">                _this.currentState = RESOLVED;</span><br><span class="line">                _this.value = value;</span><br><span class="line">                _this.resolvedCallbacks.forEach(<span class="function"><span class="params">cb</span> =&gt;</span> cb());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    _this.reject = <span class="function"><span class="keyword">function</span> (<span class="params">reason</span>) </span>&#123;</span><br><span class="line">        setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (_this.currentState === PENDING) &#123;</span><br><span class="line">                _this.currentState = REJECTED;</span><br><span class="line">                _this.value = reason;</span><br><span class="line">                _this.rejectedCallbacks.forEach(<span class="function"><span class="params">cb</span> =&gt;</span> cb());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        fn(_this.resolve, _this.reject);</span><br><span class="line">    &#125; <span class="keyword">catch</span>(e) &#123;</span><br><span class="line">        _this.reject(e);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="最大公共子串"><a href="#最大公共子串" class="headerlink" title="最大公共子串"></a>最大公共子串</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">findSubStr</span>(<span class="params">str1, str2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (str1.length &gt; str2.length) &#123;</span><br><span class="line">      <span class="keyword">var</span> temp = str1;</span><br><span class="line">      str1 = str2;</span><br><span class="line">      str2 = temp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> len1 = str1.length,</span><br><span class="line">      len2 = str2.length;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> j = len1; j &gt; <span class="number">0</span>; j--) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; len2 - j; i++) &#123;</span><br><span class="line">        <span class="keyword">var</span> current = str1.substr(i, j);</span><br><span class="line">        <span class="keyword">if</span> (str2.indexOf(current) &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">          <span class="keyword">return</span> current;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="数组最大子段和"><a href="#数组最大子段和" class="headerlink" title="数组最大子段和"></a>数组最大子段和</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">maxSum</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> current = <span class="number">0</span>,</span><br><span class="line">      sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (current &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        current += arr[i];</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        current = arr[i];</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (current &gt; sum) &#123;</span><br><span class="line">        sum = current;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="最长公共子序列的长度"><a href="#最长公共子序列的长度" class="headerlink" title="最长公共子序列的长度"></a>最长公共子序列的长度</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">lcs</span>(<span class="params">str1, str2</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> len1 = str1.length;</span><br><span class="line">    <span class="keyword">var</span> len2 = str2.length;</span><br><span class="line">    <span class="keyword">var</span> dp = []; <span class="comment">// 首先定义一个一维数组</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt;= len1; i++) &#123;</span><br><span class="line">      dp[i] = []; <span class="comment">// 将一维数组升级为二维数组</span></span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span>; j &lt;= len2; j++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (i == <span class="number">0</span> || j == <span class="number">0</span>) &#123;</span><br><span class="line">          dp[i][j] = <span class="number">0</span>;</span><br><span class="line">          <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (str1[i - <span class="number">1</span>] == str2[j - <span class="number">1</span>]) &#123; <span class="comment">// dp 的维度为 (len1+1)*(len2+1),str 的维度为 (len1)*(len2)</span></span><br><span class="line">          dp[i][j] = dp[i - <span class="number">1</span>][j - <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          dp[i][j] = <span class="built_in">Math</span>.max(dp[i][j - <span class="number">1</span>], dp[i - <span class="number">1</span>][j]); <span class="comment">// 否则取当前位置上或左的最大数</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[len1][len2]; <span class="comment">// 返回二维数组最后一个值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="在一个数组中找出其中两项和相加后的和为num，存在时返回两个数的索引位置，否则false"><a href="#在一个数组中找出其中两项和相加后的和为num，存在时返回两个数的索引位置，否则false" class="headerlink" title="在一个数组中找出其中两项和相加后的和为num，存在时返回两个数的索引位置，否则false"></a>在一个数组中找出其中两项和相加后的和为num，存在时返回两个数的索引位置，否则false</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">num = <span class="number">0</span>, arr = []</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">        <span class="keyword">let</span> diff = num - arr[<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">let</span> diffIndex = arr.indexOf(diff);</span><br><span class="line">        <span class="keyword">if</span> (diffIndex !== <span class="number">-1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> [i, diffIndex];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -261,7 +1028,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-02T15:24:48+08:00">
                 2018-11-02
@@ -380,7 +1147,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-02T11:05:24+08:00">
                 2018-11-02
@@ -597,7 +1364,7 @@ fastcgi_temp_file_write_size 128k;
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-30T10:47:52+08:00">
                 2018-10-30
@@ -618,7 +1385,7 @@ fastcgi_temp_file_write_size 128k;
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -742,7 +1509,7 @@ fastcgi_temp_file_write_size 128k;
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-26T17:02:03+08:00">
                 2018-10-26
@@ -1109,7 +1876,7 @@ options: set-cookie 选项
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-24T14:06:44+08:00">
                 2018-05-24
@@ -1130,7 +1897,7 @@ options: set-cookie 选项
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1414,7 +2181,7 @@ options: set-cookie 选项
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-27T17:25:23+08:00">
                 2018-04-27
@@ -1553,7 +2320,7 @@ options: set-cookie 选项
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-19T15:23:47+08:00">
                 2018-04-19
@@ -1574,7 +2341,7 @@ options: set-cookie 选项
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1681,7 +2448,7 @@ options: set-cookie 选项
 <li>服务器端需要配置header(“Access-Control-Allow-Credentials: true”)</li>
 <li>!!! 当Access-Control-Allow-Credentials设为true的时候，Access-Control-Allow-Origin不能设为星号*</li>
 </ul>
-<h2 id="八、移动端底部固定定位fixed-amp-IOS上autofoucs失效，需要手动触发"><a href="#八、移动端底部固定定位fixed-amp-IOS上autofoucs失效，需要手动触发" class="headerlink" title="八、移动端底部固定定位fixed &amp; IOS上autofoucs失效，需要手动触发"></a>八、移动端底部固定定位fixed &amp; IOS上autofoucs失效，需要手动触发</h2><p>ios下fixed元素容易定位出错,软键盘弹出时影响fixed元素定位,而android下不会。</p>
+<h2 id="八、移动端底部固定定位fixed-amp-IOS上autofoucs失效，需要手动触发-amp-amp-移动端吸底-吸顶"><a href="#八、移动端底部固定定位fixed-amp-IOS上autofoucs失效，需要手动触发-amp-amp-移动端吸底-吸顶" class="headerlink" title="八、移动端底部固定定位fixed &amp; IOS上autofoucs失效，需要手动触发 &amp;&amp; 移动端吸底/吸顶"></a>八、移动端底部固定定位fixed &amp; IOS上autofoucs失效，需要手动触发 &amp;&amp; 移动端吸底/吸顶</h2><p>ios下fixed元素容易定位出错,软键盘弹出时影响fixed元素定位,而android下不会。</p>
 <p>ios下由于软键盘唤出后，页面fixed元素会失效，导致跟随页面一起滚动。假如-页面不会过长出现滚动，即便fixed元素失效，也无法跟随页面滚动，也就不会出现上面的问题。</p>
 <ul>
 <li><p>通常将底部设置为fixed，当激活输入框的时候，将底部定位改为absolute，即可兼容ios和Android。</p>
@@ -1695,7 +2462,17 @@ options: set-cookie 选项
 <li><p>但仍有体验问题</p>
 </li>
 </ul>
-<h2 id="九、ios系统手机无法自动播放音频-视频，-HTML5-audio-autoplay无效"><a href="#九、ios系统手机无法自动播放音频-视频，-HTML5-audio-autoplay无效" class="headerlink" title="九、ios系统手机无法自动播放音频/视频， HTML5 audio autoplay无效"></a>九、ios系统手机无法自动播放音频/视频， HTML5 audio autoplay无效</h2><p>这个是苹果系统限制默认不允许自动播放音频/视频,需要点一下触发play()事件才能播放;</p>
+<h3 id="移动端吸底-吸顶"><a href="#移动端吸底-吸顶" class="headerlink" title="移动端吸底/吸顶"></a>移动端吸底/吸顶</h3><p>DOM 结构：</p>
+<ul>
+<li>container(外层)<ul>
+<li>wrapper</li>
+<li>footer</li>
+</ul>
+</li>
+</ul>
+<p>sass:</p>
+<pre><code><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span></span><br><span class="line">    <span class="selector-tag">height</span>: 100<span class="selector-tag">vh</span></span><br><span class="line">    <span class="selector-tag">overflow</span>: <span class="selector-tag">hidden</span></span><br><span class="line">    <span class="selector-tag">display</span>: <span class="selector-tag">flex</span></span><br><span class="line">    <span class="selector-tag">flex-direction</span>: <span class="selector-tag">column</span></span><br><span class="line"></span><br><span class="line">    <span class="selector-class">.wrapper</span></span><br><span class="line">        <span class="selector-tag">flex</span>: 1</span><br><span class="line">        <span class="selector-tag">overflow</span>: <span class="selector-tag">auto</span></span><br><span class="line">    <span class="selector-class">.footer</span></span><br><span class="line">        <span class="selector-tag">height</span>: 50<span class="selector-tag">px</span></span><br><span class="line">        <span class="selector-tag">width</span>: 100<span class="selector-tag">vw</span></span><br></pre></td></tr></table></figure>
+</code></pre><h2 id="九、ios系统手机无法自动播放音频-视频，-HTML5-audio-autoplay无效"><a href="#九、ios系统手机无法自动播放音频-视频，-HTML5-audio-autoplay无效" class="headerlink" title="九、ios系统手机无法自动播放音频/视频， HTML5 audio autoplay无效"></a>九、ios系统手机无法自动播放音频/视频， HTML5 audio autoplay无效</h2><p>这个是苹果系统限制默认不允许自动播放音频/视频,需要点一下触发play()事件才能播放;</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">'music'</span>).play();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <hr>
 <p>android 4.2添加了允许用户手势触发音视频播放接口，该接口默认为 true ，即默认不允许自动播放音视频，只能是用户交互的方式由用户自己促发播放。</p>
@@ -1709,9 +2486,11 @@ options: set-cookie 选项
 <li>persisted判断页面是否从缓存中读出</li>
 </ul>
 <h2 id="十一、个别设备样式问题"><a href="#十一、个别设备样式问题" class="headerlink" title="十一、个别设备样式问题"></a>十一、个别设备样式问题</h2><ul>
-<li><p>input的placeholder文本位置偏上： line-height:normal;</p>
+<li><p>input的placeholder文本位置偏上： line-height: normal;</p>
 </li>
-<li><p>部分安卓机box-sizing 有上边框：删除box-sizing:border-box;</p>
+<li><p>部分安卓机box-sizing 有上边框：删除box-sizing: border-box;</p>
+</li>
+<li><p>安卓H5的border-radius,圆角不生效  =&gt;  border-raius: 10px; // 单位必须是px,不能为其他的rem单位</p>
 </li>
 <li><p>CSS3 动画在安卓上卡顿：</p>
 <p>  开启硬件加速：</p>
@@ -1727,514 +2506,20 @@ options: set-cookie 选项
 <p><strong>需求：</strong> 直接输入之后才触发input事件，需引出：compositionstart 和 compositionend<br>compositionstart 事件在用户开始进行非直接输入时触发，在非直接输入结束，也即用户点选候选词 或者 点击【选定】按钮之后，会触发compositionend事件</p>
 <p>添加一个inputLock变量，当用户未完成直接输入前，inputLock 为true，不触发input事件中的逻辑，当用户完成有效输入之后，inputLock设置为false，触发input事件的逻辑。<br>compositionend 事件在input事件后触发的，在compositionend事件出发时，也要调用input事件处理逻辑</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">inputHandle(e) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.inputLock) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> value = e.target.value;</span><br><span class="line">    value &amp;&amp; <span class="keyword">this</span>.searchHandler(value);</span><br><span class="line">&#125;,</span><br><span class="line">onCompositionstart(e) &#123;</span><br><span class="line">    <span class="comment">// 未完成直接输入前, inputLock 为true</span></span><br><span class="line">    throttle(<span class="function"><span class="params">_</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.inputLock = <span class="literal">true</span>;</span><br><span class="line">    &#125;, <span class="number">200</span>);</span><br><span class="line">&#125;,</span><br><span class="line">onCompositionend(e) &#123;</span><br><span class="line">    <span class="comment">// 完成有效输入后, inputLock 为false</span></span><br><span class="line">    throttle(<span class="function"><span class="params">_</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.inputLock = <span class="literal">false</span>;</span><br><span class="line">    &#125;, <span class="number">200</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// compositionend 事件是在 input 事件后触发，在 compositionend事件触发时，也要调用 input处理逻辑</span></span><br><span class="line">    <span class="keyword">let</span> value = e.target.value;</span><br><span class="line">    value &amp;&amp; <span class="keyword">this</span>.searchHandler(value);</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/08/移动端开发/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lurel">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Laurel Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/08/移动端开发/" itemprop="url">移动端开发</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-08T14:41:03+08:00">
-                2018-04-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cate/" itemprop="url" rel="index">
-                    <span itemprop="name">cate</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ol>
-<li>移动端点击事件<br><strong>点击穿透：</strong><br>如果一个绝对定位或者固定定位元素处于页面最顶层，对这个元素绑定一个点击事件，点击这个元素，对应下面凡是有点击事件或者a标签都会被触发执行。</li>
-</ol>
+<h2 id="十四、css文字和图标垂直居中"><a href="#十四、css文字和图标垂直居中" class="headerlink" title="十四、css文字和图标垂直居中"></a>十四、css文字和图标垂直居中</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"aligned"</span>&gt;</span>文字<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"icon aligned"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.icon</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: inline-block;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">20px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">20px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#aaa</span>;</span><br><span class="line">    <span class="attribute">border</span>: solid <span class="number">1px</span> <span class="number">#000</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.aligned</span> &#123;</span><br><span class="line">    <span class="attribute">vertical-align</span>: middle;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="十五、createNamespacedHelpers-建基于某个命名空间的辅助函数"><a href="#十五、createNamespacedHelpers-建基于某个命名空间的辅助函数" class="headerlink" title="十五、createNamespacedHelpers 建基于某个命名空间的辅助函数"></a>十五、createNamespacedHelpers 建基于某个命名空间的辅助函数</h2><pre><code>取消 api/action 或 api/getter 的写法
+</code></pre><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;createNamespacedHelpers&#125; <span class="keyword">from</span> <span class="string">'vuex'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123;</span><br><span class="line">    mapState,</span><br><span class="line">    mapGetters,</span><br><span class="line">    mapActions,</span><br><span class="line">    mapMutations</span><br><span class="line">&#125; = createNamespacedHelpers(<span class="string">'app'</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="十六、vue内静态资源引用路径"><a href="#十六、vue内静态资源引用路径" class="headerlink" title="十六、vue内静态资源引用路径"></a>十六、vue内静态资源引用路径</h2><pre><code>vue-html-loader和css-loader将非根URL转换为相对路径。为了将其视为模块路径，在前面加上~
+</code></pre><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">alias: &#123;</span><br><span class="line">    <span class="string">'src'</span>: resolve(<span class="string">'src'</span>),</span><br><span class="line">    <span class="string">'assets'</span>: resolve(<span class="string">'src/assets'</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// vue文件：</span></span><br><span class="line">&lt;img <span class="class"><span class="keyword">class</span></span>=<span class="string">"logo"</span> src=<span class="string">"~assets/logo.png"</span>&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="十七、axios-超时处理"><a href="#十七、axios-超时处理" class="headerlink" title="十七、axios 超时处理"></a>十七、axios 超时处理</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">axios.interceptors.response.use(<span class="literal">undefined</span>, error =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (error.code === <span class="string">'ECONNABORTED'</span> &amp;&amp; error.message.indexOf(<span class="string">'timeout'</span>) !== <span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'超时'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="十八、vue-router-路由切换，组件重用的坑"><a href="#十八、vue-router-路由切换，组件重用的坑" class="headerlink" title="十八、vue-router 路由切换，组件重用的坑"></a>十八、vue-router 路由切换，组件重用的坑</h2><p>vue-router导航切换时，如果两个路由都渲染同个组件，组件会重用，组件的生命周期钩子不会再被调用，使得组件的一些数据无法根据path的改变得到更新。</p>
+<p>解决：</p>
 <ul>
-<li>移动端： touchstart, touchmove, touched以及tap</li>
-<li>pc端：mousedown, mousemove, mouseup, click</li>
+<li>beforeRouteUpdate：对于/foo/:id,在/foo/1和foo/2之间跳转。当前路由改变，但组件被复用时调用（带有动态参数）</li>
+<li>watch ‘$route’：对于两路由共用同一个组件，如从/main跳到/get</li>
 </ul>
-<ol>
-<li>去掉a, input 在移动端浏览器中的默认样式</li>
-</ol>
-<ul>
-<li>[1] 禁止a标签背景</li>
-</ul>
-<p>在移动端使用a标签做按钮的时候，点按会出现「暗色」的背景，去掉该背景的方法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a,button,input,optgroup,select,textarea &#123;</span><br><span class="line">    -webkit-tap-highlight-color: rgba(0,0,0,0);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>[2] 禁止长按a,img 标签出现菜单栏</li>
-</ul>
-<p>使用a标签时，移动端长按会出现一个菜单栏，禁止呼出菜单栏：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a, img &#123;</span><br><span class="line">    -webkit-touch-callout: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>[3] 流畅滚动</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">body &#123;</span><br><span class="line">    -webkit-overflow-scrolling: touch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>[4] 修改webkit表单输入框placeholder 的样式</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">input::-webkit-input-placeholder&#123;</span><br><span class="line">    color: #AAA;</span><br><span class="line">&#125;</span><br><span class="line">input:focus::-webkit-input-placeholder&#123;</span><br><span class="line">    color: #EEE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>[5] 禁止IOS和Android用户选中文字<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.css &#123;</span><br><span class="line">    -webkit-user-select: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<pre><code>
-</code></pre>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/04/ES6-tips/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lurel">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Laurel Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/04/ES6-tips/" itemprop="url">ES6-tips</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-04T14:43:54+08:00">
-                2018-04-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cate/" itemprop="url" rel="index">
-                    <span itemprop="name">cate</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="ES6-Tips"><a href="#ES6-Tips" class="headerlink" title="ES6 Tips"></a>ES6 Tips</h2><h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><ol>
-<li>带标签的模板字符</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> name = <span class="string">'zhang3'</span>;</span><br><span class="line"><span class="keyword">let</span> age = <span class="number">9</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">tag</span>(<span class="params">strArr, ...args</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> str = <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; args.length; i++) &#123;</span><br><span class="line">        str += strArr[i] + args[i]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(strArr, args);</span><br><span class="line"></span><br><span class="line">    str += strArr[strArr.length - <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">return</span> str;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> str = tag<span class="string">`<span class="subst">$&#123;name&#125;</span>今年<span class="subst">$&#123;age&#125;</span>岁了`</span>；</span><br><span class="line"><span class="built_in">console</span>.info(str);</span><br></pre></td></tr></table></figure>
-<ol>
-<li>includes 方法</li>
-</ol>
-<p>判断字符串中是否包含某个字符串<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> str = <span class="string">'xingqitian'</span>；</span><br><span class="line">str.includes(<span class="string">'ti'</span>); <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
-<ol>
-<li>endsWidth、startsWith 方法</li>
-</ol>
-<p>判断字符串是否以某一个字符串开始或结束<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">'234567899sddcdhs'</span>;</span><br><span class="line">a.startsWith(<span class="string">'23'</span>);</span><br><span class="line">a.endsWith(<span class="string">'Hs'</span>);</span><br></pre></td></tr></table></figure></p>
-<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><ol>
-<li>函数参数可赋值，可解构</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">&#123;a=<span class="number">5</span>&#125;</span>)</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
-<ol>
-<li>箭头函数</li>
-</ol>
-<ul>
-<li>如果参数只有一个，可省略小括号</li>
-<li>如果不写return，可以不写大括号</li>
-<li>没有arguments变量</li>
-<li>不改变this指向</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 求和</span></span><br><span class="line"><span class="keyword">let</span> sum = <span class="function">(<span class="params">a,b</span>)=&gt;</span>a+b;</span><br></pre></td></tr></table></figure>
-<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><ol>
-<li>数组新方法</li>
-</ol>
-<ul>
-<li>Array.from(); //将类数组转化成数组</li>
-<li>Array.of(); //创建数组</li>
-<li>Array.fill();//填充数组</li>
-<li>Array.reduce();//传入回调适合处理 临近数组元素</li>
-<li>Array.filter();//数组过滤</li>
-<li>Array.find();//查找返回值</li>
-<li>Array.includes();//判断数组是否有某值</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.of(<span class="number">2</span>,<span class="number">3</span>)   <span class="comment">// [2,3]</span></span><br></pre></td></tr></table></figure>
-<h3 id="Class-类"><a href="#Class-类" class="headerlink" title="Class 类"></a>Class 类</h3><ul>
-<li>Class 定义类</li>
-<li>extends 实现继承</li>
-<li>支持静态方法</li>
-<li>constructor 构造方法</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/29/cache-replacement/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lurel">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Laurel Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/29/cache-replacement/" itemprop="url">cache-replacement</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-29T16:19:04+08:00">
-                2018-03-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="查看缓存"><a href="#查看缓存" class="headerlink" title="查看缓存"></a>查看缓存</h2><ul>
-<li>free/top 命令</li>
-<li><p>cache memory </p>
-<ul>
-<li>命令：<code>cat /proc/meminfo</code></li>
-<li>读写文件，为了提高读写性能与速度，会将文件在内存中进行缓存，这部分内存就是Cache Memory(缓存内存).即使你的程序运行结束后，Cache Memory也不会自动释放</li>
-</ul>
-</li>
-<li><p>手动释放cache</p>
-  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span># To free pagecache:</span><br><span class="line">echo 1 &gt; /proc/sys/vm/drop_caches</span><br><span class="line"><span class="meta">#</span># To free dentries and inodes:</span><br><span class="line">echo 2 &gt; /proc/sys/vm/drop_caches</span><br><span class="line"><span class="meta">#</span># To free pagecache, dentries and inodes:</span><br><span class="line">echo 3 &gt; /proc/sys/vm/drop_caches</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查看cached里面的内容 linux-ftools</p>
-  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>!/bin/bash</span><br><span class="line"></span><br><span class="line">tar xf linux-ftools.tar.gz -C ./</span><br><span class="line">cd linux-ftools/ &amp;&amp; ./configure &amp;&amp; make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>eg:查看/tmp 目录下缓存了哪些文件, 命令：</p>
-<p><code>linux-fincore --pages=false --summarize --only-cached /tmp/*</code></p>
-<h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><h2 id="缓存命中"><a href="#缓存命中" class="headerlink" title="缓存命中"></a>缓存命中</h2><h2 id="cache-miss（缓存没命中）"><a href="#cache-miss（缓存没命中）" class="headerlink" title="cache miss（缓存没命中）"></a>cache miss（缓存没命中）</h2><p>把缓存中的就对象踢出，把新的对象加入缓存池。（替换策略，最优的替代策略就是想把缓存中最没用的条目给踢出去，但是未来是不能够被预知的，所以这种策略是不可能实现的）</p>
-<h2 id="缓存替换算法"><a href="#缓存替换算法" class="headerlink" title="缓存替换算法"></a>缓存替换算法</h2><h3 id="FIFO"><a href="#FIFO" class="headerlink" title="FIFO"></a>FIFO</h3><p>先进先出</p>
-<h3 id="LFU"><a href="#LFU" class="headerlink" title="LFU"></a>LFU</h3><p>最近最少使用算法</p>
-<p><code>如果一个数据在最近一段时间内使用次数很少，那么在将来一段时间内被使用的可能性也很小</code></p>
-<p>利用一个数组存储 数据项，用hashmap存储每个数据项在数组中对应的位置，然后为每个数据项设计一个访问频次，当数据项被命中时，访问频次自增，在淘汰的时候淘汰访问频次最少的数据</p>
-<h3 id="LRU"><a href="#LRU" class="headerlink" title="LRU"></a>LRU</h3><p>最近最久未使用</p>
-<p><code>如果一个数据在最近一段时间没有被访问到，那么在将来它被访问的可能性也很小</code></p>
-<p>当需要插入新的数据项的时候，如果新数据项在链表中存在（一般称为命中），则把该节点移到链表头部，如果不存在，则新建一个节点，放到链表头部，若缓存满了，则把链表最后一个节点删除即可。在访问数据的时候，如果数据项在链表中存在，则把该节点移到链表头部，否则返回-1。这样一来在链表尾部的节点就是最近最久未访问的数据项</p>
-<h3 id="LRU-vs-LFU"><a href="#LRU-vs-LFU" class="headerlink" title="LRU vs LFU"></a>LRU vs LFU</h3><ul>
-<li>LRU的淘汰规则是基于访问时间</li>
-<li>LFU是基于访问次数</li>
-</ul>
-<p><code>set(2,2),set(1,1),get(2),get(1),get(2),set(3,3),set(4,4)</code><br>LFU 置换(3,3)<br>LRU 置换(1,1)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// todo</span></span><br></pre></td></tr></table></figure>
 
           
         
@@ -2320,8 +2605,8 @@ options: set-cookie 选项
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">35</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
             
@@ -2331,8 +2616,8 @@ options: set-cookie 选项
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
-                  <span class="site-state-item-name">categories</span>
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">Kategorien</span>
                 </a>
               </div>
             
@@ -2342,8 +2627,8 @@ options: set-cookie 选项
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">14</span>
-                  <span class="site-state-item-name">tags</span>
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">Tags</span>
                 </a>
               </div>
             
@@ -2389,7 +2674,7 @@ options: set-cookie 选项
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 

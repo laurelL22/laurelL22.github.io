@@ -86,7 +86,7 @@
 <meta property="og:url" content="http://yoursite.com/2019/04/12/Node内存泄露/index.html">
 <meta property="og:site_name" content="Laurel Blog">
 <meta property="og:description" content="Node内存泄露 问题：   我们的应用中有时响应会很慢，甚至没有响应   每天访问量在特定时间段会有大范围波动，但是整体比较平稳 。  分析：   正常情况下node发起的请求，服务端就会有响应，最后吐给前端   利用inspect反复分析内存，经过代码追踪，请求受阻，settimeout 代码不执行，被挂起，无法释放   axios 超时   对于node来说，（代码块被挂起）cpu上升的原因">
-<meta property="og:updated_time" content="2019-04-12T09:15:25.313Z">
+<meta property="og:updated_time" content="2019-04-16T08:34:46.135Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Node内存泄露">
 <meta name="twitter:description" content="Node内存泄露 问题：   我们的应用中有时响应会很慢，甚至没有响应   每天访问量在特定时间段会有大范围波动，但是整体比较平稳 。  分析：   正常情况下node发起的请求，服务端就会有响应，最后吐给前端   利用inspect反复分析内存，经过代码追踪，请求受阻，settimeout 代码不执行，被挂起，无法释放   axios 超时   对于node来说，（代码块被挂起）cpu上升的原因">
@@ -185,7 +185,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            Startseite
           </a>
         </li>
       
@@ -195,7 +195,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -259,7 +259,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-12T17:14:51+08:00">
                 2019-04-12
@@ -312,7 +312,7 @@
 </ul>
 <pre><code>对于node来说，（代码块被挂起）cpu上升的原因有：settimeout，IO阻塞，express没调用res.end()结束请求。
 
-压测后发现的现象：在服务器超载的情况下，由于无法做出相应，客户端的socket就会被挂起一直处于connection状态。
+压测后发现的现象：在服务器超载的情况下，由于无法做出响应，客户端的socket就会被挂起一直处于connection状态。
 </code></pre><ul>
 <li><p>结论：</p>
 <p>  有时，响应会很慢，并且没有响应，就是连接事件将被事件循环系统阻塞。</p>
@@ -432,10 +432,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            Übersicht
           </li>
         </ul>
       
@@ -455,8 +455,8 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">35</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
             
@@ -466,8 +466,8 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
-                  <span class="site-state-item-name">categories</span>
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">Kategorien</span>
                 </a>
               </div>
             
@@ -477,8 +477,8 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">14</span>
-                  <span class="site-state-item-name">tags</span>
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">Tags</span>
                 </a>
               </div>
             
@@ -540,7 +540,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 

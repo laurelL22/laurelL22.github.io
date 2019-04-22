@@ -86,7 +86,7 @@
 <meta property="og:url" content="http://yoursite.com/2019/04/12/Express-vs-Koa/index.html">
 <meta property="og:site_name" content="Laurel Blog">
 <meta property="og:description" content="Node框架 Express，是一个基于Node.js平台的极简、灵活的web应用开发框架，主要基于Connect中间件，并且自身封装了路由、视图处理等功能，使用人数众多。 Koa，主要基于co中间件，框架自身不包含任何中间件，很多功能需要借助第三方中间件解决。Express的团队又基于ES6的新特性重新开发web框架koa 和Express相比，koa 1.0使用generator实现异步，代码">
-<meta property="og:updated_time" content="2019-04-12T06:46:56.710Z">
+<meta property="og:updated_time" content="2019-04-22T08:55:49.810Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Express-vs-Koa">
 <meta name="twitter:description" content="Node框架 Express，是一个基于Node.js平台的极简、灵活的web应用开发框架，主要基于Connect中间件，并且自身封装了路由、视图处理等功能，使用人数众多。 Koa，主要基于co中间件，框架自身不包含任何中间件，很多功能需要借助第三方中间件解决。Express的团队又基于ES6的新特性重新开发web框架koa 和Express相比，koa 1.0使用generator实现异步，代码">
@@ -185,7 +185,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            Startseite
           </a>
         </li>
       
@@ -195,7 +195,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -259,7 +259,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-12T10:38:25+08:00">
                 2019-04-12
@@ -280,12 +280,23 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/node-framework/" itemprop="url" rel="index">
                     <span itemprop="name">node-framework</span>
+                  </a>
+                </span>
+
+                
+                
+                  . 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/node-framework/interview/" itemprop="url" rel="index">
+                    <span itemprop="name">interview</span>
                   </a>
                 </span>
 
@@ -366,9 +377,15 @@
 <li>缺点：基于 callback 组合业务逻辑，业务逻辑复杂时嵌套过多，异常捕获困难。</li>
 </ul>
 </li>
-<li>Koa<ul>
+<li><p>Koa</p>
+<ul>
 <li>优点：首先，借助 co 和 generator，很好地解决了异步流程控制和异常捕获问题。其次，Koa 把 Express 中内置的 router、view 等功能都移除了，使得框架本身更轻量。 </li>
 <li>缺点：社区相对较小</li>
+</ul>
+</li>
+<li><p>koa的中间件模式与express不一样，koa是洋葱型，express是直线型</p>
+<ul>
+<li></li>
 </ul>
 </li>
 </ul>
@@ -568,10 +585,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            Übersicht
           </li>
         </ul>
       
@@ -591,8 +608,8 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">35</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
             
@@ -602,8 +619,8 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
-                  <span class="site-state-item-name">categories</span>
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">Kategorien</span>
                 </a>
               </div>
             
@@ -613,8 +630,8 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">14</span>
-                  <span class="site-state-item-name">tags</span>
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">Tags</span>
                 </a>
               </div>
             
@@ -676,7 +693,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 

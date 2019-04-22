@@ -86,7 +86,7 @@
 <meta property="og:url" content="http://yoursite.com/2018/04/19/bohe项目总结/index.html">
 <meta property="og:site_name" content="Laurel Blog">
 <meta property="og:description" content="一、聊天消息由下向上冒效果scrollIntoView &amp;amp; scrollIntoViewIfNeeded Element.scrollIntoView(): 让当前的元素滚动到浏览器窗口的可视区域内。 Element.scrollIntoViewIfNeeded(): 将不在浏览器窗口的可见区域内的元素滚动到浏览器窗口的可见区域。但如果该元素已经在浏览器窗口的可见区域内，则不会发生滚动。">
-<meta property="og:updated_time" content="2018-10-29T07:23:10.951Z">
+<meta property="og:updated_time" content="2019-04-15T09:06:33.248Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="bohe足迹">
 <meta name="twitter:description" content="一、聊天消息由下向上冒效果scrollIntoView &amp;amp; scrollIntoViewIfNeeded Element.scrollIntoView(): 让当前的元素滚动到浏览器窗口的可视区域内。 Element.scrollIntoViewIfNeeded(): 将不在浏览器窗口的可见区域内的元素滚动到浏览器窗口的可见区域。但如果该元素已经在浏览器窗口的可见区域内，则不会发生滚动。">
@@ -185,7 +185,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            Startseite
           </a>
         </li>
       
@@ -195,7 +195,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -259,7 +259,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-19T15:23:47+08:00">
                 2018-04-19
@@ -280,7 +280,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -385,7 +385,7 @@
 <li>服务器端需要配置header(“Access-Control-Allow-Credentials: true”)</li>
 <li>!!! 当Access-Control-Allow-Credentials设为true的时候，Access-Control-Allow-Origin不能设为星号*</li>
 </ul>
-<h2 id="八、移动端底部固定定位fixed-amp-IOS上autofoucs失效，需要手动触发"><a href="#八、移动端底部固定定位fixed-amp-IOS上autofoucs失效，需要手动触发" class="headerlink" title="八、移动端底部固定定位fixed &amp; IOS上autofoucs失效，需要手动触发"></a>八、移动端底部固定定位fixed &amp; IOS上autofoucs失效，需要手动触发</h2><p>ios下fixed元素容易定位出错,软键盘弹出时影响fixed元素定位,而android下不会。</p>
+<h2 id="八、移动端底部固定定位fixed-amp-IOS上autofoucs失效，需要手动触发-amp-amp-移动端吸底-吸顶"><a href="#八、移动端底部固定定位fixed-amp-IOS上autofoucs失效，需要手动触发-amp-amp-移动端吸底-吸顶" class="headerlink" title="八、移动端底部固定定位fixed &amp; IOS上autofoucs失效，需要手动触发 &amp;&amp; 移动端吸底/吸顶"></a>八、移动端底部固定定位fixed &amp; IOS上autofoucs失效，需要手动触发 &amp;&amp; 移动端吸底/吸顶</h2><p>ios下fixed元素容易定位出错,软键盘弹出时影响fixed元素定位,而android下不会。</p>
 <p>ios下由于软键盘唤出后，页面fixed元素会失效，导致跟随页面一起滚动。假如-页面不会过长出现滚动，即便fixed元素失效，也无法跟随页面滚动，也就不会出现上面的问题。</p>
 <ul>
 <li><p>通常将底部设置为fixed，当激活输入框的时候，将底部定位改为absolute，即可兼容ios和Android。</p>
@@ -399,7 +399,17 @@
 <li><p>但仍有体验问题</p>
 </li>
 </ul>
-<h2 id="九、ios系统手机无法自动播放音频-视频，-HTML5-audio-autoplay无效"><a href="#九、ios系统手机无法自动播放音频-视频，-HTML5-audio-autoplay无效" class="headerlink" title="九、ios系统手机无法自动播放音频/视频， HTML5 audio autoplay无效"></a>九、ios系统手机无法自动播放音频/视频， HTML5 audio autoplay无效</h2><p>这个是苹果系统限制默认不允许自动播放音频/视频,需要点一下触发play()事件才能播放;</p>
+<h3 id="移动端吸底-吸顶"><a href="#移动端吸底-吸顶" class="headerlink" title="移动端吸底/吸顶"></a>移动端吸底/吸顶</h3><p>DOM 结构：</p>
+<ul>
+<li>container(外层)<ul>
+<li>wrapper</li>
+<li>footer</li>
+</ul>
+</li>
+</ul>
+<p>sass:</p>
+<pre><code><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span></span><br><span class="line">    <span class="selector-tag">height</span>: 100<span class="selector-tag">vh</span></span><br><span class="line">    <span class="selector-tag">overflow</span>: <span class="selector-tag">hidden</span></span><br><span class="line">    <span class="selector-tag">display</span>: <span class="selector-tag">flex</span></span><br><span class="line">    <span class="selector-tag">flex-direction</span>: <span class="selector-tag">column</span></span><br><span class="line"></span><br><span class="line">    <span class="selector-class">.wrapper</span></span><br><span class="line">        <span class="selector-tag">flex</span>: 1</span><br><span class="line">        <span class="selector-tag">overflow</span>: <span class="selector-tag">auto</span></span><br><span class="line">    <span class="selector-class">.footer</span></span><br><span class="line">        <span class="selector-tag">height</span>: 50<span class="selector-tag">px</span></span><br><span class="line">        <span class="selector-tag">width</span>: 100<span class="selector-tag">vw</span></span><br></pre></td></tr></table></figure>
+</code></pre><h2 id="九、ios系统手机无法自动播放音频-视频，-HTML5-audio-autoplay无效"><a href="#九、ios系统手机无法自动播放音频-视频，-HTML5-audio-autoplay无效" class="headerlink" title="九、ios系统手机无法自动播放音频/视频， HTML5 audio autoplay无效"></a>九、ios系统手机无法自动播放音频/视频， HTML5 audio autoplay无效</h2><p>这个是苹果系统限制默认不允许自动播放音频/视频,需要点一下触发play()事件才能播放;</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">'music'</span>).play();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <hr>
 <p>android 4.2添加了允许用户手势触发音视频播放接口，该接口默认为 true ，即默认不允许自动播放音视频，只能是用户交互的方式由用户自己促发播放。</p>
@@ -413,9 +423,11 @@
 <li>persisted判断页面是否从缓存中读出</li>
 </ul>
 <h2 id="十一、个别设备样式问题"><a href="#十一、个别设备样式问题" class="headerlink" title="十一、个别设备样式问题"></a>十一、个别设备样式问题</h2><ul>
-<li><p>input的placeholder文本位置偏上： line-height:normal;</p>
+<li><p>input的placeholder文本位置偏上： line-height: normal;</p>
 </li>
-<li><p>部分安卓机box-sizing 有上边框：删除box-sizing:border-box;</p>
+<li><p>部分安卓机box-sizing 有上边框：删除box-sizing: border-box;</p>
+</li>
+<li><p>安卓H5的border-radius,圆角不生效  =&gt;  border-raius: 10px; // 单位必须是px,不能为其他的rem单位</p>
 </li>
 <li><p>CSS3 动画在安卓上卡顿：</p>
 <p>  开启硬件加速：</p>
@@ -431,6 +443,20 @@
 <p><strong>需求：</strong> 直接输入之后才触发input事件，需引出：compositionstart 和 compositionend<br>compositionstart 事件在用户开始进行非直接输入时触发，在非直接输入结束，也即用户点选候选词 或者 点击【选定】按钮之后，会触发compositionend事件</p>
 <p>添加一个inputLock变量，当用户未完成直接输入前，inputLock 为true，不触发input事件中的逻辑，当用户完成有效输入之后，inputLock设置为false，触发input事件的逻辑。<br>compositionend 事件在input事件后触发的，在compositionend事件出发时，也要调用input事件处理逻辑</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">inputHandle(e) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.inputLock) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> value = e.target.value;</span><br><span class="line">    value &amp;&amp; <span class="keyword">this</span>.searchHandler(value);</span><br><span class="line">&#125;,</span><br><span class="line">onCompositionstart(e) &#123;</span><br><span class="line">    <span class="comment">// 未完成直接输入前, inputLock 为true</span></span><br><span class="line">    throttle(<span class="function"><span class="params">_</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.inputLock = <span class="literal">true</span>;</span><br><span class="line">    &#125;, <span class="number">200</span>);</span><br><span class="line">&#125;,</span><br><span class="line">onCompositionend(e) &#123;</span><br><span class="line">    <span class="comment">// 完成有效输入后, inputLock 为false</span></span><br><span class="line">    throttle(<span class="function"><span class="params">_</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.inputLock = <span class="literal">false</span>;</span><br><span class="line">    &#125;, <span class="number">200</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// compositionend 事件是在 input 事件后触发，在 compositionend事件触发时，也要调用 input处理逻辑</span></span><br><span class="line">    <span class="keyword">let</span> value = e.target.value;</span><br><span class="line">    value &amp;&amp; <span class="keyword">this</span>.searchHandler(value);</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h2 id="十四、css文字和图标垂直居中"><a href="#十四、css文字和图标垂直居中" class="headerlink" title="十四、css文字和图标垂直居中"></a>十四、css文字和图标垂直居中</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"aligned"</span>&gt;</span>文字<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"icon aligned"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.icon</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: inline-block;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">20px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">20px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#aaa</span>;</span><br><span class="line">    <span class="attribute">border</span>: solid <span class="number">1px</span> <span class="number">#000</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.aligned</span> &#123;</span><br><span class="line">    <span class="attribute">vertical-align</span>: middle;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="十五、createNamespacedHelpers-建基于某个命名空间的辅助函数"><a href="#十五、createNamespacedHelpers-建基于某个命名空间的辅助函数" class="headerlink" title="十五、createNamespacedHelpers 建基于某个命名空间的辅助函数"></a>十五、createNamespacedHelpers 建基于某个命名空间的辅助函数</h2><pre><code>取消 api/action 或 api/getter 的写法
+</code></pre><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;createNamespacedHelpers&#125; <span class="keyword">from</span> <span class="string">'vuex'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123;</span><br><span class="line">    mapState,</span><br><span class="line">    mapGetters,</span><br><span class="line">    mapActions,</span><br><span class="line">    mapMutations</span><br><span class="line">&#125; = createNamespacedHelpers(<span class="string">'app'</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="十六、vue内静态资源引用路径"><a href="#十六、vue内静态资源引用路径" class="headerlink" title="十六、vue内静态资源引用路径"></a>十六、vue内静态资源引用路径</h2><pre><code>vue-html-loader和css-loader将非根URL转换为相对路径。为了将其视为模块路径，在前面加上~
+</code></pre><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">alias: &#123;</span><br><span class="line">    <span class="string">'src'</span>: resolve(<span class="string">'src'</span>),</span><br><span class="line">    <span class="string">'assets'</span>: resolve(<span class="string">'src/assets'</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// vue文件：</span></span><br><span class="line">&lt;img <span class="class"><span class="keyword">class</span></span>=<span class="string">"logo"</span> src=<span class="string">"~assets/logo.png"</span>&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="十七、axios-超时处理"><a href="#十七、axios-超时处理" class="headerlink" title="十七、axios 超时处理"></a>十七、axios 超时处理</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">axios.interceptors.response.use(<span class="literal">undefined</span>, error =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (error.code === <span class="string">'ECONNABORTED'</span> &amp;&amp; error.message.indexOf(<span class="string">'timeout'</span>) !== <span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'超时'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="十八、vue-router-路由切换，组件重用的坑"><a href="#十八、vue-router-路由切换，组件重用的坑" class="headerlink" title="十八、vue-router 路由切换，组件重用的坑"></a>十八、vue-router 路由切换，组件重用的坑</h2><p>vue-router导航切换时，如果两个路由都渲染同个组件，组件会重用，组件的生命周期钩子不会再被调用，使得组件的一些数据无法根据path的改变得到更新。</p>
+<p>解决：</p>
+<ul>
+<li>beforeRouteUpdate：对于/foo/:id,在/foo/1和foo/2之间跳转。当前路由改变，但组件被复用时调用（带有动态参数）</li>
+<li>watch ‘$route’：对于两路由共用同一个组件，如从/main跳到/get</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// todo</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -527,10 +553,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            Übersicht
           </li>
         </ul>
       
@@ -550,8 +576,8 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">35</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
             
@@ -561,8 +587,8 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
-                  <span class="site-state-item-name">categories</span>
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">Kategorien</span>
                 </a>
               </div>
             
@@ -572,8 +598,8 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">14</span>
-                  <span class="site-state-item-name">tags</span>
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">Tags</span>
                 </a>
               </div>
             
@@ -605,7 +631,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、聊天消息由下向上冒效果"><span class="nav-number">1.</span> <span class="nav-text">一、聊天消息由下向上冒效果</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#scrollIntoView-amp-scrollIntoViewIfNeeded"><span class="nav-number">1.1.</span> <span class="nav-text">scrollIntoView &amp; scrollIntoViewIfNeeded</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scrollIntoView"><span class="nav-number">1.2.</span> <span class="nav-text">scrollIntoView</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scrollIntoViewIfNeeded"><span class="nav-number">1.3.</span> <span class="nav-text">scrollIntoViewIfNeeded</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scroll-behavior"><span class="nav-number">1.4.</span> <span class="nav-text">scroll-behavior</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、CSS3-animation-—-播放、暂停动画"><span class="nav-number">2.</span> <span class="nav-text">二、CSS3 animation — 播放、暂停动画</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#animation-play-state-在ios上不生效，在安卓上ok"><span class="nav-number">2.1.</span> <span class="nav-text">animation-play-state 在ios上不生效，在安卓上ok</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、IOS移动端隐藏滚动条"><span class="nav-number">3.</span> <span class="nav-text">三、IOS移动端隐藏滚动条</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、footer固定在页面底部"><span class="nav-number">4.</span> <span class="nav-text">四、footer固定在页面底部</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、判断是否为iphonex"><span class="nav-number">5.</span> <span class="nav-text">五、判断是否为iphonex</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、取消浏览器就滚动条位置"><span class="nav-number">6.</span> <span class="nav-text">六、取消浏览器就滚动条位置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七、axios-请求携带cookie信息"><span class="nav-number">7.</span> <span class="nav-text">七、axios 请求携带cookie信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#八、移动端底部固定定位fixed-amp-IOS上autofoucs失效，需要手动触发"><span class="nav-number">8.</span> <span class="nav-text">八、移动端底部固定定位fixed &amp; IOS上autofoucs失效，需要手动触发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#九、ios系统手机无法自动播放音频-视频，-HTML5-audio-autoplay无效"><span class="nav-number">9.</span> <span class="nav-text">九、ios系统手机无法自动播放音频/视频， HTML5 audio autoplay无效</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十、浏览器后退不刷新"><span class="nav-number">10.</span> <span class="nav-text">十、浏览器后退不刷新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十一、个别设备样式问题"><span class="nav-number">11.</span> <span class="nav-text">十一、个别设备样式问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十二、屏幕像素比-屏幕缩放比"><span class="nav-number">12.</span> <span class="nav-text">十二、屏幕像素比/屏幕缩放比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十三、input的compositionstart-和-compositionend"><span class="nav-number">13.</span> <span class="nav-text">十三、input的compositionstart 和 compositionend</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、聊天消息由下向上冒效果"><span class="nav-number">1.</span> <span class="nav-text">一、聊天消息由下向上冒效果</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#scrollIntoView-amp-scrollIntoViewIfNeeded"><span class="nav-number">1.1.</span> <span class="nav-text">scrollIntoView &amp; scrollIntoViewIfNeeded</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scrollIntoView"><span class="nav-number">1.2.</span> <span class="nav-text">scrollIntoView</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scrollIntoViewIfNeeded"><span class="nav-number">1.3.</span> <span class="nav-text">scrollIntoViewIfNeeded</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scroll-behavior"><span class="nav-number">1.4.</span> <span class="nav-text">scroll-behavior</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、CSS3-animation-—-播放、暂停动画"><span class="nav-number">2.</span> <span class="nav-text">二、CSS3 animation — 播放、暂停动画</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#animation-play-state-在ios上不生效，在安卓上ok"><span class="nav-number">2.1.</span> <span class="nav-text">animation-play-state 在ios上不生效，在安卓上ok</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、IOS移动端隐藏滚动条"><span class="nav-number">3.</span> <span class="nav-text">三、IOS移动端隐藏滚动条</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、footer固定在页面底部"><span class="nav-number">4.</span> <span class="nav-text">四、footer固定在页面底部</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、判断是否为iphonex"><span class="nav-number">5.</span> <span class="nav-text">五、判断是否为iphonex</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、取消浏览器就滚动条位置"><span class="nav-number">6.</span> <span class="nav-text">六、取消浏览器就滚动条位置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七、axios-请求携带cookie信息"><span class="nav-number">7.</span> <span class="nav-text">七、axios 请求携带cookie信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#八、移动端底部固定定位fixed-amp-IOS上autofoucs失效，需要手动触发-amp-amp-移动端吸底-吸顶"><span class="nav-number">8.</span> <span class="nav-text">八、移动端底部固定定位fixed &amp; IOS上autofoucs失效，需要手动触发 &amp;&amp; 移动端吸底/吸顶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#移动端吸底-吸顶"><span class="nav-number">8.1.</span> <span class="nav-text">移动端吸底/吸顶</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#九、ios系统手机无法自动播放音频-视频，-HTML5-audio-autoplay无效"><span class="nav-number">9.</span> <span class="nav-text">九、ios系统手机无法自动播放音频/视频， HTML5 audio autoplay无效</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十、浏览器后退不刷新"><span class="nav-number">10.</span> <span class="nav-text">十、浏览器后退不刷新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十一、个别设备样式问题"><span class="nav-number">11.</span> <span class="nav-text">十一、个别设备样式问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十二、屏幕像素比-屏幕缩放比"><span class="nav-number">12.</span> <span class="nav-text">十二、屏幕像素比/屏幕缩放比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十三、input的compositionstart-和-compositionend"><span class="nav-number">13.</span> <span class="nav-text">十三、input的compositionstart 和 compositionend</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十四、css文字和图标垂直居中"><span class="nav-number">14.</span> <span class="nav-text">十四、css文字和图标垂直居中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十五、createNamespacedHelpers-建基于某个命名空间的辅助函数"><span class="nav-number">15.</span> <span class="nav-text">十五、createNamespacedHelpers 建基于某个命名空间的辅助函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十六、vue内静态资源引用路径"><span class="nav-number">16.</span> <span class="nav-text">十六、vue内静态资源引用路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十七、axios-超时处理"><span class="nav-number">17.</span> <span class="nav-text">十七、axios 超时处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十八、vue-router-路由切换，组件重用的坑"><span class="nav-number">18.</span> <span class="nav-text">十八、vue-router 路由切换，组件重用的坑</span></a></li></ol></div>
             
 
           </div>
@@ -635,7 +661,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 
