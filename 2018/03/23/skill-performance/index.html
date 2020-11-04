@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="javascript,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="js技巧1、new Set()利用Set数据结构能够去重一个数组 1234let arr = [1,2,2,3];let set = new Set(arr);let newArr = Array.from(set); // Array.from方法可以将Set结构转为数组console.log(newArr); // [1,2,3]  2、Object.assign()Object.assign">
+<meta name="keywords" content="javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="skill-performance">
+<meta property="og:url" content="http://yoursite.com/2018/03/23/skill-performance/index.html">
+<meta property="og:site_name" content="Laurel Blog">
+<meta property="og:description" content="js技巧1、new Set()利用Set数据结构能够去重一个数组 1234let arr = [1,2,2,3];let set = new Set(arr);let newArr = Array.from(set); // Array.from方法可以将Set结构转为数组console.log(newArr); // [1,2,3]  2、Object.assign()Object.assign">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-12-19T12:31:01.645Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="skill-performance">
+<meta name="twitter:description" content="js技巧1、new Set()利用Set数据结构能够去重一个数组 1234let arr = [1,2,2,3];let set = new Set(arr);let newArr = Array.from(set); // Array.from方法可以将Set结构转为数组console.log(newArr); // [1,2,3]  2、Object.assign()Object.assign">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/23/skill-performance/">
+
+
+
+
+
+  <title>skill-performance | Laurel Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Laurel Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">许多年前，曾是个朴素的少年</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/23/skill-performance/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Laurel">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Laurel Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">skill-performance</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-23T15:15:55+08:00">
+                2018-03-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="js技巧"><a href="#js技巧" class="headerlink" title="js技巧"></a>js技巧</h2><h3 id="1、new-Set"><a href="#1、new-Set" class="headerlink" title="1、new Set()"></a>1、new Set()</h3><p><code>利用Set数据结构能够去重一个数组</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"><span class="keyword">let</span> <span class="keyword">set</span> = new Set(arr);</span><br><span class="line">let newArr = Array.from(<span class="keyword">set</span>); // Array.from方法可以将Set结构转为数组</span><br><span class="line">console.log(newArr); // [1,2,3]</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、Object-assign"><a href="#2、Object-assign" class="headerlink" title="2、Object.assign()"></a>2、Object.assign()</h3><p><code>Object.assign()也是ES6中提供的对象的扩展方法，可以用于对象的合并拷贝</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj1 = &#123;<span class="attr">a</span>: <span class="number">1</span>&#125;;</span><br><span class="line"><span class="keyword">let</span> obj2 = &#123;<span class="attr">b</span>: <span class="number">2</span>&#125;;</span><br><span class="line"><span class="keyword">let</span> obj3 = <span class="built_in">Object</span>.assign(&#123;&#125;, obj1, obj2);</span><br><span class="line"><span class="built_in">console</span>.log(obj3) <span class="comment">// &#123;a: 1, b:2&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3、map"><a href="#3、map" class="headerlink" title="3、map()"></a>3、map()</h3><p><code>map方法用于遍历数组，有返回值，可以对数组的每一项进行操作并生成一个新的数组，有些时候可以代替for和forEach循环，简化代码</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr3 = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br><span class="line"><span class="keyword">let</span> newArr3 = arr3.map(<span class="function">(<span class="params">e, i</span>) =&gt;</span> e*<span class="number">10</span> );</span><br><span class="line"><span class="built_in">console</span>.log(newArr3)</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、filter"><a href="#4、filter" class="headerlink" title="4、filter()"></a>4、filter()</h3><p>filter方法用于遍历数组，就是过滤数组，在每一项元素后面触发一个回调函数，通过判断，保留或移出当前项，最后返回一个新的数组</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr4 = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br><span class="line"><span class="keyword">let</span> newArr4 = arr4.filter(<span class="function">(<span class="params">e, i</span>) =&gt;</span> e%<span class="number">2</span> === <span class="number">0</span>); <span class="comment">// 取模，过滤余数不为0的数</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="5、some"><a href="#5、some" class="headerlink" title="5、some()"></a>5、some()</h3><p>some方法用于遍历数组，在每一项元素后面触发一个回调函数，只要一个满足条件就返回true,否则就返回false。类似于||比较</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr5 = [&#123;<span class="attr">result</span>:<span class="literal">true</span>&#125;, &#123;<span class="attr">result</span>: <span class="literal">false</span>&#125;];</span><br><span class="line"><span class="keyword">let</span> newArr5 = arr.some(<span class="function">(<span class="params">e, i</span>) =&gt;</span> e.result); <span class="comment">//只要一个为true,即为true</span></span><br><span class="line"><span class="built_in">console</span>.log(newArr5); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="6、every"><a href="#6、every" class="headerlink" title="6、every()"></a>6、every()</h3><p>every方法用于遍历数组，在每一项元素后面触发一个回调函数，只要一个不满足条件就返回false,否则返回true,类似于&amp;&amp;比较</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr6 = [&#123;<span class="attr">result</span>:<span class="literal">true</span>&#125;, &#123;<span class="attr">result</span>: <span class="literal">false</span>&#125;];</span><br><span class="line"><span class="keyword">let</span> newArr6 = arr.some(<span class="function">(<span class="params">e, i</span>) =&gt;</span> e.result); <span class="comment">//只要一个为true,即为true</span></span><br><span class="line"><span class="built_in">console</span>.log(newArr6); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="7、-运算符"><a href="#7、-运算符" class="headerlink" title="7、~~运算符"></a>7、~~运算符</h3><p><code>~符号在JS中有按位取反的作用，~~ 即是取反两次，而位运算的操作值要求是整数，其结果也是整数，所以经过位运算的都会自动变成整数，可以巧妙的去掉小数部分，类似于parseInt()</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">1.23</span>;</span><br><span class="line"><span class="keyword">let</span> b = <span class="number">-1.23</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(~~a); <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(~~b); <span class="comment">// -1</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="8、-运算符"><a href="#8、-运算符" class="headerlink" title="8、|| 运算符"></a>8、|| 运算符</h3><p>使用||运算符可以给变量设置默认值</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> c = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">let</span> d = c || <span class="number">2</span>;  <span class="comment">// 如果c的值为true则取存在的值，否则为2</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(d);  <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="9、…运算符"><a href="#9、…运算符" class="headerlink" title="9、…运算符"></a>9、…运算符</h3><p>…运算符是ES6中用于结构数组的方法，可以用于快速获取数组的参数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> [num1, ...nums] = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(num1); <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(num3); <span class="comment">// [2,3]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="10、三元运算符"><a href="#10、三元运算符" class="headerlink" title="10、三元运算符"></a>10、三元运算符</h3><p>e ? f = ‘man’ : f = ‘woman’</p>
+<hr>
+<h2 id="js性能优化小结"><a href="#js性能优化小结" class="headerlink" title="js性能优化小结"></a>js性能优化小结</h2><h3 id="1、谨慎使用闭包"><a href="#1、谨慎使用闭包" class="headerlink" title="1、谨慎使用闭包"></a>1、谨慎使用闭包</h3><p>【由于闭包[[Scope]] 属性包含与执行环境作用域链相同的对象引用，函数活动对象本来会随着执行环境完毕后一同销毁，但引入闭包，对象无法被销毁。】<br>闭包会造成更多的内存开销，同时还会造成内存泄露</p>
+<h3 id="2、缓存对象成员"><a href="#2、缓存对象成员" class="headerlink" title="2、缓存对象成员"></a>2、缓存对象成员</h3><p>在同一个函数中， 如果存在多次读取同一个对象成员，可以在局部函数中保存对象，减少查找</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getWindowWH</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> elBody = <span class="built_in">document</span>.getElementByTagName(<span class="string">'body'</span>)[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        width: elBody.offsetWidth,</span><br><span class="line">        height: elBody.offsetHeight</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>同时也解决了属性越深，访问速度越慢的问题</p>
+<h3 id="3、DOM操作"><a href="#3、DOM操作" class="headerlink" title="3、DOM操作"></a>3、DOM操作</h3><p>访问DOM的次数越多，代码运行的速度越慢，统一的保存结果最后在一并输出</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">innerHTMLLoop</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> content = <span class="string">''</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> count = <span class="number">0</span>; count &lt; <span class="number">1000</span>; count++) &#123;</span><br><span class="line">        content += <span class="string">'a'</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">'idName'</span>).innerHTML += content;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、重绘（repaints）与重排（reflows）"><a href="#4、重绘（repaints）与重排（reflows）" class="headerlink" title="4、重绘（repaints）与重排（reflows）"></a>4、重绘（repaints）与重排（reflows）</h3><p>当页面布局和几何属性改变时就需要”重排”<br>避免在修改样式的过程中使用offsetTop, scrollTop, clientTop, getComputedStyle()这些属性，它们都会重新渲染队列<br>最小化重绘和重排，尽量一次处理</p>
+<p>1）使元素脱离文档流</p>
+<p>2）使用documentFragment</p>
+<p>3）将原始元素拷贝到一个脱离文档流的节点中，修改副本，完成后再替换元素元素</p>
+<p><a href="https://www.jianshu.com/p/b8f7e6c32a1b" target="_blank" rel="noopener">link</a></p>
+<h4 id="reflow"><a href="#reflow" class="headerlink" title="reflow"></a>reflow</h4><p>reflow（回流）是导致DOM脚本执行效率低的关键因素之一，页面上任何一个节点触发了reflow，会导致它的子节点及祖先节点重新渲染。</p>
+<p><strong>导致reflow发生</strong></p>
+<ul>
+<li>改变窗口大小</li>
+<li>改变文字大小</li>
+<li>添加/删除样式表</li>
+<li>内容的改变，（用户在输入框中写入内容也会）</li>
+<li>激活伪类，如:hover</li>
+<li>操作class属性</li>
+<li>脚本操作DOM</li>
+<li>计算offsetWidth和offsetHeight</li>
+<li>设置style属性</li>
+</ul>
+<h4 id="repaint"><a href="#repaint" class="headerlink" title="repaint"></a>repaint</h4><p>repaint是在一个元素的外观被改变，但没有改变布局的情况下发生的，如改变了visibility、outline、background等。</p>
+<h3 id="5、事件委托"><a href="#5、事件委托" class="headerlink" title="5、事件委托"></a>5、事件委托</h3><p>当有很多元素需要绑定事件的时候，我们一个一个的去绑定事件是有代价的的，元素越多应用程序越慢。事件绑定不但占用了处理时间，并且追踪事件需要更多的内存，有时候很多元素是不需要，或者是用户不会点击的，所以我们需要使用事件委托来解决没有必要的资源消耗。</p>
+<p>例子： 我们需监听li的click事件，通过冒泡事件来获取点击的对象。</p>
+<p></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">index</span>=<span class="string">'1'</span>&gt;</span>1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">index</span>=<span class="string">'2'</span>&gt;</span>2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">index</span>=<span class="string">'3'</span>&gt;</span>3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ul = <span class="built_in">document</span>.getElementById(<span class="string">'ul'</span>);</span><br><span class="line"></span><br><span class="line">ul.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> now_index = e.target.getAttribute(<span class="string">'index'</span>);</span><br><span class="line">  ...</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="6、循环性能"><a href="#6、循环性能" class="headerlink" title="6、循环性能"></a>6、循环性能</h3><p>一般的for语句可能很多人都这么写</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; array.length; i++)&#123;</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>每次循环的时候需要查找array.length，这样不但很耗时，也造成性能损失。只要查找一次属性，存储在局部变量，就可以提高性能。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>, len = array.length; i &lt; len; i++)&#123;</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>重写后的循环根据数组的长度能优化25%的运行时间，IE更多。所以平时书写的时候还是要多加注意。同时还是要避免使用for-in循环。</p>
+<h3 id="7、条件语句"><a href="#7、条件语句" class="headerlink" title="7、条件语句"></a>7、条件语句</h3><p>if-else 对比 switch， 当条件语句较多的时候switch 更易读，运行的要更快。所以但条件少的情况下使用if-else，当条件增加时，更倾向于switch，会更佳合理。</p>
+<h3 id="8、避免使用构造器"><a href="#8、避免使用构造器" class="headerlink" title="8、避免使用构造器"></a>8、避免使用构造器</h3><p>通过避免使用eval()和Function()构造器来避免双重求值带来的性能消耗</p>
+<p>eval(‘2 + 2’)</p>
+<h3 id="9、使用-Object-Array-直接量"><a href="#9、使用-Object-Array-直接量" class="headerlink" title="9、使用 Object/Array 直接量"></a>9、使用 Object/Array 直接量</h3><p>直接量的速度会更快。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//bad</span></span><br><span class="line"><span class="keyword">var</span> myObject = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">myObject.name = <span class="string">"xxxx"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//good</span></span><br><span class="line"><span class="keyword">var</span> myObject = &#123;</span><br><span class="line">    name: <span class="string">"xxxx"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/22/performance/" rel="next" title="performance">
+                <i class="fa fa-chevron-left"></i> performance
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/26/adblock-plus-blocking-filter/" rel="prev" title="adblock-plus-blocking-filter">
+                adblock-plus-blocking-filter <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Laurel</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#js技巧"><span class="nav-number">1.</span> <span class="nav-text">js技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、new-Set"><span class="nav-number">1.1.</span> <span class="nav-text">1、new Set()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、Object-assign"><span class="nav-number">1.2.</span> <span class="nav-text">2、Object.assign()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、map"><span class="nav-number">1.3.</span> <span class="nav-text">3、map()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、filter"><span class="nav-number">1.4.</span> <span class="nav-text">4、filter()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5、some"><span class="nav-number">1.5.</span> <span class="nav-text">5、some()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6、every"><span class="nav-number">1.6.</span> <span class="nav-text">6、every()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7、-运算符"><span class="nav-number">1.7.</span> <span class="nav-text">7、~~运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8、-运算符"><span class="nav-number">1.8.</span> <span class="nav-text">8、|| 运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9、…运算符"><span class="nav-number">1.9.</span> <span class="nav-text">9、…运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10、三元运算符"><span class="nav-number">1.10.</span> <span class="nav-text">10、三元运算符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#js性能优化小结"><span class="nav-number">2.</span> <span class="nav-text">js性能优化小结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、谨慎使用闭包"><span class="nav-number">2.1.</span> <span class="nav-text">1、谨慎使用闭包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、缓存对象成员"><span class="nav-number">2.2.</span> <span class="nav-text">2、缓存对象成员</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、DOM操作"><span class="nav-number">2.3.</span> <span class="nav-text">3、DOM操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、重绘（repaints）与重排（reflows）"><span class="nav-number">2.4.</span> <span class="nav-text">4、重绘（repaints）与重排（reflows）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#reflow"><span class="nav-number">2.4.1.</span> <span class="nav-text">reflow</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#repaint"><span class="nav-number">2.4.2.</span> <span class="nav-text">repaint</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5、事件委托"><span class="nav-number">2.5.</span> <span class="nav-text">5、事件委托</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6、循环性能"><span class="nav-number">2.6.</span> <span class="nav-text">6、循环性能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7、条件语句"><span class="nav-number">2.7.</span> <span class="nav-text">7、条件语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8、避免使用构造器"><span class="nav-number">2.8.</span> <span class="nav-text">8、避免使用构造器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9、使用-Object-Array-直接量"><span class="nav-number">2.9.</span> <span class="nav-text">9、使用 Object/Array 直接量</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Laurel</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

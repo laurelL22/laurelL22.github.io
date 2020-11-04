@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="link node中Session持久化与Redis缓存 HTTP协议和TCP/IP协议组中其他协议相同，用于客户端和服务端之间的通信，HTTP是一种无状态协议，及协议本身不保存客户端和服务端的通信状态，即在HTTP这个级别，协议不会对请求或响应做持久化处理，也是为了更快的处理大量事务，确保协议的可伸缩性。  cookie： 为了解决HTTP的无状态，引入了Cookie技术，Cookie技">
+<meta property="og:type" content="article">
+<meta property="og:title" content="node-session-cache">
+<meta property="og:url" content="http://yoursite.com/2018/05/24/node-session-cache/index.html">
+<meta property="og:site_name" content="Laurel Blog">
+<meta property="og:description" content="link node中Session持久化与Redis缓存 HTTP协议和TCP/IP协议组中其他协议相同，用于客户端和服务端之间的通信，HTTP是一种无状态协议，及协议本身不保存客户端和服务端的通信状态，即在HTTP这个级别，协议不会对请求或响应做持久化处理，也是为了更快的处理大量事务，确保协议的可伸缩性。  cookie： 为了解决HTTP的无状态，引入了Cookie技术，Cookie技">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-12-19T12:31:01.643Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="node-session-cache">
+<meta name="twitter:description" content="link node中Session持久化与Redis缓存 HTTP协议和TCP/IP协议组中其他协议相同，用于客户端和服务端之间的通信，HTTP是一种无状态协议，及协议本身不保存客户端和服务端的通信状态，即在HTTP这个级别，协议不会对请求或响应做持久化处理，也是为了更快的处理大量事务，确保协议的可伸缩性。  cookie： 为了解决HTTP的无状态，引入了Cookie技术，Cookie技">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/24/node-session-cache/">
+
+
+
+
+
+  <title>node-session-cache | Laurel Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Laurel Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">许多年前，曾是个朴素的少年</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/24/node-session-cache/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Laurel">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Laurel Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">node-session-cache</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-24T14:16:24+08:00">
+                2018-05-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="https://techblog.toutiao.com/2017/11/29/nodezhong-sessionchi-jiu-hua-yu-redishuan-cun/" target="_blank" rel="noopener">link</a></p>
+<h2 id="node中Session持久化与Redis缓存"><a href="#node中Session持久化与Redis缓存" class="headerlink" title="node中Session持久化与Redis缓存"></a>node中Session持久化与Redis缓存</h2><blockquote>
+<p>HTTP协议和TCP/IP协议组中其他协议相同，用于客户端和服务端之间的通信，HTTP是一种无状态协议，及协议本身不保存客户端和服务端的通信状态，即在HTTP这个级别，协议不会对请求或响应做持久化处理，也是为了更快的处理大量事务，确保协议的可伸缩性。</p>
+</blockquote>
+<p><strong>cookie：</strong> 为了解决HTTP的无状态，引入了Cookie技术，Cookie技术通过在请求和响应报文中写入cookie信息来控制客户端的状态。</p>
+<p><strong>session：</strong> 为了跟踪客户端的状态，服务端 借助于客户端的cookie和后端存储实现的会话状态。Session机制决定了当前客户只会获取到自己的Session，而不会获取别人的Seesion</p>
+<h2 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h2><ol>
+<li>制定cookie机制，用于实现客户端和服务器之间的状态共享。</li>
+</ol>
+<ul>
+<li>Cookie 是解决HTTP无状态性的有效手段，服务器可以设置（set-cookie）或读取cookie中所包含的信息</li>
+<li>当用户登录后，服务器会发送包含登录凭据的cookie到用户浏览器客户端，而浏览器对该Cookie进行某种形式的存储（内存或硬盘）</li>
+<li>用户再次访问该网站时，浏览器会发送该Cookie（Cookie未到期时）到服务器，服务器对该凭据进行验证，合法时使用户不必输入用户名和密码就可以直接登录</li>
+</ul>
+<ol>
+<li>实现原理</li>
+</ol>
+<p>Cookie定义了HTTP请求头和HTTP响应头，客户端和服务端通过这些头信息进行状态交互</p>
+<ul>
+<li>客户端第一次请求：服务器端如果需要记录用户信息，才会在响应信息中返回Set-cookie响应头</li>
+<li>客户端会根据响应头存储Cookie信息</li>
+<li>客户端再次请求：会在请求头上带上存储的cookie信息，服务端通过cookie信息识别用户</li>
+</ul>
+<ol>
+<li>cookie类别</li>
+</ol>
+<p><strong>cookie总是存储在客户端（浏览器），根据其存储位置可以分切：内存式cookie、硬盘式cookie</strong></p>
+<p>内存式：存储在内存中，浏览器关闭后清除，也非持久化存储（会话cookie）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- cookie不包含到期日期，则可视为会话cookie。会话cookie存储在内存中，绝不会写入磁盘。当浏览器关闭时，cookie将从此永久丢失</span><br></pre></td></tr></table></figure>
+
+<p>硬盘式：保存在硬盘中，浏览器关闭后不会清除，除非手动清除或到了过期时间，也将持久存储（持久cookie）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- cookie包含到期日期，则可视为持久性cookie。在指定的到期日期，cookie将从磁盘中删除</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>通常可以通过expires到期时间来区分</p>
+</blockquote>
+<ol>
+<li>HTTP协议中为cookie服务的首部字段</li>
+</ol>
+<p>Set-cookie: 响应首部字段，开始状态管理所使用的Cookie信息</p>
+<table>
+<thead>
+<tr>
+<th align="left">属性</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">NAME-VALUE</td>
+<td align="left">赋予Cookie的key / value (必需)</td>
+</tr>
+<tr>
+<td align="left">expires=DATE</td>
+<td align="left">指定浏览器可以发送Cookie的有效期（默认为浏览器关闭前为止）</td>
+</tr>
+<tr>
+<td align="left">path=PATH</td>
+<td align="left">将服务器上的文件目录作为Cookie的使用对象（默认为文档所在的文件目录）</td>
+</tr>
+<tr>
+<td align="left">domain=域名</td>
+<td align="left">作为Cookie使用对象的域名（默认为Cookie的服务器域名）</td>
+</tr>
+<tr>
+<td align="left">Secure</td>
+<td align="left">仅在HTTPS安全通信时才会发送Cookie</td>
+</tr>
+<tr>
+<td align="left">HttpOnly</td>
+<td align="left">加以限制，使Cookie不能被javascript脚本访问。可以放置跨站脚本攻击对cookie信息窃取</td>
+</tr>
+</tbody></table>
+<p>Cookie：请求首部字段，服务端接受到的cookie信息</p>
+<ol>
+<li>cookie-parser</li>
+</ol>
+<p>cookie-parser 是node中用于操作cookie的中间件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">request, response, next</span>) </span>&#123;</span><br><span class="line">    res.cookie(name, value [,options])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">name: cookie名</span><br><span class="line">value: cookie值</span><br><span class="line">options: set-cookie 选项</span><br><span class="line">    domain：cookie在什么域名下有效，类型为String。默认为网站域名</span><br><span class="line"></span><br><span class="line">    expires：cookie过期时间，类型为Date。如果没有设置或者设置为0，那么该cookie只在这个这个session有效，即关闭浏览器后，这个cookie会被浏览器删除</span><br><span class="line"></span><br><span class="line">    httpOnly：只能被web server访问，类型Boolean</span><br><span class="line"></span><br><span class="line">    maxAge：实现expires的功能，设置cookie过期的时间，类型为String，指明从现在开始，多少毫秒以后，cookie到期</span><br><span class="line"></span><br><span class="line">    path：cookie在什么路径下有效，默认为&apos;/&apos;，类型为String</span><br><span class="line"></span><br><span class="line">    secure：只能被HTTPS使用，类型Boolean，默认为false</span><br><span class="line"></span><br><span class="line">    signed：使用签名，类型Boolean，默认为false。[express会使用req.secret来完成签名，需要cookie-parser配合使用]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1.引入</span></span><br><span class="line"><span class="keyword">var</span> cookieParser = <span class="built_in">require</span>(<span class="string">'cookie-parser'</span>); <span class="comment">// 引入模块</span></span><br><span class="line">app.use(cookieParser()); <span class="comment">// 挂载中间件（实例化）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2.创建</span></span><br><span class="line">res.cookie(name, value [,options]);</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">'maxAge'</span>: <span class="number">9000</span>, <span class="comment">// 有效时长（毫秒）</span></span><br><span class="line">    <span class="string">'signed'</span>: <span class="literal">false</span> <span class="comment">// 默认为false，表示是否签名（Boolean）</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 获取cookie</span></span><br><span class="line"><span class="keyword">var</span> cookies = req.cookies <span class="comment">// 获取cookies集合</span></span><br><span class="line"><span class="keyword">var</span> value = req.cookies.key <span class="comment">// 获取名称未key的cookie的值</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. 删除cookie</span></span><br><span class="line">res.clearCookie(name [,options]) <span class="comment">// name 是cookie名，options与创建cookie时所传一致</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 5. 签名</span></span><br><span class="line"><span class="comment">// 签名可以提高安全性</span></span><br><span class="line"><span class="comment">// 使用签名生成cookie的方法，大同小异，修改上文</span></span><br><span class="line"></span><br><span class="line">app.use(cookieParser(<span class="string">'yog'</span>)); <span class="comment">// 需要穿一个自定义字符串作为secret</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建cookie的options中，必填signed: true</span></span><br><span class="line">res.cookie(name, value, &#123;<span class="string">'signed'</span>: <span class="literal">true</span>&#125;);</span><br><span class="line"><span class="keyword">var</span> cookies = req.sifnedCookies <span class="comment">// 获取cookie集合</span></span><br><span class="line"><span class="keyword">var</span> value = req.signedCookies.key <span class="comment">// 获取名称为key的cookie值</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="session"><a href="#session" class="headerlink" title="session"></a>session</h2><ol>
+<li><p>Session 需要借助Cookie实现，Session数据存储在服务端，而只在Cookie中存储一个SessionId，乐意保证安全性和降低服务器负载</p>
+</li>
+<li><p>express-session<br>express-session 真正在服务端保存数据的中间件，需要独立安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install express-session --save</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> session = <span class="built_in">require</span>(<span class="string">'express-session'</span>)</span><br><span class="line">app.use(session([options]));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 常用的options</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">'secret'</span>: <span class="string">'yog'</span>, <span class="comment">// 签名</span></span><br><span class="line">    <span class="string">'cookie'</span>: &#123;</span><br><span class="line">        <span class="string">'maxAge'</span>: <span class="number">90000</span> <span class="comment">// 因为创建session的同时会创建cookie来保存sessionid，所以options终端恩cookie.maxAge可看做是session的有效时长</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">'name'</span>: <span class="string">'session_id'</span> <span class="comment">// 在浏览器中生成cookie的名称key, 默认是connect.sid</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建session</span></span><br><span class="line">req.session.key = value</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建多个session</span></span><br><span class="line">req.session = &#123;</span><br><span class="line">    key1: value1,</span><br><span class="line">    key2: value2</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 获取session</span></span><br><span class="line"><span class="keyword">var</span> session = req.session <span class="comment">// 获取session集合</span></span><br><span class="line"><span class="keyword">var</span> value = req.session.key <span class="comment">// 获取名称为key的session的值</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 销毁</span></span><br><span class="line">req.session.destory() <span class="comment">// 清空所有session</span></span><br><span class="line">req.session.key.destory() <span class="comment">// 销毁名称为key的session的值</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h2><p><strong>session存在的问题：</strong> Session用于在服务端保存用户会话状态（如：用户登录信息等），Session 在程序重启、多进程运行、负载均衡、跨域等情况时，会出现Session丢失或多进程、多个负载站点见不能共享的情况</p>
+<p><strong>要解决这些问题：</strong> 需要将Session持久化存储，Redis存储是一个非常不错的Session持久化解决方案</p>
+<p>Redis是一个高性能的key-value 数据库</p>
+<ol>
+<li>概述</li>
+</ol>
+<p>特点</p>
+<ul>
+<li>Redis 支持数据的持久化，可以讲内存中的数据保存在磁盘中，重启时可以再次加载进行使用</li>
+<li>Redis 不仅仅是支持简单的key-value 类型的数据，同时还提供list，set，zset，hash等数据结构的存储</li>
+<li>Redis 支持数据的备份，即master-slave 模式的数据备份</li>
+</ul>
+<p>优势</p>
+<ul>
+<li>性能极高 – Redis能读的速度是110000次/s，写的速度是81000次/s</li>
+<li>丰富的数据类型 – Redis支持二进制案例的 Strings, Lists, Hashes, Sets 及 Ordered Sets 数据类型操作</li>
+<li>原子 – Redis的所有操作都是原子性的，同时Redis还支持对几个操作全并后的原子性执行</li>
+<li>丰富的特性 – Redis还支持 publish/subscribe, 通知, key 过期等等特性</li>
+</ul>
+<ol>
+<li>connect-redis<br>connect-redis 是一个Redis 版的session存储器，使用node_redis 作为驱动。借助它即可在Express中启用Redis来持久化Session</li>
+</ol>
+<p>使用之前先搭建好redis 环境和express应用</p>
+<p>参数：<br>client: 你可以复用现有的redis客户端对象， 由redis.createClient() 创建</p>
+<p>host: Redis服务器名</p>
+<p>port: Redis服务器端口</p>
+<p>socket: Redis服务器的unix_socket</p>
+<p>ttl: Redis session TTL 过期时间 （秒）</p>
+<p>disableTTL: 禁用设置的 TTL</p>
+<p>db: 使用第几个数据库</p>
+<p>pass: Redis数据库的密码</p>
+<p>prefix: 数据表前辍即schema, 默认为 “sess:”</p>
+<p>使用：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将 express-session 传给 connect-redis 来启用</span></span><br><span class="line"><span class="comment">// 引入相关模块：</span></span><br><span class="line"><span class="keyword">var</span> session = <span class="built_in">require</span>(<span class="string">'express-session'</span>);  </span><br><span class="line"><span class="keyword">var</span> redis = <span class="built_in">require</span>(<span class="string">'redis'</span>);  </span><br><span class="line"><span class="keyword">var</span> RedisStore = <span class="built_in">require</span>(<span class="string">'connect-redis'</span>)(session);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建Redis客户端</span></span><br><span class="line"><span class="keyword">var</span> redisClient = redis.createClient(<span class="number">6379</span>, <span class="string">'127.0.0.1'</span>, &#123;<span class="attr">auth_pass</span>: <span class="string">'password'</span>&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置 Express 的 Session 存储中间件</span></span><br><span class="line">app.use(session(&#123;  </span><br><span class="line">    store:<span class="keyword">new</span> RedisStore(&#123;<span class="attr">client</span>: redisClient&#125;),</span><br><span class="line">    secret: <span class="string">'password'</span>,</span><br><span class="line">    resave: <span class="literal">false</span>,</span><br><span class="line">    saveUninitialized: <span class="literal">false</span></span><br><span class="line">&#125;))</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line">app.use(<span class="function"><span class="keyword">function</span> (<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!req.session) &#123;</span><br><span class="line">    <span class="keyword">return</span> next(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'error'</span>))</span><br><span class="line">  &#125;</span><br><span class="line">  next()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>此时，session信息就转移到redis数据库了，当应用重启后数据仍然可以通过cookie中的sessionid 获取到，做到数据持久化，提高应用的健壮性。</p>
+<h2 id="Cookie-与-Session-机制"><a href="#Cookie-与-Session-机制" class="headerlink" title="Cookie 与 Session 机制"></a>Cookie 与 Session 机制</h2><p><a href="https://zhuanlan.zhihu.com/p/21275207?refer=Anonymous0" target="_blank" rel="noopener">link</a></p>
+<blockquote>
+<p>Cookie通过在客户端记录信息确定身份，Session通过在服务器端记录信息确定用户身份</p>
+</blockquote>
+<h3 id="cookie-机制"><a href="#cookie-机制" class="headerlink" title="cookie 机制"></a>cookie 机制</h3><p>Web应用程序是使用HTTP协议传输数据的。HTTP 协议是无状态的协议，一旦数据交换完毕，客户端与服务器端的连接就会关闭，再次交换数据需要建立新的连接。这就意味着服务器无法从连接上跟踪会话。 (要跟踪该会话，必须引入一种机制)</p>
+<p>Cookie是一小段的文本信息。客户端请求服务器，如果服务器需要记录该用户状态，就使用response向客户端颁发一个Cookie。客户端浏览器会把cookie保存起来，当浏览器再请求该网站时，浏览器把请求的网址连同该Cookie一桶提交给服务器。服务器检查该cookie，一次来辨认用户状态与权限。服务器还可以根据需要修改Cookie的内容。（Cookie功能需要浏览器的支持，如果不支持或者禁用了，cookie功能能就会失效）</p>
+<ol>
+<li>cookie 不可跨域性</li>
+<li>Unicode编码：保存中文 （中文属于Unicode字符，在内存中占4个字节，而英文属于ASCII字符，内存中只占2个字节）使用Unicode字符试需进行编码</li>
+<li>base64：保存二进制图片</li>
+<li>cookie的有效期：由maxAge 决定。getMaxAge() 与 setMaxAge(int maxAge) 方法读写maxAge属性<ul>
+<li>maxAge属性为正数，表示该cookie会在maxAge秒之后自动失效。浏览器会将maxAge为正数的cookie持久化，写到对应的Cookie文件中。关闭电脑或浏览器，只要还在maxAge之前，登录网站时cookie仍有效。默认为-1</li>
+<li>maxAge为负数，表示该cookie仅在本浏览器窗口以及笨窗口打开的子窗口有效，关闭窗口后该cookie即失效，为临时性Cookie，不会持久化，不会写到Cookie文件中</li>
+<li>maxAge为0，表示删除该Cookie。cookie机制没有提供删除Cookie的方法，因此通过设置该Cookie即时失效实现删除Cookie的效果。</li>
+<li>失效的Cookie会被浏览器从Cookie文件或者内存中删除</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Cookie cookie = <span class="keyword">new</span> Cookie(<span class="string">'username'</span>, <span class="string">'zhang3'</span>); <span class="comment">// 新建Cookie</span></span><br><span class="line">cookie.setMaxAge(<span class="number">0</span>); <span class="comment">// 设置生命周期为0，不能为负数</span></span><br><span class="line">response.addCookie(cookie); <span class="comment">// 输出到客户端</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">* response 对象提供的Cookie操作方法只有一个添加操作add(Cookie cookie)</span><br><span class="line">* 要修改Cookie只能使用一个同名的Cookie来覆盖原来的Cookie</span><br><span class="line">* 删除时只需把maxAge修改为0</span><br><span class="line">* 从客户端读取Cookie时，包括maxAge在内的其他属性都是不可读的，也不会被提交。浏览器提交cookie时只会提交name与value属性。maxAge属性只被浏览器用来判断Cookie是否过期</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>Cookie的修改、删除</p>
+<p>cookie不提供修改、删除操作。</p>
+</li>
+</ol>
+<ul>
+<li>修改某个Cookie，只需新建一个同名的Cookie，添加到response中覆盖原来的Cookie</li>
+<li>删除某个Cookie，只需新建一个同名的cookie，并将maxAge设置为0，并添加到response中覆盖原来的Cookie。</li>
+<li>修改、删除Cookie时，新建的Cookie除value、maxAge之外的所有属性，例如name、path、domain等，都要与原Cookie完全一样。否则，浏览器将视为两个不同的Cookie不予覆盖，导致修改、删除失败。</li>
+</ul>
+<ol>
+<li><p>Cookie的域名</p>
+<p>cookie是不可跨域的。</p>
+</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Cookie cookie = <span class="keyword">new</span> Cookie(<span class="string">'time'</span>, <span class="string">'20080808'</span>); <span class="comment">// 新建Cookie</span></span><br><span class="line">cookie.setDomain(<span class="string">'.hello.com'</span>); <span class="comment">// 设置域名</span></span><br><span class="line">cookie.setPath(<span class="string">'/'</span>); <span class="comment">// 设置路径</span></span><br><span class="line">cookie.setMaxAge(<span class="string">'MAX_VALUE'</span>); <span class="comment">// 设置有效期</span></span><br><span class="line">response.addCookie(cookie); <span class="comment">// 输出到客户端</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>domain参数必须以点(‘.’)开始。name相同但domain不同的两个Cookie是两个不同的Cookie。如果想要两个域名完全不同的网站共有Cookie，可以生成两个Cookie，domain属性分别为两个域名，输出到客户端</p>
+</blockquote>
+<ol>
+<li><p>Cookie的路径<br>path属性决定允许访问Cookie的路径。页面只能获取它属于的Path的Cookie</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Cookie cookie = <span class="keyword">new</span> Cookie(<span class="string">"time"</span>,<span class="string">"20080808"</span>); <span class="comment">// 新建Cookie</span></span><br><span class="line"></span><br><span class="line">cookie.setPath(<span class="string">"/session/"</span>); <span class="comment">// 设置为“/”时允许所有路径使用Cookie。path属性需要使用符号“/”结尾</span></span><br><span class="line"></span><br><span class="line">response.addCookie(cookie); <span class="comment">// 输出到客户端</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Cookie的安全属性<br>如果不希望Cookie在HTTP等非安全协议中传输，可以设置Cookie的secure属性为true。浏览器只会在HTTPS和SSL等安全协议中传输此类Cookie</p>
+</li>
+</ol>
+<ul>
+<li>cookie.setSecure(true); // 设置安全属性</li>
+<li>secure属性并不能对Cookie内容加密，因而不能保证绝对的安全性。如果需要高安全性，需要在程序中对Cookie内容加密、解密，以防泄密。</li>
+</ul>
+<ol>
+<li>JavaScript操作Cookie</li>
+</ol>
+<ul>
+<li>document.write(document.cookie);</li>
+</ul>
+<ol>
+<li>永久登录</li>
+</ol>
+<p>如果用户是在自己家的电脑上上网，登录时就可以记住他的登录信息，下次访问时不需要再次登录，直接访问即可。实现方法是把登录信息如账号、密码等保存在Cookie中，并控制Cookie的有效期，下次访问时再验证Cookie中的登录信息即可。</p>
+<p>保存登录信息有多种方案。最直接的是把用户名与密码都保持到Cookie中，下次访问时检查Cookie中的用户名与密码，与数据库比较。这是一种比较危险的选择，一般不把密码等重要信息保存到Cookie中。</p>
+<p>还有一种方案是把密码加密后保存到Cookie中，下次访问时解密并与数据库比较。这种方案略微安全一些。如果不希望保存密码，还可以把登录的时间戳保存到Cookie与数据库中，到时只验证用户名与登录时间戳就可以了。</p>
+<hr>
+<h3 id="Session-机制"><a href="#Session-机制" class="headerlink" title="Session 机制"></a>Session 机制</h3><p>Session是服务器端使用的一种记录客户端状态的机制</p>
+<p>客户端浏览器访问服务器时，服务器把客户端信息以某种形式记录在服务器上。就是session。客户端再次访问时只需从Session中查找客户的状态就行。</p>
+<ol>
+<li>实现用户登录<ul>
+<li>Session 对象是在客户端第一次请求服务器时创建的。</li>
+<li>Session也是一种key-value的属性对，通过getAttribute(Stringkey)和setAttribute(String key，Objectvalue)方法读写客户状态信息</li>
+<li>Session机制决定了当前客户只会获取到自己的Session，而不会获取到别人的Session。各客户的Session也彼此独立，互不可见。</li>
+<li>Session的使用比Cookie方便，但是过多的Session存储在服务器内存中，会对服务器造成压力。</li>
+</ul>
+</li>
+<li>Session的生命周期<ul>
+<li>Session保存在服务器端。为了获得更高的存取速度，服务器一般把Session放在内存里。每个用户都会有一个独立的Session。</li>
+<li>只有访问JSP、Servlet等程序时才会创建Session，只访问HTML、IMAGE等静态资源并不会创建Session。</li>
+<li>如果尚未生成Session，也可以使用request.getSession(true)强制生成Session。</li>
+<li>Session生成后，只要用户继续访问，服务器就会更新Session的最后访问时间，并维护该Session。</li>
+</ul>
+</li>
+<li>Session的有效期<ul>
+<li>为防止内存溢出，服务器会把长时间内没有活跃的Session从内存删除。这个时间就是Session的超时时间。如果超过了超时时间没访问过服务器，Session就自动失效了。</li>
+</ul>
+</li>
+<li>Session对浏览器的要求<ul>
+<li>虽然Session保存在服务器，对客户端是透明的，它的正常运行仍然需要客户端浏览器的支持。这是因为Session需要使用Cookie作为识别标志。</li>
+<li>HTTP协议是无状态的，Session不能依据HTTP连接来判断是否为同一客户，因此服务器向客户端浏览器发送一个名为JSESSIONID的Cookie，它的值为该Session的id（也就是HttpSession.getId()的返回值）。Session依据该Cookie来识别是否为同一用户。</li>
+<li>该Cookie为服务器自动生成的，它的maxAge属性一般为–1，表示仅当前浏览器内有效，并且各浏览器窗口间不共享，关闭浏览器就会失效</li>
+<li>新开的浏览器窗口会生成新的Session，但子窗口除外。子窗口会共用父窗口的Session。例如，在链接上右击，在弹出的快捷菜单中选择“在新窗口中打开”时，子窗口便可以访问父窗口的Session</li>
+</ul>
+</li>
+<li>URL地址重写<ul>
+<li>URL地址重写是对客户端不支持Cookie的解决方案。</li>
+<li>URL地址重写的原理是将该用户Session的id信息重写到URL地址中。服务器能够解析重写后的URL获取Session的id。这样即使客户端不支持Cookie，也可以使用Session来记录用户状态。</li>
+</ul>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/24/docker-read/" rel="next" title="docker-read">
+                <i class="fa fa-chevron-left"></i> docker-read
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/30/ES6条件语句技巧/" rel="prev" title="ES6条件语句技巧">
+                ES6条件语句技巧 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Laurel</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#node中Session持久化与Redis缓存"><span class="nav-number">1.</span> <span class="nav-text">node中Session持久化与Redis缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cookie"><span class="nav-number">2.</span> <span class="nav-text">cookie</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#session"><span class="nav-number">3.</span> <span class="nav-text">session</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#redis"><span class="nav-number">4.</span> <span class="nav-text">redis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie-与-Session-机制"><span class="nav-number">5.</span> <span class="nav-text">Cookie 与 Session 机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cookie-机制"><span class="nav-number">5.1.</span> <span class="nav-text">cookie 机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Session-机制"><span class="nav-number">5.2.</span> <span class="nav-text">Session 机制</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Laurel</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
